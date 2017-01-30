@@ -1,0 +1,8 @@
+<nav>
+	<ul class="reset">
+		<li ng-repeat="item in $ctrl.items">
+			<a ng-if="item.external" ng-bind="item.name" ng-href="{{item.url}}" target="_blank" rel="external"></a>
+			<a ng-if="item.state" ui-sref="{{item.state}}" ng-bind="item.name"></a>
+		</li>
+	</ul>
+</nav>

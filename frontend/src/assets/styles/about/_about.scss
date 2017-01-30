@@ -1,0 +1,19 @@
+.about {
+  ul {
+    @extend %reset;
+  }
+
+  .bio-entry {
+    .photo {
+      img {
+        border-radius: 50%;
+        max-width: 125px;
+
+        @include media($tablet) {
+          margin: 0 auto $gutter;
+          max-width: 30%;
+        }
+      }
+    }
+  }
+}

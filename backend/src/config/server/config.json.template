@@ -1,0 +1,94 @@
+{
+  "env": "",
+  "apiUrl": "",
+  "apiKey": "",
+  "assetUrl": "",
+  "delighted": {
+    "apiKey": ""
+  },
+  "email": {
+    "alerts": "",
+    "service": "",
+    "refund": {
+      "subject": ""
+    }
+  },
+  "facebook": {
+    "clientSecret": ""
+  },
+  "google": {
+    "oauth2": {
+      "client_id": "",
+      "client_secret": "",
+      "refresh_token": ""
+    },
+    "sheets": {
+      "fitKit": {
+        "spreadsheetId": "",
+        "worksheetId": ""
+      }
+    }
+  },
+  "loggly": {
+    "key": "",
+    "subdomain": ""
+  },
+  "mailchimp": {
+    "apiKey": ""
+  },
+  "paypal": {
+    "url": "",
+    "email": {
+      "from": ""
+    },
+    "mode": "",
+    "client_id": "",
+    "client_secret": ""
+  },
+  "raygun": {
+    "apiKey": ""
+  },
+  "referralCandy": {
+    "appId": "",
+    "secretKey": "",
+    "api": {
+      "accessId": "",
+      "secretKey": ""
+    }
+  },
+  "server": {
+    "http": {
+      "port":
+    },
+    "https": {
+      "port":
+    }
+  },
+  "smtp": {
+    "host": "",
+    "port": ,
+    "auth": {
+      "user": "",
+      "pass": ""
+    }
+  },
+  "ssl": {
+    "certificates": {
+      "ca": [
+        ""
+      ],
+      "key": "",
+      "cert": "",
+      "passphrase": ""
+    }
+  },
+  "stripe": {
+    "apiUrl": "",
+    "keySecret": ""
+  },
+  "stripeHeaders": {
+    "authorization": "",
+    "Content-Type": "",
+    "Stripe-Version": ""
+  }
+}

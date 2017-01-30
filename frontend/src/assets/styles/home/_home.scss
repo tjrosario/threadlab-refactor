@@ -1,0 +1,399 @@
+.home {
+  .hero {
+    background: url('https://s3.amazonaws.com/threadlab-assets/optimizely/man_outdoors_TLv2-compressor.jpg') no-repeat center -140px transparent;
+    background-size: cover;
+    color: $white;
+    text-align: center;
+
+    @include media($tablet) {
+      background-position: center center;
+    }
+
+    h1,
+    h2 {
+      color: $romance;
+      line-height: 1.2;
+      text-transform: none;
+
+      @include media($desktop) {
+        text-align: left;
+      }
+    }
+
+    h1 {
+      font-size: 7.5vmin;
+    }
+
+    h2 {
+      font-size: 6vmin;
+      margin: 0 0 $gutter * 2;
+    }
+
+    .button {
+      display: none;
+      font-size: 5vmin;
+      
+      @include media($desktop) {
+        display: inline-block;
+      }
+    }
+  }
+
+  .orders {
+    left: 0;
+    position: fixed;
+    top: 55px;
+    width: 100%;
+    z-index: 9997;
+
+    .content {
+      background: rgba($black, .85);
+      border: 1px solid $romance;
+      border-radius: 5px;
+      color: $romance;
+      opacity: 0;
+      padding: 25px $gutter $gutter;
+      position: relative;
+      transition: all .2s ease-out;
+
+      @include media($desktop) {
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        float: right;
+      }
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    .close {
+      cursor: pointer;
+      font-size: 16px;
+      position: absolute;
+      right: 5px;
+      top: 4px;
+    }
+
+    .wrapper {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    li {
+      font-size: 14px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .masking {
+    background: rgba($black, .45);
+    height: calc(100vh);
+
+    @include media($desktop) {
+      padding: 60px 0;
+      text-align: left;
+    }
+  }
+
+  .module {
+    position: relative;
+    text-align: center;
+    
+    .loading {
+      font-size: $font-small;
+
+      .fa {
+        margin-right: 5px;
+      }
+    }
+
+    ol {
+      @extend %reset;
+      padding-top: 10px;
+    }
+
+    &.order {
+      .loading {
+        margin: $gutter 0 0;
+      }
+
+      .order {
+        margin: 0 0 $gutter;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        p {
+          a {
+            @include media($tablet) {
+              display: block;
+            }
+          }
+        }
+
+        .emph {
+          @extend %avenir-medium;
+          color: $mine-shaft;
+
+          @include media($tablet) {
+            display: inline;
+          }
+        }
+
+        .icon {
+          background: $romance;
+          border: 1px solid $silver-chalice;
+          border-radius: 50%;
+          color: $mine-shaft;
+          display: block;
+          height: 50px;
+          margin: 0 auto 10px;
+          position: relative;
+          width: 50px;
+
+          .fa {
+            font-size: 25px;
+            margin: 12px 0 0;
+          }
+
+          &.preview {
+            .fa {
+              &.fa-file {
+                color: $dusty-gray;
+              }
+
+              &.fa-search {
+                font-size: 17px;
+                left: 26px;
+                position: absolute;
+                top: 7px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.easy,
+    &.better {
+      @include media($desktop) {
+        text-align: left;
+
+        h2 {
+          margin-top: $gutter;
+        }
+      }
+    }
+
+    &.testimonials {
+      .content {
+        padding: 0 12px;
+
+        @include media($tablet) {
+          padding: 0;
+        }
+      }
+
+      p {
+        font-family: $georgia;
+        font-size: $font-normal;
+        font-style: italic;
+        margin: 0 0 10px;
+      }
+
+      li {
+        margin-bottom: 0;
+
+        @include media($tablet) {
+          margin-bottom: $gutter * 2;
+        }
+      }
+
+      .author {
+        @extend %headline-epsilon;
+        font-size: 16px;
+        margin: 0 0 5px;
+      }
+
+      .title {
+        font-size: $font-small;
+        line-height: 1.4;
+      }
+
+      img {
+        border-radius: 50%;
+        margin: 0 auto $gutter;
+        max-width: 50%;
+
+        @include media($tablet) {
+          max-width: 30%;
+        }
+      }
+    }
+
+    &.facebook {
+      .count {
+        @extend %avenir-medium;
+        color: $chambray;
+        font-size: 36px;
+
+        a {
+          color: $chambray;
+
+          &:hover {
+            color: darken($chambray, 5);
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    &.newsletter {
+      .fa-newspaper-o {
+        color: $silver;
+        font-size: 60px;
+      }
+
+      .mailchimp {
+        margin: 0 auto;
+        max-width: 550px;
+        text-align: left;
+      }
+    }
+
+    &.get-started {
+      .photo {
+        margin: 0 auto;
+        position: relative;
+
+        @include media($desktop) {
+          max-width: 500px;
+        }
+
+        img {
+          border-radius: 4px;
+          margin: 0 auto $gutter;
+        }
+
+        .button {
+          margin: 0 $gutter;
+          width: auto;
+
+          small {
+            display: block;
+            margin-top: 3px;
+          }
+        }
+      }
+    }
+
+    &.benefits {
+      h2 {
+        border-bottom: 2px solid $dixie;
+        display: inline-block;
+        padding: 0 0 12px;
+      }
+
+      .fa-hand-rock-o {
+        color: $dixie;
+        font-size: 40px;
+      }
+
+      img {
+        @include media($mobile) {
+          display: none;
+        }
+      }
+    }
+
+    &.pricing {
+      h2 {
+        border-bottom: 2px solid $dixie;
+        display: inline-block;
+        padding: 0 0 12px;
+      }
+
+      img {
+        margin: $gutter 0 0;
+
+        @include media($mobile) {
+          display: none;
+        }
+      }
+
+      .fa-money {
+        color: $silver-tree;
+        font-size: 40px;
+      }
+    }
+
+    &.brands {
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  #lightbox-box {
+    height: auto;
+    left: 50%;
+    margin-left: -400px;
+    position: fixed;
+    top: 30%;
+    width: 800px;
+
+    @include media($desktop) {
+      padding-top: 20px;
+    }
+
+    @include media($tablet) {
+      left: 5%;
+      margin-left: 0;
+      top: 10%;
+      width: 90%;
+    }
+
+    .button-alt {
+      margin: 0;
+
+      @include media($desktop) {
+        display: none;
+      }
+    }
+
+    .content {
+      @include media($tablet) {
+        margin: 0 0 10px;
+      }
+    }
+
+    .cta-scroll {
+      @include media($tablet) {
+        display: block;
+        position: relative;
+      }
+    }
+
+    .box-detail {
+      .box-photo {
+        img {
+          @include media($tablet) {
+            max-width: 75%;
+          }
+        }
+      }
+
+      .button {
+        @include media($tablet) {
+          display: none;
+        }
+      }
+    }
+  }
+}

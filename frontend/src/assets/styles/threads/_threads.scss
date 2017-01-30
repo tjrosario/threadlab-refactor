@@ -1,0 +1,33 @@
+.threads {
+  .slick-slider {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .slick-dots {
+    bottom: 8px;
+    margin: 0;
+
+    @include media($tablet) {
+      bottom: 3px;
+    }
+
+    li button::before {
+      font-size: $font-small;
+    }
+  }
+
+  .module {
+    img {
+      margin: 0 auto $gutter;
+    }
+
+    &.quality {
+      img {
+        @include media($desktop) {
+          max-width: 450px;
+        }
+      }
+    }
+  }
+}

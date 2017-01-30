@@ -1,0 +1,45 @@
+.how-it-works {
+  .hero {
+    background: url('/images/brandingPhotos/starter-box-allgray.png') no-repeat right -92px transparent;
+    background-color: $concrete;
+    border-bottom: 1px solid $silver;
+    height: 345px;
+    text-align: center;
+
+    @include media($tablet) {
+      background-position: center center;
+      background-size: cover;
+      color: $white;
+      height: 245px;
+    }
+
+    .masking {
+      @include media($tablet) {
+        background: rgba($black, .65);
+        height: 245px;
+      }
+    }
+
+    .wrapper {
+      padding-top: 70px;
+
+      @include media($tablet) {
+        padding-top: 30px;
+      }
+    }
+
+    h2 {
+      text-transform: none;
+    }
+
+    h1,
+    h2 {
+      text-align: left;
+
+      @include media($tablet) {
+        color: $romance;
+        text-align: center;
+      }
+    }
+  }
+}

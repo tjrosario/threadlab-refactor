@@ -1,0 +1,135 @@
+.boxes {
+  .box-info {
+    h2 {
+      margin: 0 0 5px;
+    }
+
+    h3 {
+      color: $dixie;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .price {
+      font-family: $georgia;
+      font-size: 22px;
+
+      @include media($tablet) {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.box-list {
+  .box-photo {
+    .wrapper {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    img {
+      margin: 0 auto;
+    }
+  }
+
+  .box-info {
+    background: $gallery;
+    text-align: center;
+
+    @include media($tablet) {
+      background: none;
+    }
+
+    &.bottom {
+      display: none;
+
+      @include media($desktop) {
+        display: block;
+      }
+    }
+
+    &.mobile {
+      @include media($tablet) {
+        display: block;
+        margin: 0 0 40px;
+      } 
+    }
+
+    .box-content {
+      padding: 0 $gutter;
+    }
+
+    .cta {
+      display: none;
+      margin: 0 0 $gutter;
+
+      @include media($desktop) {
+        display: inline-block;
+      }
+    }
+
+    .price {
+      color: $dove-gray;
+      margin: $gutter 0;
+    }
+
+    p:nth-child(2n) {
+      display: none;
+    }
+  }
+
+  .mobile {
+    display: none;
+
+    @include media($tablet) {
+      display: block;
+    }
+  }
+}
+
+.box-detail {
+  header {
+    margin: 0 0 $gutter;
+  }
+
+  .col-a {
+    img {
+      @include media($tablet) {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .price {
+    border: 1px solid $dusty-gray;
+    color: $dusty-gray;
+    display: inline-block;
+    padding: 15px;
+
+    @include media($tablet) {
+      font-size: 14px;
+      margin: 8px 0 0;
+      padding: 5px 8px;
+    }
+  }
+
+  .col-b {
+    padding: 30px 0 0;
+  }
+
+  .box-type {
+    border-bottom: 1px solid $silver;
+    margin: 0 0 50px;
+    padding: 0 0 50px;
+
+    @include media($tablet) {
+      margin: 0 0 $gutter;
+      padding: 0 0 $gutter;
+    }
+
+    &:last-child {
+      @extend %reset;
+    }
+  }
+}

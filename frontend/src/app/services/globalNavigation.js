@@ -1,0 +1,59 @@
+import angular from 'angular';
+
+const serviceName = 'globalNavigation';
+
+class GlobalNavigationService {
+    constructor() {
+        'ngInject';
+    }
+
+    getEntities() {
+        return [{
+            'name': 'Get Started',
+            'state': 'index.signup'
+        }, {
+            'name': 'Sign In',
+            'state': 'index.login'
+        }, {
+            'name': 'How it Works',
+            'state': 'index.how-it-works'
+        }, {
+            'name': 'Boxes',
+            'state': 'index.boxes'
+        }, {
+            'name': 'PerfectFit',
+            'state': 'index.perfect-fit'
+        }, {
+            'name': 'Brand Preferences',
+            'state': 'index.brand-preferences'
+        }, {
+            'name': 'About',
+            'state': 'index.about'
+        }, {
+            'name': 'FAQ',
+            'state': 'index.faq'
+        }, {
+            'name': 'Contact Us',
+            'state': 'index.contact'
+        }, {
+            'name': 'Referrals',
+            'external': true,
+            'url': 'http://threadlab.referralcandy.com'
+        }, {
+            'name': 'Affiliates',
+            'state': 'index.affiliates'
+        }, {
+            'name': 'Blog',
+            'external': true,
+            'url': 'http://blog.mythreadlab.com'
+        }, {
+            'name': 'Purchase a Gift Card',
+            'external': true,
+            'url': 'https://store.mythreadlab.com/collections/gift-cards'
+        }];
+    }
+}
+
+export default angular.module(`services.${serviceName}`, [])
+    .service(`${serviceName}Service`, GlobalNavigationService)
+    .name;

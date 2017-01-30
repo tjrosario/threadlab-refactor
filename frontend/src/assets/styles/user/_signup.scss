@@ -1,0 +1,169 @@
+.signup {
+  h1 {
+    @include media($mobile) {
+      display: none;
+    }
+  }
+
+  .wrapper {
+    @include media($mobile) {
+      padding-top: 10px;
+    }
+  }
+
+  .nav-progress {
+    @include media($mobile) {
+      margin: 0 0 5px;
+    }
+
+    ol {
+      li {
+        @include media($tablet) {
+          @include span-columns(4);
+        }
+      }
+    }
+  }
+
+  .step-pref {
+    @include media($mobile) {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  .step {
+    text-align: center;
+
+    .control {
+      margin: $gutter 0 0;
+
+      .inner {
+        margin: 0;
+      }
+    }
+  }
+
+  .nav {
+    background: $gallery;
+    margin: 0 0 $gutter;
+    padding: 10px 0;
+
+    .wrapper {
+      padding-bottom: 0;
+    }
+
+    ol {
+      text-align: center;
+      text-transform: uppercase;
+
+      li {
+        margin-bottom: 0;
+
+        @include media($tablet) {
+          display: inline-block;
+          margin: 0 $gutter 0 0;
+          vertical-align: top;
+        }
+
+        @include media($mobile) {
+          font-size: 10px;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          color: $dusty-gray;
+        }
+
+        .fa {
+          margin-left: 5px;
+          visibility: hidden;
+        }
+
+        &.active {
+          a {
+            color: $mine-shaft;
+          }
+
+          .fa {
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    position: relative;
+  }
+
+  .legal {
+    margin: 0 0 $gutter;
+  }
+
+  .row-separator {
+    &.social {
+      .content {  
+        padding-top: 0;
+      }
+    }
+
+    &.email {
+      .content {
+        padding-bottom: 0;
+        padding-top: 20px;
+      }
+    }
+  }
+
+  .signup-form {
+    margin: 0 0 $gutter * 2;
+
+    .col-a {
+      margin-bottom: $gutter;
+      text-align: center;
+
+      @include media($desktop) {
+        border-right: 1px solid $silver;
+        border-top: 0;
+        margin-bottom: 0;
+        min-height: 400px;
+        padding-top: 150px;
+      }
+    }
+
+    .col-b {
+      border-top: 1px solid $silver;
+      padding-top: 30px;
+      position: relative;
+      text-align: center;
+
+      @include media($desktop) {
+        border-top: 0;
+        padding: 0 0 0 40px;
+      }
+
+      &:before {
+        background: $white;
+        content: 'OR';
+        left: 50%;
+        margin-left: -30px;
+        padding: $gutter 0;
+        position: absolute;
+        top: -27px;
+        width: 60px;
+
+        @include media($desktop) {
+          left: -53px;
+          margin: 0;
+          top: 147px;
+        }
+      }
+    }
+  }
+}

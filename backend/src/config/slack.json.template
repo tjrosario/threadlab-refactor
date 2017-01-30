@@ -1,0 +1,22 @@
+{
+  "token": "",
+  "channels": {
+    "mandrill": {
+      "channel": "",
+      "webhook": ""
+    },
+    "fitkit": {
+      "channel": "",
+      "webhook": ""
+    },
+    "staging": {
+      "channel": ""
+    },
+    "production": {
+      "channel": ""
+    }
+  },
+  "usernames": {
+    "frontend": ""
+  }
+}
