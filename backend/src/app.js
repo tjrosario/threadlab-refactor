@@ -51,8 +51,6 @@ if (isDevelopment) {
 
   app.use(webpackHotMiddleware(webpackCompiler));
 
-  console.log(HTML_FILE);
-
   app.get('*', function (req, res, next) {
       webpackCompiler.outputFileSystem.readFile(HTML_FILE, function(err, result) {
         if (err) {

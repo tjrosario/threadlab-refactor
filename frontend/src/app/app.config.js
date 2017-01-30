@@ -1,4 +1,5 @@
 import { httpInterceptors } from './httpInterceptors';
+import _ from 'lodash';
 
 export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider) {
     'ngInject';

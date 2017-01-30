@@ -16,16 +16,16 @@ class GlobalNavigationService {
             'state': 'index.login'
         }, {
             'name': 'How it Works',
-            'state': 'index.how-it-works'
+            'state': 'index.howItWorks'
         }, {
             'name': 'Boxes',
             'state': 'index.boxes'
         }, {
             'name': 'PerfectFit',
-            'state': 'index.perfect-fit'
+            'state': 'index.perfectFit'
         }, {
             'name': 'Brand Preferences',
-            'state': 'index.brand-preferences'
+            'state': 'index.brandPreferences'
         }, {
             'name': 'About',
             'state': 'index.about'

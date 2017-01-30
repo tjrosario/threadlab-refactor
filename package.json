@@ -8,7 +8,6 @@
     "url": "https://github.com/MyThreadLab/threadlab.git"
   },
   "scripts": {
-    "postinstall": "npm run build",
     "start": "better-npm-run start",
     "build:client": "webpack -p --config webpack.prod.config.js --progress",
     "build": "better-npm-run build",
