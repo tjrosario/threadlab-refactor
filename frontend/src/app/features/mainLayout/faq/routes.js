@@ -10,9 +10,6 @@ export default function routes($stateProvider) {
             resolve: {
                 init: function ($q) {
                     'ngInject';
-                    return $q.all({
-                        //customerModelData: customerModel.invalidate().getData({id})
-                    });
                 }
             }
         });

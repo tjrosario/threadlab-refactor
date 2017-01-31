@@ -1,4 +1,5 @@
 import angular from 'angular';
+import find from 'lodash/find';
 
 const serviceName = 'boxes';
 
@@ -6,6 +7,13 @@ const serviceName = 'boxes';
 class BoxesService {
     constructor() {
         'ngInject';
+    }
+
+    getEntity({id, config = {}}) {
+        var entities = this.getEntities().A;
+        return find(entities.list, {
+          slug: id
+        });
     }
 
     getEntities() {

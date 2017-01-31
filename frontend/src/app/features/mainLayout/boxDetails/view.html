@@ -1,0 +1,32 @@
+<div class="boxes">
+	<div class="box-detail">
+		<div class="wrapper">
+			<div class="row">
+			  <div class="span6 col-a">
+			    <div class="box-photo">
+			      <img ng-src="{{ assetUrl + $ctrl.box.imagePathAlt }}">
+			    </div>
+			  </div>
+			  <div class="span6 col-b">
+			    <div class="box-info">
+			      <header class="row">
+			        <div class="span7">
+			          <h2><span ng-bind="$ctrl.box.title"></span> Box</h2>
+			          <h3 ng-bind="$ctrl.box.description"></h3>
+			        </div>
+			        <div class="span5">
+			          <div class="price">from $<span ng-bind="$ctrl.box.price"></span></div>
+			        </div>
+			      </header>
+
+			      <box-description data="$ctrl.box"></box-description>
+
+			      <a href="#" class="button button-large" ng-click="placeOrder($ctrl.box)">Get the Box</a>
+			    </div>
+			  </div>
+			</div>
+
+			<p><a ui-sref="index.boxes"><i class="fa fa-caret-left" aria-hidden="true"></i> View all boxes</a></p>
+		</div>
+	</div>
+</div>

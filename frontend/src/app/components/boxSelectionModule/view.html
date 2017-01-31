@@ -1,0 +1,18 @@
+<div class="module pricing-boxes boxes">
+    <div class="wrapper">
+        <h3>Which Box Are You?</h3>
+        <ul class="reset row box-list">
+            <li ng-repeat="box in $ctrl.boxes.list" class="span4">
+                <div class="box-info box-content">
+                    <a ng-click="showBox(box)">
+                        <img ng-src="{{ assetUrl + box.imagePathAlt }}">
+                        <h3><span ng-bind="box.title"></span> Box</h3>
+                        <h4 ng-bind="box.description"></h4>
+                        <div class="price">from $<span ng-bind="box.price"></span></div>
+                    </a>
+                </div>
+                <a ng-click="$ctrl.showBox(box)" class="button button-large">View Box Details</a>
+            </li>
+        </ul>
+    </div>
+</div>

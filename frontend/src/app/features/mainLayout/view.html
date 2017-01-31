@@ -14,9 +14,9 @@
 
 <footer id="footer" class="site-footer">
   <div class="wrapper">
-    <div class="clear">
+    <div class="row">
       <div class="span3">
-
+        <company-address-module></company-address-module>
       </div>
 
       <div class="span6">
@@ -24,8 +24,16 @@
       </div>
 
       <div class="span3">
-
+        <div class="social-top">
+          <facebook-like-btn></facebook-like-btn>
+        </div>
+        <payment-badges></payment-badges>
+        <secure-badge></secure-badge>
+        <social-media-module></social-media-module>
       </div>
+    </div>
+    <div class="row copyright">
+      <p>&copy; <span ng-bind="date | date:'yyyy'"></span> ThreadLab, Inc.  All rights reserved.</p>
     </div>
   </div>
 </footer>

@@ -13,7 +13,7 @@
             <div class="box-info mobile">
               <box-info data="box"></box-info>
               <box-description data="box"></box-description>
-              <a ui-sref="boxes.box({ type: box.slug })">Learn More</a>
+              <a ui-sref="index.boxDetails({ id: box.slug })">Learn More</a>
             </div>
           </li>
         </ul>
@@ -28,7 +28,7 @@
             <div class="box-content">
               <box-description data="box"></box-description>
             </div>
-            <a ui-sref="boxes.box({ type: box.slug })">Learn More</a>
+            <a ui-sref="index.boxDetails({ id: box.slug })">Learn More</a>
           </li>
         </ul>
       </div>

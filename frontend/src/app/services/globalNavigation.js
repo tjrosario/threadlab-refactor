@@ -50,6 +50,12 @@ class GlobalNavigationService {
             'name': 'Purchase a Gift Card',
             'external': true,
             'url': 'https://store.mythreadlab.com/collections/gift-cards'
+        }, {
+            'name': 'Terms of Use',
+            'state': 'index.termsOfUse'
+        }, {
+            'name': 'Privacy Policy',
+            'state': 'index.privacyPolicy'
         }];
     }
 }

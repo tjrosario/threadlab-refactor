@@ -31,6 +31,9 @@ module.exports = function makeWebpackConfig() {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+        }, {
             test: /\.(png|jpg|jpeg|gif)$/,
             loader: 'file'
         }, {

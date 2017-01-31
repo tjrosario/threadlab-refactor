@@ -12,11 +12,9 @@ export default function routes($stateProvider) {
             controllerAs: '$ctrl',
             title: 'Which Box Are You?',
             resolve: {
-                init: function ($q) {
+                boxes: function (boxesService) {
                     'ngInject';
-                    return $q.all({
-                        //customerModelData: customerModel.invalidate().getData({id})
-                    });
+                    return boxesService.getEntities().A;
                 }
             }
         });
