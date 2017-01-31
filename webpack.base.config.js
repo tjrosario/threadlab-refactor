@@ -76,7 +76,8 @@ module.exports = function makeWebpackConfig() {
     config.resolve = {
         modulesDirectories: [
             'node_modules',
-            'app'
+            'app',
+            'mainLayout'
         ]
     };
 

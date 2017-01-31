@@ -1,6 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var express = require('express');
+var serveStatic = require('serve-static');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
@@ -11,9 +12,9 @@ var assetUrl = config.assetUrl;
 
 var app = express();
 var environment = app.get('env');
+var isDevelopment = environment !== 'production';
 var DIST_DIR = path.join(process.cwd(), assetUrl);
 var HTML_FILE = path.join(DIST_DIR, 'index.html');
-var isDevelopment = environment !== 'production';
 var webpackCompiler = webpack(webpackConfig);
 
 var caFiles = config.ssl.certificates.ca;
@@ -44,7 +45,11 @@ var server = {
 
 app.set('port', server.http.port);
 
-if (isDevelopment) {  
+if (isDevelopment) { 
+  app.use("/", serveStatic(path.join(process.cwd(), 'frontend/src/assets'), {
+    maxAge: '30m'
+  }));
+   
   app.use(webpackDevMiddleware(webpackCompiler, {
       publicPath: webpackConfig.output.publicPath
   }));

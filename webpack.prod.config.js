@@ -3,7 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var baseConfig = require('./webpack.base.config.js');
 
-baseConfig.devtool = 'cheap-module-source-map';
+baseConfig.devtool = '';
 
 baseConfig.output.filename = '[name].[hash].js';
 
