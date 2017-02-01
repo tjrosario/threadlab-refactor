@@ -278,8 +278,14 @@ body {
   width: 100%;
   z-index: 9998;
 
-  .nav-open & {
+  &.nav-open {
     height: auto;
+
+    .navigation {
+      .mobile {
+        display: block;
+      }
+    }
   }
 
   > .wrapper {
@@ -401,10 +407,34 @@ body {
     .mobile {
       display: none;
 
-      .nav-open & {
+      li {
         display: block;
+        margin: 0;
+        text-align: left;
+
+        a {
+          color: $white;
+          display: block;
+          padding: 5px 0;
+        }
       }
 
+      .cta {
+        a {
+          color: $dixie;
+          font-size: $font-normal;
+          height: auto;
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+
+      .user,
+      .logout {
+        padding: 5px 0;
+      }
+
+      /*
       .cta {
         a {
           background: none;
@@ -420,7 +450,7 @@ body {
             text-decoration: underline;
           }
         }
-      }
+      }*/
 
       .giftcards {
         left: -8px;
@@ -484,62 +514,33 @@ body {
 
 .nav-open,
 .fixed {
-  #header {
-    box-shadow: 0 3px 4px rgba(0, 0, 0, .3);
-    color: $romance;
-    height: auto;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .3);
+  color: $romance;
+  height: auto;
 
-    .main-nav {
+  .main-nav {
+    > nav {
+      display: none;
+    }
+    
+    &.opened {
       > nav {
-        display: none;
+        display: block;
       }
-      
-      &.opened {
-        > nav {
-          display: block;
-        }
+    }
+  }
+
+  .navigation {
+    text-align: left;
+
+    &.main-nav {
+      > nav {
+        padding: 10px 3px 0;
       }
     }
 
-    .navigation {
-      text-align: left;
-
-      &.main-nav {
-        > nav {
-          padding: 10px 3px 0;
-        }
-      }
-
-      .mobile {
-        display: block;
-
-        li {
-          display: block;
-          margin: 0;
-          text-align: left;
-
-          a {
-            color: $white;
-            display: block;
-            padding: 5px 0;
-          }
-        }
-
-        .cta {
-          a {
-            color: $dixie;
-            font-size: $font-normal;
-            height: auto;
-            padding-left: 0;
-            padding-right: 0;
-          }
-        }
-
-        .user,
-        .logout {
-          padding: 5px 0;
-        }
-      }
+    .mobile {
+      display: block;
     }
   }
 }

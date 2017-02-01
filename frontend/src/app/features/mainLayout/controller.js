@@ -1,26 +1,97 @@
 /* @ngInject */
 export default class MainLayout {
-    constructor(globalNavigationService) {
+    constructor(globalNavigationService, authService, notificationsService, userModel, $rootScope, $state) {
         this.globalNavigationService = globalNavigationService;
+        this.authService = authService;
+        this.notificationsService = notificationsService;
+        this.userModel = userModel;
+        this.$rootScope = $rootScope;
+        this.$state = $state;
     }
 
     $onInit() {
-        this.navItems = this.globalNavigationService.getEntities();
+        this.$rootScope.$on('$stateChangeStart', this.handleStateChangeStart.bind(this));
+        this.$rootScope.$on('$stateChangeSuccess', this.handleStateChangeSuccess.bind(this));
+        this.checkCurrentUser();
     }
 
-    get loggedUserName() {
+    checkCurrentUser() {
+        if (this.userModel.loggedUser) {
+            this.onUserAuthenticated();
+        } else {
+            this.onUserUnauthenticated();
+        }
         
+        /*
+        this.authService.checkCurrentUser().then(() => {
+            if (this.userModel.loggedUser) {
+                this.onUserAuthenticated();
+            } else {
+                this.onUserUnauthenticated();
+            }
+        }, err => {
+            this.notificationsService.alert({msg: [].concat(err.message)[0]});
+        }); */
     }
 
-    get pageTitle() {
-        
+    onUserAuthenticated() {
+        this.navItems = this.globalNavigationService.getUserEntities();
+        this.userNavItems = this.getUserNavItems();
+    }
+
+    onUserUnauthenticated() {
+        this.navItems = this.globalNavigationService.getGuestEntities();
+        this.userNavItems = this.getGuestNavItems();
+        this.checkMenu();
+    }
+
+    getGuestNavItems() {
+        return [{
+            'name': 'How it Works',
+            'state': 'index.howItWorks'
+        }, {
+            'name': 'Sign In',
+            'state': 'index.login'
+        }, {
+            'name': 'Get Started',
+            'state': 'index.signup'
+        }];
+    }
+
+    getUserNavItems() {
+        return [{
+            'name': 'My Account',
+            'state': 'index.account.index'
+        }, {
+            'name': 'Place Order',
+            'state': 'index.placeOrder'
+        }];
     }
 
     toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;
     }
 
-    logout() {
+    checkMenu() {
+        if (this.isMenuOpen) {
+            this.toggleMenu();
+        }  
+    }
 
+    handleStateChangeStart(e, toState, toParams, fromState, fromParams) {
+        this.checkCurrentUser();
+    }
+
+    handleStateChangeSuccess(e, toState) {
+        this.checkMenu();
+    }
+
+    logout() {
+        this.authService.logout().then(() => {
+            this.$state.go('index.home');
+            this.onUserUnauthenticated();
+        }, err => {
+            //this.notificationsService.alert({msg: [].concat(err.message)[0]});
+        });
     }
 }

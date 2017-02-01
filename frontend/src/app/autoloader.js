@@ -8,23 +8,23 @@ const getNamesFromContext = context => {
 
 const featuresContext = require.context(".", true, /index$/);
 const servicesContext = require.context("./services", true, /^((?!test).)*.js$/);
-//const modelsContext = require.context("./models", false, /^((?!test).)*.js$/);
+const modelsContext = require.context("./models", false, /^((?!test).)*.js$/);
 //const filtersContext = require.context("./filters", true, /^((?!test).)*.js$/);
-//const directivesContext = require.context("./directives", true, /directive$/);
+const directivesContext = require.context("./directives", true, /directive$/);
 const componentsContext = require.context("./components", true, /component$/);
 
 const featureNames = getNamesFromContext(featuresContext);
 const serviceNames = getNamesFromContext(servicesContext);
-//const modelNames = getNamesFromContext(modelsContext);
+const modelNames = getNamesFromContext(modelsContext);
 //const filterNames = getNamesFromContext(filtersContext);
-//const directiveNames = getNamesFromContext(directivesContext);
+const directiveNames = getNamesFromContext(directivesContext);
 const componentNames = getNamesFromContext(componentsContext);
 
 export {
     featureNames,
     serviceNames,
-    //modelNames,
+    modelNames,
     //filterNames,
-    //directiveNames,
+    directiveNames,
     componentNames
 };

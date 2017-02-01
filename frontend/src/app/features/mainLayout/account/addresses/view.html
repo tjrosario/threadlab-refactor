@@ -1,0 +1,27 @@
+<div class="addresses">
+    <h1>Addresses</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <th>Name</th>
+            <th>Address</th>
+            <th>&nbsp;</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="address in $ctrl.customer.addresses">
+            <td>{{ address.addresseeFirstName }} {{ address.addresseeLastName }}</td>
+            <td>
+                {{ address.addressLine1 }}<br>
+                <span ng-bind="address.addressLine2"><br>{{ address.addressLine2 }}</span>
+                {{ address.city }}, {{ address.state }} {{ address.zip }}
+            </td>
+            <td>
+                <grid-actions 
+                    on-edit="$ctrl.editAddress(address)"
+                    on-delete="$ctrl.deleteAddress(address)"
+                >
+                </grid-actions>
+            </td>
+        </tr>
+    </table>
+</div>

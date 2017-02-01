@@ -3,8 +3,8 @@ import angular from 'angular';
 import controller from './controller';
 import template from './view.html';
 
-const componentName = 'homepageHero';
-const moduleName = `app.home.components.${componentName}`;
+const componentName = 'loginForm';
+const moduleName = `app.login.components.${componentName}`;
 
 const component = {
     controller,

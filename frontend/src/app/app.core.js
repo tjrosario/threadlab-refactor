@@ -3,6 +3,7 @@ import uirouter from 'angular-ui-router';
 import toastr from 'angular-toastr';
 import loadingBar from 'angular-loading-bar';
 import 'angular-ui-bootstrap';
+import 'angular-ui-grid';
 
 import 'angular-loading-bar/build/loading-bar.min.css';
 import 'angular-toastr/dist/angular-toastr.min.css';
@@ -10,9 +11,9 @@ import 'angular-toastr/dist/angular-toastr.min.css';
 import {
     featureNames,
     serviceNames,
-    //modelNames,
+    modelNames,
     //filterNames,
-    //directiveNames,
+    directiveNames,
     componentNames
 } from './autoloader';
 
@@ -26,6 +27,8 @@ angular.module(MODULE_NAME, [
 
 	...featureNames,
 	...serviceNames,
+    ...modelNames,
+    ...directiveNames,
     ...componentNames
 ]);
 

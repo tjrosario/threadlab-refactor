@@ -1,9 +1,32 @@
-<header id="header">
+<header id="header" ng-class="{ 'nav-open': $ctrl.isMenuOpen }">
   <div class="wrapper">
     <div class="clear">
-      <div class="logo">
-        <a ui-sref="index.home" id="index-header-logo00"><img ng-src="{{ assetUrl }}/images/logo/threadlab@2x_white.png"></a>
+      <div class="span2">
+        <div class="logo">
+          <a ui-sref="index.home" id="index-header-logo00"><img ng-src="{{ assetUrl }}/images/logo/threadlab@2x_white.png"></a>
+        </div>
       </div>
+
+      <div class="span10">
+        <div class="navigation account-controls clear">
+          <user-navigation items="$ctrl.userNavItems"></user-navigation>
+        </div>
+      </div>
+    </div>
+
+    <div class="navigation main-nav">
+      <div class="mobile">
+        <global-navigation items="$ctrl.navItems"></global-navigation>
+
+        <ul class="reset">
+          <li>
+            <a ng-click="$ctrl.logout()">
+              Sign Out <i class="fa fa-sign-out"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <i class="fa fa-bars" ng-click="$ctrl.toggleMenu()"></i>
     </div>
   </div>
 </header>

@@ -4,18 +4,15 @@ import template from './view.html';
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index', {
-            abstract: true,
-            url: '',
+        .state('index.account.index', {
+            url: '/account/overview',
             template,
             controller,
             controllerAs: '$ctrl',
+            requireLogin: true,
             resolve: {
-                init: function ($q, authService) {
+                init: function ($q) {
                     'ngInject';
-                    return $q.all([
-                        authService.checkCurrentUser()
-                    ]);
                 }
             }
         });

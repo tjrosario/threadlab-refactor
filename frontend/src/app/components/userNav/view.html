@@ -1,0 +1,7 @@
+<nav>
+	<ul class="reset">
+		<li ng-repeat="item in $ctrl.items" ng-class="{ 'last cta': $last}">
+			<a ui-sref="{{item.state}}" ng-bind="item.name"></a>
+		</li>
+	</ul>
+</nav>

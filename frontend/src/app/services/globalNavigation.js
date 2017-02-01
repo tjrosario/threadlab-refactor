@@ -3,11 +3,16 @@ import angular from 'angular';
 const serviceName = 'globalNavigation';
 
 class GlobalNavigationService {
-    constructor() {
+    constructor(accountNavigationService) {
         'ngInject';
+        this.accountNavigationService = accountNavigationService;
     }
 
-    getEntities() {
+    getUserEntities() {
+        return this.accountNavigationService.getEntities();
+    }
+
+    getGuestEntities() {
         return [{
             'name': 'Get Started',
             'state': 'index.signup'
