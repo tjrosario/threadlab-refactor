@@ -3,16 +3,15 @@ import angular from 'angular';
 import template from './view.html';
 import controller from './controller';
 
-const componentName = 'gridActions';
-const moduleName = `components.${componentName}`;
+const componentName = 'order';
+const moduleName = `app.account.orderDetails.components.${componentName}`;
 
 const component = {
     template,
     controller,
+    controllerAs: '$ctrl',
     bindings: {
-    	onRead: '&',
-        onEdit: '&',
-        onDelete: '&'
+        data: '='
     }
 };
 

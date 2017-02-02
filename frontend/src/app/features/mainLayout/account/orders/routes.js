@@ -4,18 +4,19 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.account.addresses', {
-            url: '/account/addresses',
+        .state('index.account.orders', {
+            url: '/account/orders',
             template,
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            title: 'Orders',
             resolve: {
                 customer: function ($q, customerService) {
                     'ngInject';
                     const config = {
                         params: {
-                            expand: 'addresses'
+                            expand: 'orders'
                         }
                     };
 

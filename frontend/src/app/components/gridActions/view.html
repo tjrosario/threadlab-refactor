@@ -1,9 +1,13 @@
 <div class="grid-actions">
-	<button ng-click="$ctrl.onEdit()" class="btn btn-primary" title="Edit">
+	<button ng-click="$ctrl.onRead()" class="btn btn-primary btn-read" title="Show">
+		<i class="fa fa-eye"></i>
+	</button>
+
+	<button ng-click="$ctrl.onEdit()" class="btn btn-primary btn-edit" title="Edit">
 		<i class="fa fa-pencil"></i>
 	</button>
 
-	<button ng-click="$ctrl.onDelete()" class="btn btn-primary" title="Delete">
+	<button ng-click="$ctrl.onDelete()" class="btn btn-primary btn-delete" title="Delete">
 		<i class="fa fa-trash"></i>
 	</button>
 </div>

@@ -3,11 +3,12 @@ import angular from 'angular';
 const serviceName = 'auth';
 
 export class AuthService {
-    constructor($http, $q, userModel) {
+    constructor($http, $q, $rootScope, userModel) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
+        this.$rootScope = $rootScope;
         this.userModel = userModel;
     }
 
@@ -15,7 +16,7 @@ export class AuthService {
         return this.$http
             .post('/auth/login', params)
             .then(res => {
-                this.userModel.loggedUser = res.data.data || false;
+                this.userModel.loggedUser = this.$rootScope.currentUser = res.data.data || false;
 
                 return this.$q.when(res);
             });
@@ -25,7 +26,7 @@ export class AuthService {
         return this.$http
             .get('/auth/logout')
             .then(res => {
-                this.userModel.loggedUser = false;
+                this.userModel.loggedUser = this.$rootScope.currentUser = false;
 
                 return this.$q.when(res);
             });
@@ -35,7 +36,7 @@ export class AuthService {
         return this.$http
             .get('/auth/current')
             .then(res => {
-                this.userModel.loggedUser = res.data.data || false;
+                this.userModel.loggedUser = this.$rootScope.currentUser = res.data.data || false;
 
                 return this.$q.when(res);
             });

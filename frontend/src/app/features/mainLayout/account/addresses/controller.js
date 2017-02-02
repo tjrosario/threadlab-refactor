@@ -1,5 +1,3 @@
-import actionsTemplate from './components/accountAddressesList/cellTemplates/actions.html';
-
 /* @ngInject */
 export default class AccountAddresses {
     constructor(customer) {

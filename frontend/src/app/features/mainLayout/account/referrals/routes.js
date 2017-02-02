@@ -4,8 +4,8 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.account.addresses', {
-            url: '/account/addresses',
+        .state('index.account.referrals', {
+            url: '/account/referrals',
             template,
             controller,
             controllerAs: '$ctrl',
@@ -13,15 +13,6 @@ export default function layoutRoutes($stateProvider) {
             resolve: {
                 customer: function ($q, customerService) {
                     'ngInject';
-                    const config = {
-                        params: {
-                            expand: 'addresses'
-                        }
-                    };
-
-                    return $q.all([
-                        customerService.getEntity({ config })
-                    ]);
                 }
             }
         });

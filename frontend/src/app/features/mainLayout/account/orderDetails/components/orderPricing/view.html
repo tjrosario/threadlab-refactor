@@ -1,0 +1,198 @@
+<div class="order-pricing">
+  <div ng-if="$ctrl.data.status === 'initialized'">
+    <!--<div class="row">
+      <div class="span6 col-a">
+        <p><strong>Box Budget:</strong></p>
+      </div>
+      <div class="span6 col-b align-right">
+        <p><span class="value" ng-bind="$ctrl.data.budget | currency: '$'"></span></p>
+      </div>
+    </div>-->
+    <div class="row" ng-if="$ctrl.data.promoCode">
+      <div class="span7 col-a">
+        <p><strong>Promotional Code:</strong></p>
+      </div>
+      <div class="span5 col-b align-right">
+        <p><span class="value" ng-bind="$ctrl.data.promoCode"></span></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span7 col-a">
+        <p class="price-emphasized">
+          <span>Amount Due:</span>
+          <!--
+          <i class="fa fa-question-circle tooltip" title="Authorization hold to verify a valid form of payment.  Your credit card / bank account will not be charged."></i>-->
+        </p>
+      </div>
+      <div class="span5 col-b align-right">
+        <p class="price-emphasized">
+          <!--<span class="value" ng-bind="refundableDeposit | currency: '$'"></span>-->
+          <span class="value" ng-bind="0 | currency: '$'"></span>
+          </p>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="$ctrl.data.status !== 'initialized'">
+    <div class="row">
+      <div class="span6">
+        <p><strong>Order Total:</strong></p>
+      </div>
+      <div class="span6 align-right">
+        <p><span class="value" ng-bind="$ctrl.data.grossPrice | currency: '$'"></span></p>
+      </div>
+    </div>
+
+    <!-- credits -->
+    <div class="order-credits">
+      <div class="row" ng-if="$ctrl.data.discount > 0">
+        <div class="span6">
+          <p><strong>Discount:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p><span class="value" ng-bind="$ctrl.data.discount | currency: '$'"></span></p>
+        </div>
+      </div>
+
+      <div ng-if="$ctrl.data.status === 'preview'">
+        <div class="row" ng-if="$ctrl.data.applicableCustomerCredit > 0">
+          <div class="span6">
+            <p><strong>Customer Credit Applied:</strong></p>
+          </div>
+          <div class="span6 align-right">
+            <p><span class="value" ng-bind="$ctrl.data.applicableCustomerCredit | currency: '$'"></span></p>
+          </div>
+        </div>
+        <div class="row" ng-if="$ctrl.data.applicableGiftCardCredit > 0">
+          <div class="span6">
+            <p><strong>Gift Card Applied:</strong></p>
+          </div>
+          <div class="span6 align-right">
+            <p><span class="value" ng-bind="$ctrl.data.applicableGiftCardCredit | currency: '$'"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /credits -->
+
+    <div ng-if="$ctrl.data.status === 'finalized'">
+      <div class="row" ng-if="$ctrl.data.promoCode">
+        <div class="span6 col-a">
+          <p><strong>Promotional Code:</strong></p>
+        </div>
+        <div class="span6 col-b align-right">
+          <p><span class="value" ng-bind="$ctrl.data.promoCode"></span></p>
+        </div>
+      </div>
+
+      <div class="row" ng-show="$root.currentUser.testScenario !== 'B'">
+        <div class="span6 col-a">
+          <p>
+            <strong>Authorization Amount:</strong>
+            <i class="fa fa-question-circle tooltip" title="Authorization hold to verify a valid form of payment.  Your credit card / bank account will not be charged."></i>
+          </p>
+        </div>
+        <div class="span6 col-b align-right">
+          <p><span class="value" ng-bind="refundableDeposit | currency: '$'"></span></p>
+        </div>
+      </div>
+    </div>
+
+
+    <div ng-repeat="payment in $ctrl.data.payments">
+      <div ng-if="payment.paymentMethod === 'stripe' || payment.paymentMethod === 'paypal'">
+        <div ng-if="payment.paymentAmount === 0 && $ctrl.data.payments.length === 1" class="row">
+          <div class="span6">
+            <p><strong>Payments:</strong></p>
+          </div>
+          <div class="span6 align-right">
+            <p><span ng-bind="payment.paymentAmount | currency: '$'"></span></p>
+          </div>
+        </div>
+
+        <div ng-if="payment.paymentAmount > 0" class="row">
+          <div class="span6">
+            <p>
+              <strong ng-if="payment.paymentMethod === 'stripe'">Credit Card Payment:</strong>
+              <strong ng-if="payment.paymentMethod === 'paypal'">PAyPal Payment:</strong>
+            </p>
+          </div>
+          <div class="span6 align-right">
+            <p><span ng-bind="payment.paymentAmount | currency: '$'"></span></p>
+          </div>
+        </div>
+      </div>
+
+
+      <div ng-if="payment.paymentMethod === 'giftCardCredit' && payment.paymentAmount > 0">
+        <div class="span6">
+          <p><strong>Gift Card Credit:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p><span ng-bind="payment.paymentAmount | currency: '$'"></span></p>
+        </div>
+      </div>
+      <div ng-if="payment.paymentMethod === 'customerCredit' && payment.paymentAmount > 0">
+        <div class="span6">
+          <p><strong>Customer Credit:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p><span ng-bind="payment.paymentAmount | currency: '$'"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-if="$ctrl.data.invoiceValue >= 0">
+      <div class="span6">
+        <p class="price-emphasized"><strong>Amount You Owe:</strong></p>
+      </div>
+      <div class="span6 align-right">
+        <p class="price-emphasized"><span class="value" ng-bind="$ctrl.data.invoiceValue | currency: '$'"></span></p>
+      </div>
+    </div>
+
+    <div ng-if="$ctrl.data.totalRefund > 0 && $ctrl.data.status !== 'finalized'">
+      <div class="row" ng-if="$ctrl.data.cashRefund > 0">
+        <div class="span6">
+          <p>
+            <strong>Cash Refund:</strong>
+          </p>
+        </div>
+        <div class="span6 align-right">
+          <p><span class="value" ng-bind="$ctrl.data.cashRefund | currency: '$'"></span></p>
+        </div>
+      </div>
+      <div class="row" ng-if="$ctrl.data.giftCardCreditRefund > 0">
+        <div class="span6">
+          <p><strong>Gift Card Refund:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p><span class="value" ng-bind="$ctrl.data.giftCardCreditRefund | currency: '$'"></span></p>
+        </div>
+      </div>
+      <div class="row" ng-if="$ctrl.data.customerCreditRefund > 0">
+        <div class="span6">
+          <p><strong>Customer Credit Refund:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p><span class="value" ng-bind="$ctrl.data.customerCreditRefund | currency: '$'"></span></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6">
+          <p class="price-emphasized"><strong>Total Refunds:</strong></p>
+        </div>
+        <div class="span6 align-right">
+          <p class="price-emphasized"><span class="value" ng-bind="$ctrl.data.totalRefund | currency: '$'"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="cancel" ng-show="$ctrl.data.isCancelled">
+        <h3><em>Yikes.</em>  There aren't any items left in your preview.</h3>
+        <p>It looks like all of the items in your Order Preview have been removed.</p>
+        <p><strong>Want to add something back in?</strong><br>  Just tap the undo button for the product you want and it will be added back in.</p>
+        <p><strong>Nothing a good match for you?</strong><br>  Simply cancel the order and provide some feedback on the following page.</p>
+    </div>
+</div>

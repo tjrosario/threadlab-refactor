@@ -1,0 +1,105 @@
+<div ng-repeat="match in $ctrl.order.matches" class="category" ng-class="{ 'empty': (!match.orderItems.length) || match.isEmpty }">
+    <h2 class="category-title">{{ match.category }}</h2>
+
+    <div ng-if="!match.orderItems.length" class="order-item empty">
+        <div class="row">
+            <p>We're sorry, but we couldn't find any matching items within this category.</p>
+        </div>
+    </div>
+
+    <!-- order items -->
+    <div ng-if="match.orderItems.length">
+        <div ng-repeat="orderItem in match.orderItems"
+             class="order-item"
+             ng-class="{ 'reject': orderItem.rejected, 'return': orderItem.returned || orderItem.markedForReturn, 'virtual': orderItem.isVirtual }"
+
+        >
+            <div class="row">
+              <div class="span2 photo" data-lightbox ng-init="initLightbox(orderItem)">
+                <img ng-src="{{ orderItem.product.imageUrl }}">
+                <div class="zoom">
+                  Click to Zoom <i class="fa fa-search-plus"></i>
+                </div>
+              </div>
+              <div class="span10 details">
+                <h3 ng-class="{ 'span6': isPlaceOrder }"><span class="brand" ng-bind="orderItem.product.xBrand"></span> - <span class="name" ng-bind="orderItem.product.name"></span></h3>
+
+                <div class="product-info">
+                  <div class="product-specs">
+                    <p class="threadlab-price">
+                      <img ng-src="{{ assetUrl + '/images/logo/threadlab.png' }}">
+                      <strong>Price:</strong> <span ng-bind="orderItem.price | currency: '$'"></span>
+                    </p>
+
+                    <p class="size" ng-show="match.category !== 'Dress Socks' && match.category !== 'Athletic Socks'"><strong>Size:</strong> <span ng-bind="orderItem.product.statedSize"></span></p>
+                    <p class="color"><strong>Color:</strong> <span ng-bind="orderItem.product.statedColor"></span></p>
+
+                    <p class="description" ng-if="$ctrl.order.status !== 'shipped'"><strong>Description:</strong> <span ng-bind="orderItem.product.description"></span></p>
+
+                    <div class="feedback">
+                      <div ng-if="$ctrl.order.status === 'preview'">
+                        <p><strong>Additional Feedback:</strong></p>
+
+                        <textarea rows="3" placeholder="Enter any feedback about this item so that we can update your profile and improve future shipments" ></textarea>
+                      </div>
+                      <div ng-if="!isOrderCustomerPreview && !isOrderPreview && orderItem.comments && (order.status !== 'shipped')">
+                        <p><strong>Your Feedback:</strong></p>
+
+                        <div class="msg active notify">
+                          <p><span ng-bind="orderItem.comments"></span></p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="toggle-reject" ng-if="$ctrl.order.status === 'preview'">
+                    <div class="clear">
+                      <div class="span4">
+                        <h5>Reasons for removal</h5>
+                        <div class="reject-reasons">
+                          <div ng-repeat="(val, title) in rejectReasons" class="field opt">
+                            <label>
+                              <input type="checkbox" name="reject-reason" value="{{ val }}" class="reject-reason">
+                              <span ng-bind="title"></span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="undo cancel " ng-show="orderItem.rejected">
+                          <button class="button button-dark" ng-click="undoRejectProduct(orderItem)" ng-disabled="undoingReject" ng-class="{ 'loading': undoingReject }" ng-if="$ctrl.order.status === 'preview'"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
+
+                          <button class="button button-dark" ng-click="undoRejectOrderItem(orderItem)" ng-disabled="undoingReject" ng-class="{ 'loading': undoingReject }" ng-if="isOrderPreview"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
+                        </div>
+                      </div>
+                      <div class="span8">
+                        <h5>Want better results? Please let us know why this item didn't look good to you.</h5>
+                        <p>Your feedback will be stored in your Preferences and will improve your future shipments.</p>
+                        <div class="comments">
+                          <textarea rows="3" placeholder="Enter text" ng-model="orderItem.comments">></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="toggle-return" ng-if="$ctrl.order.status === 'shipped'">
+                    <div ng-include="'/templates/order/order-return.html.tmpl'"></div>
+                  </div>
+                </div>
+
+                <button class="button button-dark button-reject" ng-click="rejectOrderItem(orderItem)" ng-if="$ctrl.order.status === 'preview'">Reject Item <i class="fa fa-times-circle"></i></button>
+
+                <button class="button button-dark button-return" ng-click="returnOrderItem(orderItem, $event)" ng-if="$ctrl.order.status === 'shipped' && !orderItem.rejected">Return / Exchange Item <i class="fa fa-exchange"></i></button>
+              </div>
+
+            </div>
+
+            <div ng-if="orderItem.rejected" class="ribbon">Rejected</div>
+
+            <div ng-if="orderItem.returned || orderItem.markedForReturn" class="ribbon">Returned</div>
+
+            <div ng-if="orderItem.isVirtual && !orderItem.rejected && !orderItem.returned && !orderItem.markedForReturn" class="ribbon alt">Item Ships Separately</div>
+        </div>
+    </div>
+    <!-- /order items -->
+</div>

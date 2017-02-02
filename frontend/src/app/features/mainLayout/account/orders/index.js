@@ -2,7 +2,7 @@ import angular from 'angular';
 
 import routing from './routes';
 
-export default angular.module('app.account.addresses', [
+export default angular.module('app.account.orders', [
     
 ])
     .config(routing)
