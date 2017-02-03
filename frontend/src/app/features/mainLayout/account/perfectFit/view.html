@@ -1,0 +1,27 @@
+<div class="perfect-fit">
+    <h1>PerfectFit<sup>&trade;</sup></h1>
+
+    <p>PerfectFit<sup>&trade;</sup> is a fitting system that allows us to send you perfectly-fitting clothing by matching our products to items that you already own and love. You can add pre-measured items that you bought from us, or you can measure your own. Follow the step-by-step measurement guide to learn how.</p>
+
+    <p>So, tell us about those cozy jeans or that sexy shirt and you'll be rewarded by clothing that fits you perfectly every time.</p>
+
+    <table class="table table-striped">
+        <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>&nbsp;</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="referenceItem in $ctrl.customer.referenceItems">
+            <td>{{ referenceItem.name }}</td>
+            <td>{{ referenceItem.description }}</td>
+            <td>
+                <grid-actions 
+                    on-edit="$ctrl.editReferenceItem(address)"
+                    on-delete="$ctrl.deleteReferenceItem(address)"
+                >
+                </grid-actions>
+            </td>
+        </tr>
+    </table>
+</div>

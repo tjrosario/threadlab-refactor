@@ -1,12 +1,15 @@
 import angular from 'angular';
 
 import template from './view.html';
+import controller from './controller';
 
 const componentName = 'customerInfo';
-const moduleName = `components.${componentName}`;
+const moduleName = `app.account.overview.components.${componentName}`;
 
 const component = {
     template,
+    controller,
+    controllerAs: '$ctrl',
     bindings: {
         data: '='
     }

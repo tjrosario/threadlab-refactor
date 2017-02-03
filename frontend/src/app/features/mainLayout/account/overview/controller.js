@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 /* @ngInject */
 export default class AccountOverview {
     constructor(userModel) {

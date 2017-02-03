@@ -1,5 +1,7 @@
 // vendor
 //@import 'bower_components/angularjs-slider/dist/rzslider';
+@import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
+@import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
 @import './vendor/slick/slick';
 @import './vendor/slick/slick-theme';
 @import './vendor/spinner/spinner';

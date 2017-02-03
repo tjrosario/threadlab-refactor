@@ -1,0 +1,71 @@
+<div class="product-preferences">
+	<h1>Product Preferences</h1>
+
+	<uib-tabset active="active" type="pills">
+		<uib-tab index="$index" ng-repeat="productPreference in $ctrl.productPreferences" heading="{{ productPreference.category }}">
+			
+		    <!-- productMeasurements -->
+		    <ul class="reset" data-type="productMeasurements">
+		      <li ng-repeat="productMeasurement in productPreference.productMeasurements" data-name="{{ productMeasurement.name }}">
+
+		        <h3>Select Your <span ng-bind="productMeasurement.name | removeGeneric"></span></h3>
+
+		        <!-- sizes -->
+		        <div class="buttons col2-mobile">
+		          <ul class="list" data-type="allowedSizes" data-min="1" data-limit="1">
+		            <li class="" ng-repeat="allowedSize in productMeasurement.allowedSizes">
+
+		              <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': allowedSize.selected, 'unchecked': !allowedSize.selected }" data-value="{{ allowedSize.value }}" data-id="{{ allowedSize.id }}" data-api="measurementPreference" data-preference-id="{{ allowedSize.measurementPreference.id }}">
+		                <span ng-bind="allowedSize.value"></span>
+		                <i class="fa fa-check-square-o"></i>
+		              </div>
+		            </li>
+		          </ul>
+		        </div>
+
+		      </li>
+		    </ul>
+		    <!-- /productMeasurements -->
+
+		    <!-- characteristsics -->
+		    <ul class="reset">
+		      <li ng-repeat="characteristsic in productPreference.characteristics" data-name="{{ characteristsic.name }}" data-id="{{ characteristsic.id }}">
+		        <h3><span ng-bind="characteristsic.name | removeGeneric"></span>s You LIKE</h3>
+
+		        <!-- sizes -->
+		        <div class="buttons toggle-box-square col2-mobile">
+		          <ul class="antipref list" data-type="allowedAttributes" data-limit="{{ characteristsic.allowedAttributes.length - 1 }}">
+		            <li class="" ng-repeat="allowedAttribute in characteristsic.allowedAttributes">
+
+		              <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': allowedAttribute.selected, 'unchecked': !allowedAttribute.selected }" data-value="{{ allowedAttribute.value }}" data-id="{{ allowedAttribute.id }}" data-api="productPreference" data-preference-id="{{ allowedAttribute.productPreference.id }}">
+		                <span ng-bind="allowedAttribute.value"></span>
+		                <i class="check-icon fa fa-check-square-o"></i>
+		                <i class="minus-icon fa fa-times"></i>
+		              </div>
+
+		            </li>
+		          </ul>
+		        </div>
+
+		      </li>
+		    </ul>
+		    <!-- /characteristsics -->
+
+		    <!-- priceRanges -->
+		    <h3>Choose Your Price Ranges</h3>
+		    <div class="buttons col2-mobile">
+		      <ul class="list" data-type="priceRanges" data-min="1">
+		        <li class="" ng-repeat="priceRange in productPreference.priceRanges">
+
+		          <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': priceRange.selected, 'unchecked': !priceRange.selected }" data-lower-limit="{{ priceRange.lowerLimit }}" data-upper-limit="{{ priceRange.upperLimit }}" data-id="{{ priceRange.id }}" data-api="pricePreference" data-preference-id="{{ priceRange.pricePreference.id }}">
+		            <span ng-bind="priceRange.lowerLimit | currency: '$'"></span> - <span ng-bind="priceRange.upperLimit | currency: '$'"></span>
+		            <i class="fa fa-check-square-o"></i>
+		          </div>
+		        </li>
+		      </ul>
+		    </div>
+		    <!-- /priceRanges -->
+
+		</uib-tab>
+	</uib-tabset>
+</div>

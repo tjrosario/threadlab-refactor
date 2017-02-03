@@ -5,7 +5,8 @@
         <thead>
             <th>Order #</th>
             <th>Date Placed</th>
-            <th colspan="2">Status</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
         </thead>
         <tbody>
         <tr ng-repeat="order in $ctrl.customer.orders" ng-if="order.status !== 'initialized' && order.status !== 'new' && order.status !== 'abandoned' && order.status !== 'empty'">

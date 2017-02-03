@@ -7,7 +7,6 @@ export default function appConfig($urlRouterProvider, $locationProvider, $httpPr
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push(httpInterceptors);
-    cfpLoadingBarProvider.includeSpinner = false;
     $compileProvider.debugInfoEnabled(false);
 
     _.merge(toastrConfig, {

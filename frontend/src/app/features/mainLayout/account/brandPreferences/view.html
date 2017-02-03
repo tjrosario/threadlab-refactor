@@ -1,0 +1,23 @@
+<div class="brands">
+    <h1>Brand Preferences</h1>
+
+    <p>We use your brand preferences to get a better understanding of your personal likes and dislikes and to help determine the clothing that we show to you.</p>
+    <p>If you would prefer NOT to receive products from a certain brand, simply click on the logo to remove the checkmark. Click the logo again to re-add the checkmark to re-activate the brand. We will ship you products from Brands that have the checkmark on the logo. By default, when your account is created, all brands are set to Active.</p>
+
+    <div class="row">
+        <div class="buttons brands col3-mobile">
+            <ul class="antipref reset">
+                <li ng-repeat="brand in $ctrl.brandPreferences" class="span3">
+                    <div class="toggle-box brand" ng-class="{ 'checked': brand.selected, 'unchecked': !brand.selected }" ng-click="$ctrl.toggleSelection(brand)">
+                        <div class="photo" title="{{ brand.name }}">
+                            <img ng-src="{{ brand.imageUrl }}" alt="{{ brand.name }}">
+                        </div>
+
+                          <i class="check-icon fa fa-check-square-o"></i>
+                          <i class="minus-icon fa fa-times"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

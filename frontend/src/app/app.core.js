@@ -12,7 +12,7 @@ import {
     featureNames,
     serviceNames,
     modelNames,
-    //filterNames,
+    filterNames,
     directiveNames,
     componentNames
 } from './autoloader';
@@ -28,6 +28,7 @@ angular.module(MODULE_NAME, [
 	...featureNames,
 	...serviceNames,
     ...modelNames,
+    ...filterNames,
     ...directiveNames,
     ...componentNames
 ]);

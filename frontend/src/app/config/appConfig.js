@@ -12,6 +12,13 @@ const appConfig = {
         text: "ThreadLab.  Men's clothing.  Easier.",
         hashtags: "threadlab, mensshopping, mensclothing, menswear, personalshopper, personalshopping, mensfashion, men, clothes, outfit, startup",
         url: 'https://www.mythreadlab.com' 
+    },
+    stripe: {
+        baseUrl: "/stripe",
+        keyPublish: "pk_test_ODLxP7LKU46YQ3b3JKQWb6Rr",
+        charges: {
+            receipt_email: 'service@mythreadlab.com'
+        }
     }
 };
 
