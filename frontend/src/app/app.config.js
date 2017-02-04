@@ -1,5 +1,5 @@
 import { httpInterceptors } from './httpInterceptors';
-import _ from 'lodash';
+import merge from 'lodash/merge';
 
 export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider) {
     'ngInject';
@@ -9,7 +9,7 @@ export default function appConfig($urlRouterProvider, $locationProvider, $httpPr
     $httpProvider.interceptors.push(httpInterceptors);
     $compileProvider.debugInfoEnabled(false);
 
-    _.merge(toastrConfig, {
+    merge(toastrConfig, {
         autoDismiss: false,
         containerId: 'toast-container',
         maxOpened: 0,
@@ -19,7 +19,8 @@ export default function appConfig($urlRouterProvider, $locationProvider, $httpPr
         preventOpenDuplicates: false,
         target: 'body',
         closeButton: true,
-        timeOut: 10000
+        timeOut: 10000,
+        progressBar: true
     });
 }
 

@@ -1,5 +1,8 @@
 import angular from 'angular';
-import _ from 'lodash';
+
+import filter from 'lodash/filter';
+import forEach from 'lodash/forEach';
+import merge from 'lodash/merge';
 
 const serviceName = 'notifications';
 const toastrTypes = {
@@ -8,6 +11,7 @@ const toastrTypes = {
     info: 'info',
     error: 'error'
 };
+
 let msgTypes = {};
 
 msgTypes[toastrTypes.success] = 'Success';
@@ -26,9 +30,9 @@ export class NotificationsService {
     }
 
     clearNotifications() {
-        const notFrozenToasts = _.filter(this.toasts, toast => !toast.isFrozen);
+        const notFrozenToasts = filter(this.toasts, toast => !toast.isFrozen);
 
-        _.forEach(notFrozenToasts, toast => this.toastr.remove(toast.toastId));
+        forEach(notFrozenToasts, toast => this.toastr.remove(toast.toastId));
 
         this.toasts.length = 0;
     }
@@ -53,7 +57,7 @@ export class NotificationsService {
         const toastrTitle = this.getToastrTitle(title, type);
 
         const toast = this.toastr[type](msg, toastrTitle);
-        this.toasts.push(_.merge(toast, {isFrozen}));
+        this.toasts.push(merge(toast, {isFrozen}));
     }
 
     getToastrTitle(title, msgType) {

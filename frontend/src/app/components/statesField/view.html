@@ -1,0 +1,4 @@
+<select name="state" ng-model="$ctrl.value" required class="form-control">
+	<option value="">Select State</option>
+	<option ng-repeat="state in $ctrl.states | orderBy: state.name" value="{{ state.abbr }}">{{ state.name }}</option>
+</select>

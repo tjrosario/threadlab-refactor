@@ -276,7 +276,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 9998;
+  z-index: 999;
 
   &.nav-open {
     height: auto;
@@ -2382,4 +2382,16 @@ $soundcloud: #ff3a00;
 
 .msg {
   line-height: 1.5;
+}
+
+
+//TODO: add to styleguide
+.modal {
+  .row {
+    margin: 0;
+  }
+}
+
+.field {
+  padding-bottom: 0;
 }

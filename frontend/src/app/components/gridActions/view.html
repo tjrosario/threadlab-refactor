@@ -7,7 +7,12 @@
 		<i class="fa fa-pencil"></i>
 	</button>
 
-	<button ng-click="$ctrl.onDelete()" class="btn btn-primary btn-delete" title="Delete">
+	<button 
+		class="btn btn-primary btn-delete" 
+		title="Delete" 
+		confirm-before-action
+		confirm-before-action-handler="$ctrl.onDelete()"
+	>
 		<i class="fa fa-trash"></i>
 	</button>
 </div>

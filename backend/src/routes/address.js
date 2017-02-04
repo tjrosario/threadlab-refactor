@@ -17,8 +17,9 @@ getAPIUrl = function(url) {
 router.use(requireLogin);
 
 router.get("/create", requireLogin, function(req, res) {
+  var query = req.query;
   return request({
-    uri: getAPIUrl(req.url),
+    uri: apiUrl + "/address/create/" + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"
   }, function(err, resp, body) {
     var result;
@@ -29,8 +30,9 @@ router.get("/create", requireLogin, function(req, res) {
 });
 
 router.get("/show/:id", requireLogin, function(req, res) {
+  var query = req.query;
   return request({
-    uri: getAPIUrl(req.url),
+    uri: apiUrl + "/address/show/" + req.params.id + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"
   }, function(err, resp, body) {
     var result;
@@ -41,8 +43,7 @@ router.get("/show/:id", requireLogin, function(req, res) {
 });
 
 router.get("/update/:id", requireLogin, function(req, res) {
-  var query;
-  query = req.query;
+  var query = req.query;
   return request({
     uri: apiUrl + "/address/update/" + req.params.id + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"
@@ -55,8 +56,9 @@ router.get("/update/:id", requireLogin, function(req, res) {
 });
 
 router.get("/delete/:id", requireLogin, function(req, res) {
+  var query = req.query;
   return request({
-    uri: getAPIUrl(req.url),
+    uri: apiUrl + "/address/delete/" + req.params.id + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"
   }, function(err, resp, body) {
     var result;

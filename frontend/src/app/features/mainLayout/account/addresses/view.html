@@ -13,7 +13,7 @@
             <td>{{ address.addresseeFirstName }} {{ address.addresseeLastName }}</td>
             <td>
                 {{ address.addressLine1 }}<br>
-                <span ng-bind="address.addressLine2"><br>{{ address.addressLine2 }}</span>
+                <span ng-if="address.addressLine2">{{ address.addressLine2 }}<br></span>
                 {{ address.city }}, {{ address.state }} {{ address.zip }}
             </td>
             <td>

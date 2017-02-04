@@ -1,0 +1,8 @@
+<input type="text" data-stripe="number" name="number" class="number" ng-model="$ctrl.value" ng-keydown="$ctrl.validateCreditCard($event)" payments-format="card" payments-validate="card" tabindex="2" ng-required inputmode="numeric">
+
+<ul class="card-logos">
+    <li class="visa" ng-class="{ 'active': $ctrl.cardType === 'visa' }"><i class="fa fa-cc-visa"></i></li>
+    <li class="mastercard" ng-class="{ 'active': $ctrl.cardType === 'mastercard' }"><i class="fa fa-cc-mastercard"></i></li>
+    <li class="amex" ng-class="{ 'active': $ctrl.cardType === 'amex' }"><i class="fa fa-cc-amex"></i></li>
+    <li class="discover" ng-class="{ 'active': $ctrl.cardType === 'discover' }"><i class="fa fa-cc-discover"></i></li>
+</ul>

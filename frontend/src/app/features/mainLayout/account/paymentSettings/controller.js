@@ -1,11 +1,13 @@
 import cloneDeep from 'lodash/cloneDeep';
+import { componentName as paymentForm } from './components/paymentForm/component';
 
 /* @ngInject */
 export default class AccountPaymentSettings {
-    constructor(userModel, stripeService, notificationsService) {
+    constructor(userModel, stripeService, $uibModal, notificationsService) {
         this.userModel = userModel;
         this.stripeService = stripeService;
         this.notificationsService = notificationsService;
+        this.$uibModal = $uibModal;
     }
 
     $onInit() {
@@ -29,7 +31,16 @@ export default class AccountPaymentSettings {
     }
 
     addCard() {
-    	
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            component: paymentForm,
+            resolve: {
+                config: () => ({
+                    title: 'Add Card'
+                }),
+                mode: () => 'add'
+            }
+        });
     }
 
     editCard(card) {

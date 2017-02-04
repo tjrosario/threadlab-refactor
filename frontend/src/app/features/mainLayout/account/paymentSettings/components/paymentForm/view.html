@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="field ">
+            <label>Name on Card</label>
+            <input type="text" data-stripe="name" class="name" name="name" ng-required ng-model="$ctrl.card.name" tabindex="1">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field cc_num ">
+            <label>Card Number</label>
+            <credit-card-field value="$ctrl.card.number"></credit-card-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field span4" ng-if="supportedBrowser">
+            <label>Exp. Date (MM/YYYY)</label>
+            <input name="exp_date" type="text" ng-model="$ctrl.card.exp_date" ng-required class="form-control exp_date" ng-required payments-format="expiry" tabindex="3">
+        </div>
+
+        <div class="field cc_cvc span2">
+            <label>CVV</label>
+            <input type="text" data-stripe="cvc" name="cvc" class="cvc" ng-model="$ctrl.card.cvc" ng-required tabindex="4" pattern="[0-9]*" inputmode="numeric">
+        </div>
+        <div class="field span3">
+            <label>Billing ZIP Code</label>
+            <input type="text" data-stripe="address-zip" name="address_zip" class="address_zip" ng-model="$ctrl.card.address_zip" ng-required ng-minlength="5" tabindex="5" pattern="[0-9]*" inputmode="numeric">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field opt default span4">
+            <label>
+                <input type="checkbox" name="isDefault" ng-model="$ctrl.card.isDefault" class="isDefault" ng-checked="$ctrl.card.isDefault" ng-change="setDefaultCard($ctrl.card.isDefault)" tabindex="6">
+                Default Card
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()" ng-disabled="!$ctrl.isng-requiredFieldValid()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+</div>
