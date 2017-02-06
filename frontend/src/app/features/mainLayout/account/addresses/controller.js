@@ -36,7 +36,7 @@ export default class AccountAddresses {
 
             this.addressService.createEntity({ config })
                 .then(resp => {
-                    if (res.data.success) {
+                    if (resp.data.success) {
                         this.notificationsService.success({ msg: 'Address Added' });
                         this.customer.addresses.push(resp.data.data);
                     } else {

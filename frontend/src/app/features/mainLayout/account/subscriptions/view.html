@@ -59,18 +59,19 @@
               <th>&nbsp;</th>
           </thead>
           <tbody>
-          <tr ng-repeat="subscription in $ctrl.customer.subscriptions">
-              <td>{{ subscription.budget | currency: '$' }}</td>
-              <td>{{ subscription.frequency }}</td>
-              <td>{{ subscription.startDate | date }}</td>
-              <td>{{ subscription.status }}</td>
-              <td>
-                  <grid-actions 
-                      on-edit="$ctrl.editSubscription(subscription)"
-                  >
-                  </grid-actions>
-              </td>
-          </tr>
+            <tr ng-repeat="subscription in $ctrl.customer.subscriptions">
+                <td>{{ subscription.budget | currency: '$' }}</td>
+                <td>{{ subscription.frequency }}</td>
+                <td>{{ subscription.startDate | date }}</td>
+                <td>{{ subscription.status }}</td>
+                <td>
+                    <grid-actions 
+                        on-edit="$ctrl.editSubscription(subscription)"
+                    >
+                    </grid-actions>
+                </td>
+            </tr>
+          </tbody>
       </table>
     </tbody>
     <!-- /subscriptions -->

@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="field span6 form-group">
+      <label>Budget</label>
+      <select class="form-control" ng-options="budget.value as (budget.value | currency: '$') + ' ' + budget.description for budget in $ctrl.budgets" ng-model="$ctrl.formData.budget" required ng-change="onBudgetChange(subscription)">
+        <option value="">Select&hellip;</option>
+      </select>
+    </div>
+
+    <div class="field span6 form-group">
+      <label>Frequency</label>
+      <select class="form-control" ng-options="frequency.value as frequency.name + ' ' + frequency.description for frequency in $ctrl.frequencies" ng-model="$ctrl.formData.frequency" required>
+        <option value="">Select&hellip;</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="field span4 form-group">
+      <label>Start Date</label>
+    
+     <input type="text" class="form-control" uib-datepicker-popup="{{ $ctrl.datePopupFormat }}" ng-model="$ctrl.formData.startDate" is-open="$ctrl.datePickerPopup.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="$ctrl.dateInputFormats" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="$ctrl.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field notes form-group">
+      <label>Notes</label>
+      <p>Provide any additional notes about your subscription.</p>
+      <textarea ng-model="$ctrl.formData.notes" placeholder="e.g. - t-shirts in the summer, sweaters in the winter"></textarea>
+    </div>
+  </div>
+
+  <div class="row" ng-if="$ctrl.resolve.mode === 'edit'">
+    <div class="field notes span6 form-group">
+      <label>Status</label>
+      <select ng-model="$ctrl.formData.status">
+        <option value="active">Active</option>
+        <option value="suspended">Paused</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()" ng-disabled="!$ctrl.isRequiredFieldsValid()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+</div>

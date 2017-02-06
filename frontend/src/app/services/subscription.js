@@ -5,7 +5,22 @@ const serviceName = 'subscription';
 /* @ngInject */
 class SubscriptionService {
     constructor($http) {
-        
+        this.$http = $http;
+    }
+
+    getEntity({ id, config = {}}) {
+        return this.$http
+            .get(`/subscription/show/${id}`, config);
+    }
+
+    createEntity({ config = {}}) {
+        return this.$http
+            .get('/subscription/create', config);
+    }
+
+    updateEntity({ id, config = {}}) {
+        return this.$http
+            .get(`/subscription/update/${id}`, config);
     }
 
     getFrequencyData() {
@@ -34,23 +49,23 @@ class SubscriptionService {
 
     getBudgetData() {
         return  [{
-            value: '39.99',
+            value: 39.99,
             numCategories: 3,
             description: '(2 - 6 items) (Socks, Boxer-briefs, Undershirts)'
         }, {
-            value: '59.00',
+            value: 59.00,
             numCategories: 3,
             description: '(1 - 3 items)'
         }, {
-            value: '99.00',
+            value: 99.00,
             numCategories: 3,
             description: '(2 - 4 items)'
         }, {
-            value: '149.00',
+            value: 149.00,
             numCategories: 5,
             description: '(3 - 5 items)'
         }, {
-            value: '299.00',
+            value: 299.00,
             numCategories: 7,
             description: '(5 - 8 items)'
         }];

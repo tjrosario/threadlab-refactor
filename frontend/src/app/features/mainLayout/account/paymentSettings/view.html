@@ -7,27 +7,28 @@
     <table class="table table-striped">
         <thead>
             <th>Card Type</th>
-            <th>Last 4 Digits</th>
-            <th>Exp. Date</th>
+            <th>Last 4</th>
+            <th>Exp.</th>
             <th>Zip</th>
-            <th>Name on Card</th>
+            <th>Name</th>
             <th>&nbsp;</th>
         </thead>
         <tbody>
-        <tr ng-repeat="card in $ctrl.cards">
-            <td>{{ card.brand }}</td>
-            <td>{{ card.last4 }}</td>
-            <td>{{ card.exp_month + '/' + card.exp_year }}</td>
-            <td>{{ card.address_zip }}
-            <td>{{ card.name }}</td>
-            <td>
-                <grid-actions 
-                    on-edit="$ctrl.editCard(card)"
-                    on-delete="$ctrl.deleteCard(card)"
-                >
-                </grid-actions>
-            </td>
-        </tr>
+            <tr ng-repeat="card in $ctrl.cards">
+                <td>{{ card.brand }}</td>
+                <td>{{ card.last4 }}</td>
+                <td>{{ card.exp_month + '/' + card.exp_year }}</td>
+                <td>{{ card.address_zip }}
+                <td>{{ card.name }}</td>
+                <td>
+                    <grid-actions 
+                        on-edit="$ctrl.editCard(card)"
+                        on-delete="$ctrl.deleteCard(card)"
+                    >
+                    </grid-actions>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <!-- /payment methods -->
 </div>

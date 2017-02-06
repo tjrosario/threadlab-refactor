@@ -1,7 +1,7 @@
 /* @ngInject */
 export default class ExpirationField {
     constructor() {
-    	if (this.value !== '') {
+    	if (this.value) {
     		this.setFieldValues(this.value);
     	}
     }

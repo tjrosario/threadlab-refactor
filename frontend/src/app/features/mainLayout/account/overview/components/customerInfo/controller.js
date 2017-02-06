@@ -12,7 +12,6 @@ export default class CustomerInfo {
         this.datePickerPopup = {};
 
     	this.dateOptions = {
-            dateDisabled: disabled,
             formatYear: 'yy',
             minDate: new Date(),
             startingDay: 1

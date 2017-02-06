@@ -12,16 +12,17 @@
             <th>&nbsp;</th>
         </thead>
         <tbody>
-        <tr ng-repeat="referenceItem in $ctrl.customer.referenceItems">
-            <td>{{ referenceItem.name }}</td>
-            <td>{{ referenceItem.description }}</td>
-            <td>
-                <grid-actions 
-                    on-edit="$ctrl.editReferenceItem(address)"
-                    on-delete="$ctrl.deleteReferenceItem(address)"
-                >
-                </grid-actions>
-            </td>
-        </tr>
+            <tr ng-repeat="referenceItem in $ctrl.customer.referenceItems">
+                <td>{{ referenceItem.name }}</td>
+                <td>{{ referenceItem.description }}</td>
+                <td>
+                    <grid-actions 
+                        on-edit="$ctrl.editReferenceItem(address)"
+                        on-delete="$ctrl.deleteReferenceItem(address)"
+                    >
+                    </grid-actions>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
