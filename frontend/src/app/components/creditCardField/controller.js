@@ -6,12 +6,12 @@ export default class CreditCardField {
     }
 
     validateCreditCard(e) {
-    	let ref;
-    	const digit = String.fromCharCode(e.which);
-    	const $target = angular.element(e.currentTarget);
-    	const value = $target.val();
-    	const cardType = (ref = this.Cards.fromNumber(value + digit)) !== null ? ref.type : void 0;
+        let ref;
+        const digit = String.fromCharCode(e.which);
+        const $target = angular.element(e.currentTarget);
+        const value = $target.val();
+        const cardType = (ref = this.Cards.fromNumber(value + digit)) ? ref.type : void 0;
 
-    	this.cardType = cardType;
+        this.cardType = cardType;
     }
 }

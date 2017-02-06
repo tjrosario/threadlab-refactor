@@ -15,9 +15,14 @@ angular.module(MODULE_NAME, [
     ])
     .constant('CONFIG', appConfig)
     .config(config)
-    .run(appStartService => {
+    .run((appStartService, CONFIG) => {
         'ngInject';
+        const appConfig = CONFIG;
         appStartService.run();
+
+        if (Stripe) {
+        	Stripe.setPublishableKey(`${appConfig.stripe.keyPublish}`);
+        }
     });
 
 export default MODULE_NAME;

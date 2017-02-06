@@ -16,7 +16,7 @@ export default class AddressForm {
     	return formData;
     }
 
-    isRequiredFieldValid() {
+    isRequiredFieldsValid() {
         return  this.formData.addresseeFirstName &&
                 this.formData.addresseeLastName &&
                 this.formData.addressLine1 &&

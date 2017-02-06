@@ -1,0 +1,15 @@
+<form name="giftCardForm" novalidate ng-submit="$ctrl.submit(giftCardForm)">
+
+  <img ng-src="{{ assetUrl }}/images/gift-cards/giftcard@2x.png" class="photo">
+
+  <h3>Enter your gift card code below to apply the balance to your account.</h3>
+
+  <div class="row">
+    <div class="field">
+      <input type="text" name="code" ng-model="$ctrl.formData.code" required ui-mask="****-****-****-****-****-****" class="code">
+
+      <button type="submit" ng-disabled="!$ctrl.isRequiredFieldsValid()" class="button button-submit" id="myaccount-giftcard-updateedit00">Redeem Your Gift Card</button>
+    </div>
+  </div>
+
+</form>

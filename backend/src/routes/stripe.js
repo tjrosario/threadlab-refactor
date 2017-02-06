@@ -22,6 +22,7 @@ onInvalidRequest = function(req, res) {
 router.post("/customers", function(req, res) {
   var body, valid;
   body = req.body;
+  console.log(body);
   //valid = body.email && body.card;
   valid = body.card;
   if (valid) {

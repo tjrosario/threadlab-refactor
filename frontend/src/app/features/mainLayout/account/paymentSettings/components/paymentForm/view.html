@@ -1,49 +1,51 @@
-<div class="modal-header">
-    <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
-</div>
+<form id="addCreditCardForm">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
+    </div>
 
-<div class="modal-body" id="modal-body">
-    <div class="row">
-        <div class="field ">
-            <label>Name on Card</label>
-            <input type="text" data-stripe="name" class="name" name="name" ng-required ng-model="$ctrl.card.name" tabindex="1">
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="field ">
+                <label>Name on Card</label>
+                <input type="text" data-stripe="name" class="name" name="name" required ng-model="$ctrl.formData.name" tabindex="1">
+            </div>
+        </div>
+
+        <div class="row" ng-if="$ctrl.resolve.mode === 'add'">
+            <div class="field cc_num ">
+                <label>Card Number</label>
+                <credit-card-field value="$ctrl.formData.number"></credit-card-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field span4">
+                <label>Exp. Date</label>
+                <expiration-field value="$ctrl.formData.expiry" exp-month="$ctrl.formData.exp_month" exp-year="$ctrl.formData.exp_year"></expiration-field>
+            </div>
+
+            <div class="field cc_cvc span2" ng-if="$ctrl.resolve.mode === 'add'">
+                <label>CVV</label>
+                <input type="text" data-stripe="cvc" name="cvc" class="cvc" ng-model="$ctrl.formData.cvc" required tabindex="4" pattern="[0-9]*" inputmode="numeric" tabindex="4">
+            </div>
+            <div class="field span3">
+                <label>Billing ZIP Code</label>
+                <input type="text" data-stripe="address-zip" name="address_zip" class="address_zip" ng-model="$ctrl.formData.address_zip" required ng-minlength="5" pattern="[0-9]*" inputmode="numeric" tabindex="5">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field opt default span4">
+                <label>
+                    <input type="checkbox" name="isDefault" ng-model="$ctrl.formData.isDefault" class="isDefault" ng-checked="$ctrl.formData.isDefault" ng-change="setDefaultCard($ctrl.formData.isDefault)" tabindex="6">
+                    Default Card
+                </label>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="field cc_num ">
-            <label>Card Number</label>
-            <credit-card-field value="$ctrl.card.number"></credit-card-field>
-        </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()" ng-disabled="!$ctrl.isRequiredFieldsValid()">Save</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
     </div>
-
-    <div class="row">
-        <div class="field span4" ng-if="supportedBrowser">
-            <label>Exp. Date (MM/YYYY)</label>
-            <input name="exp_date" type="text" ng-model="$ctrl.card.exp_date" ng-required class="form-control exp_date" ng-required payments-format="expiry" tabindex="3">
-        </div>
-
-        <div class="field cc_cvc span2">
-            <label>CVV</label>
-            <input type="text" data-stripe="cvc" name="cvc" class="cvc" ng-model="$ctrl.card.cvc" ng-required tabindex="4" pattern="[0-9]*" inputmode="numeric">
-        </div>
-        <div class="field span3">
-            <label>Billing ZIP Code</label>
-            <input type="text" data-stripe="address-zip" name="address_zip" class="address_zip" ng-model="$ctrl.card.address_zip" ng-required ng-minlength="5" tabindex="5" pattern="[0-9]*" inputmode="numeric">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="field opt default span4">
-            <label>
-                <input type="checkbox" name="isDefault" ng-model="$ctrl.card.isDefault" class="isDefault" ng-checked="$ctrl.card.isDefault" ng-change="setDefaultCard($ctrl.card.isDefault)" tabindex="6">
-                Default Card
-            </label>
-        </div>
-    </div>
-</div>
-
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()" ng-disabled="!$ctrl.isng-requiredFieldValid()">Save</button>
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-</div>
+</form>

@@ -13,14 +13,24 @@ class CustomerService {
             .get(`/customer/get`, config);
     }
 
-    createEntity({ data = {}, config = {}}) {
+    showEntity({ id, config = {}}) {
         return this.$http
-            .post('/customer/create', data, config);
+            .get(`/customer/show/${id}`, config);
     }
 
-    updateEntity({ data = {}, config = {}}) {
+    createEntity({ config = {}}) {
         return this.$http
-            .post(`/customer/update`, data, config);
+            .get('/customer/create', config);
+    }
+
+    updateEntity({ config = {}}) {
+        return this.$http
+            .get(`/customer/update`, config);
+    }
+
+    redeemGiftCard({ config = {}}) {
+        return this.$http
+            .get(`/customer/redeemGiftCard`, config);
     }
 }
 

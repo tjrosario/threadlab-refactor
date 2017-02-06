@@ -35,12 +35,12 @@ export default class AccountAddresses {
             };
 
             this.addressService.createEntity({ config })
-                .then(res => {
+                .then(resp => {
                     if (res.data.success) {
                         this.notificationsService.success({ msg: 'Address Added' });
-                        this.customer.addresses.push(res.data.data);
+                        this.customer.addresses.push(resp.data.data);
                     } else {
-                        this.notificationsService.alert({ msg: res.data.message });
+                        this.notificationsService.alert({ msg: resp.data.message });
                     }
                 }, err => {
                     this.notificationsService.alert({ msg: err.message });
@@ -75,12 +75,12 @@ export default class AccountAddresses {
             };
 
             this.addressService.updateEntity({ id, config })
-                .then(res => {
-                    if (res.data.success) {
+                .then(resp => {
+                    if (resp.data.success) {
                         this.notificationsService.success({ msg: 'Address Updated' });
                         this.updateAddress(formData);
                     } else {
-                        this.notificationsService.alert({ msg: res.data.message });
+                        this.notificationsService.alert({ msg: resp.data.message });
                     }
                 }, err => {
                     this.notificationsService.alert({ msg: err.message });

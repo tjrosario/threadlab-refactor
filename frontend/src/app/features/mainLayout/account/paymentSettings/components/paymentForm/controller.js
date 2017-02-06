@@ -9,6 +9,9 @@ export default class PaymentForm {
 
     $onInit() {
     	this.formData = cloneDeep(this.card);
+        if (this.mode === 'edit') {
+            this.formData.expiry = this.card.exp_month + '/' + this.card.exp_year;
+        }
     }
 
     prepareFormData() {
@@ -17,13 +20,18 @@ export default class PaymentForm {
     	return formData;
     }
 
-    isRequiredFieldValid() {
+    isRequiredFieldsValid() {
         if (this.mode === 'add') {
-            console.log(this.formData);
             return  this.formData.name &&
                     this.formData.number &&
-                    this.formData.exp_date &&
+                    this.formData.expiry &&
                     this.formData.cvc &&
+                    this.formData.address_zip;
+        }
+
+        if (this.mode === 'edit') {
+            return  this.formData.name &&
+                    this.formData.expiry &&
                     this.formData.address_zip;
         }
     }

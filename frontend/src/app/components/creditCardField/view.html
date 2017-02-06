@@ -1,4 +1,4 @@
-<input type="text" data-stripe="number" name="number" class="number" ng-model="$ctrl.value" ng-keydown="$ctrl.validateCreditCard($event)" payments-format="card" payments-validate="card" tabindex="2" ng-required inputmode="numeric">
+<input type="text" data-stripe="number" name="number" class="number" ng-model="$ctrl.value" ng-keydown="$ctrl.validateCreditCard($event)" payments-format="card" payments-validate="card" tabindex="2" required inputmode="numeric">
 
 <ul class="card-logos">
     <li class="visa" ng-class="{ 'active': $ctrl.cardType === 'visa' }"><i class="fa fa-cc-visa"></i></li>

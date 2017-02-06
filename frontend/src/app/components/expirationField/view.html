@@ -1,0 +1,6 @@
+<input name="expiry" type="text" ng-model="$ctrl.value" required class="form-control " payments-validate="expiry" payments-format="expiry" placeholder="12/2022" tabindex="3" ng-keyup="$ctrl.updateExpirationFields($event)">
+
+<div class="hidden">
+	<input name="exp_month" type="number" ng-model="$ctrl.exp_month" data-stripe="exp_month">
+	<input name="exp_year" type="number" ng-model="$ctrl.exp_year" data-stripe="exp_year">
+</div>
