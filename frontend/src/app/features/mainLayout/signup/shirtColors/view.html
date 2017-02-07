@@ -1,0 +1,13 @@
+<signup-step
+	data="$ctrl.casualShirtColor"
+	limit="{{ $ctrl.casualShirtColor.list.length - 1 }}"
+	section="Fit &amp; Style"
+	headline="Shirt / Sweater Colors"
+	text="Deselect any shirt colors that you dislike."
+	paging-text="4/4"
+	button-class="col2-mobile"
+	type="antipref"
+	on-select="$ctrl.proceed($ctrl.casualShirtColor, 'profile')"
+	submit-btn-text="Now, create your profile"
+>
+</signup-step>

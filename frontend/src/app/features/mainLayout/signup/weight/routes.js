@@ -1,5 +1,5 @@
 import template from './view.html';
-import controller from './controller'
+import controller from './controller';
 
 export default function layoutRoutes($stateProvider) {
     'ngInject';

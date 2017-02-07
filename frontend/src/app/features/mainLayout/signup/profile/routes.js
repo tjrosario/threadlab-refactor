@@ -4,13 +4,13 @@ import controller from './controller';
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.signup.height', {
-            url: '/height',
+        .state('index.signup.profile', {
+            url: '/account',
             template,
             controller,
             controllerAs: '$ctrl',
             resolve: {
-                init: function($q, sizeService) {
+                init: function ($q, attributeService) {
                     'ngInject';
                 }
             }

@@ -4,24 +4,24 @@ import controller from './controller';
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.signup.inseam', {
-            url: '/inseam',
+        .state('index.signup.pantsFit', {
+            url: '/pants-fit',
             template,
             controller,
             controllerAs: '$ctrl',
             resolve: {
-                genericInseams: function($q, sizeService) {
+                genericPantFits: function ($q, attributeService) {
                     'ngInject';
 
                     const config = {
                         params: {
-                            xProductMeasurement: 'Generic Inseam'
+                            xCharacteristic: 'Generic Pant Fit'
                         }
                     };
 
                     return $q.all([
-                        sizeService.findAll({ config })
-                    ]); 
+                        attributeService.findAll({ config })
+                    ]);
                 }
             }
         });

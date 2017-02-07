@@ -1,0 +1,13 @@
+<signup-step
+	data="$ctrl.casualShirtPattern"
+	limit="{{ $ctrl.casualShirtPattern.list.length - 1 }}"
+	section="Fit &amp; Style"
+	headline="Shirt Patterns"
+	text="Deselect any shirt patterns that you dislike."
+	paging-text="3/4"
+	button-class="col2-mobile"
+	type="antipref",
+	on-select="$ctrl.proceed($ctrl.casualShirtPattern, 'shirtColors')"
+	submit-btn-text="Next, set your preferred colors"
+>
+</signup-step>

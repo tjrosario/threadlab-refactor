@@ -1,0 +1,40 @@
+<div class="step">
+	<div class="step user-info">
+		<h2>Create an Account</h2>
+
+		<div class="row align-center lead">
+			<p>No obligations, no subscriptions, and no pressure. Order any time you want, and get free shipping and free returns.<br> You can add more details to your profile such as clothing measurements, patterns, colors, brands and styles after you complete sign up.</p>
+		</div>
+
+		<div class="signup-form">
+			<div class="row">
+				<div class="span6 col-a">
+					<div class="row-separator bare social">
+						<div class="content">
+							<div class="align-center facebook">
+
+								<div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()" ng-class="{ disabled:!signupPrefsSet }">
+									<i class="fa fa-facebook"></i>
+									<strong>Sign up with Facebook</strong>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span6 col-b">
+					<h3>Sign Up With Email</h3>
+					<div class="row-separator email">
+						<div class="content">
+							<profile-form></profile-form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<p class="legal align-center"><small>By signing up, you agree to our <a ui-sref="terms" target="_blank" id="signup-disclaimer-terms00">Terms of Use</a> and that you have read our <a ui-sref="privacy" target="_blank" id="signup-disclaimer-privacy00">Privacy Policy</a>.</small></p>
+			</div>
+		</div>
+	</div>
+</div>

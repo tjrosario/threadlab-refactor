@@ -1,0 +1,40 @@
+<div class="row form">
+	<div id="signupFull">
+	  <div class="row">
+	    <div class="field form-group">
+	      <div class="form-group first_name">
+	        <label>First Name</label>
+	        <input type="text" name="firstName" ng-model="customer.firstName" required class="form-control" placeholder="Enter your first name">
+	      </div>
+	    </div>
+	    <div class="field form-group">
+	      <div class="form-group last_name">
+	        <label>Last Name</label>
+	        <input type="text" name="lastName" ng-model="customer.lastName" required class="form-control" placeholder="Enter your last name">
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="row">
+	    <div class="field form-group">
+	      <div class="form-group email">
+	        <label>Email</label>
+	        <input type="email" name="email" ng-model="customer.email" required class="form-control " placeholder="Enter a valid email" disallow-spaces>
+	      </div>
+	    </div>
+	    <div class="field form-group">
+	      <div class="form-group password-field password" id="customer-password">
+	        <label>Password</label>
+	        <input type="password" name="password" ng-model="customer.password" ng-minlength="7" class="form-control password" placeholder="Enter a password" required>
+	        <div class="toggle">Show Password</div>
+	      </div>
+	    </div>
+	  </div>
+
+       <div class="control align-center">
+        <div class="inner">
+          <button type="submit" class="button button-large" ng-class="{ disabled:!signupPrefsSet, loading:registering }" ng-disabled="signupForm.$invalid || loading || registering || !signupPrefsSet" id="signup-register00">Sign up with Email</button>
+        </div>
+      </div>
+	</div>
+</div>

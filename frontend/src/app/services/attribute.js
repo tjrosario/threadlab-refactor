@@ -1,19 +1,19 @@
 import angular from 'angular';
 
-const serviceName = 'size';
+const serviceName = 'attribute';
 
 /* @ngInject */
-class SizeService {
+class AttributeService {
     constructor($http) {
         this.$http = $http;
     }
 
     findAll({ config = {} }) {
         return this.$http
-            .get(`/size/findAll`, config); 
+            .get(`/attribute/findAll`, config); 
     }
 }
 
 export default angular.module(`services.${serviceName}`, [])
-    .service(`${serviceName}Service`, SizeService)
+    .service(`${serviceName}Service`, AttributeService)
     .name;

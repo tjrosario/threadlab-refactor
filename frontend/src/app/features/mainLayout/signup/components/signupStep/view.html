@@ -5,7 +5,13 @@
 		<h2>{{ $ctrl.headline }}</h2>
 		<p>{{ $ctrl.text }}</p>
 		<div class="buttons {{ $ctrl.buttonClass }}">
-			<checkbox-list data="$ctrl.data" label-field="value" limit="{{ $ctrl.limit }}" ng-click="$ctrl.onSelect()"></checkbox-list>
+			<checkbox-list ng-if="!$ctrl.submitBtnText" data="$ctrl.data" label-field="value" limit="{{ $ctrl.limit }}" type="{{ $ctrl.type }}" ng-click="$ctrl.onSelect()"></checkbox-list>
+
+			<checkbox-list ng-if="$ctrl.submitBtnText" data="$ctrl.data" label-field="value" limit="{{ $ctrl.limit }}" type="{{ $ctrl.type }}"></checkbox-list>
 		</div>
+	</div>
+
+	<div ng-if="$ctrl.submitBtnText">
+		<button class="button button-dark" ng-click="$ctrl.onSelect()">{{ $ctrl.submitBtnText }}</button>
 	</div>
 </div>
