@@ -84,7 +84,6 @@ export default class AccountPaymentSettings {
                     .then(resp => {
                         const data = resp.data;
                         if (data.id) {
-                            const id = this.customer.id;
                             const config = {
                                 params: {
                                     paymentCustomerId: data.id
@@ -117,6 +116,30 @@ export default class AccountPaymentSettings {
                 card: () => card,
                 mode: () => 'edit'
             }
+        });
+
+        modalInstance.result.then(formData => {
+            const customerId = this.customer.paymentCustomerId;
+            const cardId = formData.id;
+            const data = {
+                name: formData.name,
+                exp_month: formData.exp_month,
+                exp_year: formData.exp_year,
+                address_zip: formData.address_zip
+            };
+
+            this.stripeService.updateCard({ customerId, cardId, data })
+                .then(resp => {
+                    const data = resp.data;
+                    if (data.id) {
+                        this.notificationsService.success({ msg: 'Card Updated' });
+                        this.getCards();
+                    } else {
+                        this.notificationsService.alert({ msg: resp.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
         });
     }
 

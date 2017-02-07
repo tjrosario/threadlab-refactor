@@ -5,7 +5,7 @@ export default function routes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.account.orderDetails', {
-            url: '/account/order/:id',
+            url: '/order/:id',
             template,
             controller,
             controllerAs: '$ctrl',

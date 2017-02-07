@@ -26,6 +26,12 @@ class StripeService {
         return this.$http
             .post(`${appConfig.stripe.baseUrl}/customers/${customerId}/sources`, data);
     }
+
+    updateCard({ customerId, cardId, data = {} }) {
+        const appConfig = this.appConfig;
+        return this.$http
+            .post(`${appConfig.stripe.baseUrl}/customers/${customerId}/sources/${cardId}`, data);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])

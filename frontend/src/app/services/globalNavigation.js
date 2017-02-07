@@ -15,7 +15,7 @@ class GlobalNavigationService {
     getGuestEntities() {
         return [{
             'name': 'Get Started',
-            'state': 'index.signup'
+            'state': 'index.signup.shirtSize'
         }, {
             'name': 'Sign In',
             'state': 'index.login'

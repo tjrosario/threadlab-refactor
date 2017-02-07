@@ -1,0 +1,39 @@
+<div class="signup">
+    <nav class="nav-progress">
+        <div class="wrapper">
+          <div class="holder">
+            <ol>
+              <li class="span4" ng-class="{ 'active': signupStep1Active, 'complete': signupStep1Complete }">
+                <div class="block">
+                  <div class="number"><div>1</div></div>
+                  <div class="title">Sizing</div>
+                </div>
+              </li>
+              <li class="span4" ng-class="{ 'active': signupStep2Active, 'complete': signupStep2Complete }">
+                <div class="block">
+                  <div class="number"><div>2</div></div>
+                  <div class="title">Fit &amp; Style</div>
+                </div>
+              </li>
+              <!--
+              <li class="span3" ng-class="{ 'active': signupStep3Active, 'complete': signupStep3Complete}">
+                <a ui-sref="signup.step3" class="block">
+                  <div class="number"><div>3</div></div>
+                  <div class="title">Price Ranges</div>
+                </a>
+              </li> -->
+              <li class="span4" ng-class="{ 'active': signupStep4Active }">
+                <div class="block">
+                  <div class="number"><div>3</div></div>
+                  <div class="title">Account</div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <ui-view></ui-view>
+    </div>
+</div>

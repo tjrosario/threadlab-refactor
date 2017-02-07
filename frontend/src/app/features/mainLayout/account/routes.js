@@ -6,7 +6,7 @@ export default function layoutRoutes($stateProvider) {
     $stateProvider
         .state('index.account', {
             abstract: true,
-            url: '',
+            url: '/account',
             template,
             controller,
             controllerAs: '$ctrl',

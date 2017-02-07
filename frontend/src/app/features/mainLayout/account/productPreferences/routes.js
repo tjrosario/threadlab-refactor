@@ -5,7 +5,7 @@ export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.account.productPreferences', {
-            url: '/account/product-preferences',
+            url: '/product-preferences',
             template,
             controller,
             controllerAs: '$ctrl',

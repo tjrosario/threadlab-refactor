@@ -1,0 +1,13 @@
+<div class="toggle-box button-{{ buttonClass }}"
+	ng-class="{ checked : data.checked, unchecked : !data.checked, type: type }"
+	ng-click="check()">
+
+	<div class="photo" ng-if="hasMedia">
+		<img ng-src="{{ assetUrl + '/images/icons/' + buttonClass + '@2x.png' }}">
+	</div>
+	
+	 <div class="title" ng-bind="label"></div>
+
+	<i class="check-icon fa fa-check-square-o"></i>
+	<i class="minus-icon fa fa-times"></i>
+</div>

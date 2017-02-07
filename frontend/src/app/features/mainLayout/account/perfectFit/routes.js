@@ -5,7 +5,7 @@ export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.account.perfectFit', {
-            url: '/account/perfect-fit',
+            url: '/perfect-fit',
             template,
             controller,
             controllerAs: '$ctrl',

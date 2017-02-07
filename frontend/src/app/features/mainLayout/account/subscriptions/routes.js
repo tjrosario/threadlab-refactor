@@ -5,7 +5,7 @@ export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.account.subscriptions', {
-            url: '/account/subscriptions',
+            url: '/subscriptions',
             template,
             controller,
             controllerAs: '$ctrl',

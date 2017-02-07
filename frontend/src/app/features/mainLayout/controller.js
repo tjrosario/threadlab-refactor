@@ -54,7 +54,7 @@ export default class MainLayout {
             'state': 'index.login'
         }, {
             'name': 'Get Started',
-            'state': 'index.signup'
+            'state': 'index.signup.shirtSize'
         }];
     }
 

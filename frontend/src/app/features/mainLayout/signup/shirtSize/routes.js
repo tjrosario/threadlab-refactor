@@ -4,24 +4,24 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.account.orders', {
-            url: '/orders',
+        .state('index.signup.shirtSize', {
+            url: '/shirt-size',
             template,
             controller,
             controllerAs: '$ctrl',
-            requireLogin: true,
-            title: 'Orders',
             resolve: {
-                customer: function ($q, customerService) {
+                casualShirtSizes: function ($q, sizeService) {
                     'ngInject';
+
                     const config = {
                         params: {
-                            expand: 'orders'
+                            xProductMeasurement: 'Generic Shirt Size',
+                            xProductCategory: 'Casual Shirt'
                         }
                     };
 
                     return $q.all([
-                        customerService.getEntity({ config })
+                        sizeService.findAll({ config })
                     ]);
                 }
             }

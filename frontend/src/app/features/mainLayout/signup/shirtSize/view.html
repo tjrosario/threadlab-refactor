@@ -1,0 +1,11 @@
+<signup-step
+	data="$ctrl.casualShirtSizeOptions"
+	limit="1"
+	section="Sizing"
+	headline="Shirt Size"
+	text="Select the size you usually wear for most brands. We'll use this as a baseline."
+	paging-text="1/5"
+	button-class="toggle-box-small col5 col2-mobile"
+	on-select="$ctrl.proceed($ctrl.casualShirtSizeOptions, 'waistSize')"
+>
+</signup-step>

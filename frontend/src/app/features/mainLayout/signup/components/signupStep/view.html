@@ -1,0 +1,11 @@
+<div class="step">
+	<div class="current"><strong>{{ $ctrl.section }}</strong> {{ $ctrl.pagingText }}</div>
+
+	<div class="step-pref">
+		<h2>{{ $ctrl.headline }}</h2>
+		<p>{{ $ctrl.text }}</p>
+		<div class="buttons {{ $ctrl.buttonClass }}">
+			<checkbox-list data="$ctrl.data" label-field="value" limit="{{ $ctrl.limit }}" ng-click="$ctrl.onSelect()"></checkbox-list>
+		</div>
+	</div>
+</div>

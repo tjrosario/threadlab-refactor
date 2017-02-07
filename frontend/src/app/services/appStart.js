@@ -4,11 +4,12 @@ import _ from 'lodash';
 const serviceName = 'appStart';
 
 export class AppStartService {
-    constructor($state, $rootScope, CONFIG) {
+    constructor($state, $rootScope, CONFIG, userModel) {
         'ngInject';
         this.$state = $state;
         this.$rootScope = $rootScope;
         this.$rootScope.assetUrl = CONFIG.assetUrl;
+        this.userModel = userModel;
     }
 
     run() {
@@ -38,6 +39,10 @@ export class AppStartService {
                 condition: !toState.requireLogin && this.isAuthenticated(),
                 route: 'index.home'
             },
+            {
+                condition: toState.redirectTo,
+                route: toState.redirectTo
+            }
         ];
 
         _.each(redirectionHandlers, handler => {
