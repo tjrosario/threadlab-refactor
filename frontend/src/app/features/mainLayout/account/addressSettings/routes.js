@@ -4,7 +4,7 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.account.addresses', {
+        .state('index.account.addressSettings', {
             url: '/addresses',
             template,
             controller,

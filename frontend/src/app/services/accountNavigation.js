@@ -31,7 +31,7 @@ class AccountNavigationService {
             'state': 'index.account.paymentSettings'
         }, {
             'name': 'Addresses',
-            'state': 'index.account.addresses'
+            'state': 'index.account.addressSettings'
         }, {
             'name': 'Gift Cards',
             'state': 'index.account.giftCards'
