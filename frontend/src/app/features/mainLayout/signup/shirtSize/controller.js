@@ -4,9 +4,10 @@ import cloneDeep from 'lodash/cloneDeep';
 
 /* @ngInject */
 export default class ShirtSize {
-    constructor(casualShirtSizes, $state) {
+    constructor(casualShirtSizes, customerSignupModel, $state) {
     	this.casualShirtSizes = casualShirtSizes[0].data.data.sizes;
         this.$state = $state;
+        this.customerSignupModel = customerSignupModel;
     }
 
     $onInit() {
@@ -24,12 +25,11 @@ export default class ShirtSize {
 
     deDuplicate(list, key) {
     	return uniqBy(list, key);
-
-    	//return sortBy(uniq(list, size => size[key]), size => size[key]);
     }
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.casualShirtSizeOptions = this.casualShirtSizeOptions;
             this.$state.go(`index.signup.${next}`);
         }
     }

@@ -6,8 +6,9 @@ import map from 'lodash/map';
 
 /* @ngInject */
 export default class ShirtFit {
-    constructor(genericShirtFits, $state) {
+    constructor(genericShirtFits, customerSignupModel, $state) {
     	this.genericShirtFits = genericShirtFits[0].data.data.attributes;
+        this.customerSignupModel = customerSignupModel;
         this.$state = $state;
     }
 
@@ -55,6 +56,8 @@ export default class ShirtFit {
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.shirtFitOptions = this.shirtFitOptions;
+            this.customerSignupModel.user.casualShirtFitOptions = this.casualShirtFitOptions;
             this.$state.go(`index.signup.${next}`);
         }
     }

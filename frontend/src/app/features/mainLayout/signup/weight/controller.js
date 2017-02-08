@@ -3,8 +3,9 @@ import map from 'lodash/map';
 
 /* @ngInject */
 export default class Weight {
-    constructor(weightsService, $state) {
+    constructor(weightsService, customerSignupModel, $state) {
     	this.weights = weightsService.getEntities();
+        this.customerSignupModel = customerSignupModel;
         this.$state = $state;
     }
 
@@ -29,6 +30,7 @@ export default class Weight {
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.weights = this.weights;
             this.$state.go(`index.signup.${next}`);
         }
     }

@@ -6,16 +6,16 @@ import map from 'lodash/map';
 
 /* @ngInject */
 export default class ShirtPatterns {
-    constructor(attributeService, shirtPatternCategoriesService, $state) {
+    constructor(attributeService, shirtPatternCategoriesService, customerSignupModel, $state) {
     	this.attributeService = attributeService;
         this.shirtPatternCategoriesService = shirtPatternCategoriesService;
+        this.shirtPatternCategories = this.shirtPatternCategoriesService.getEntities();
+        this.customerSignupModel = customerSignupModel;
         this.$state = $state;
     }
 
     $onInit() {
-        const shirtPatternCategories = this.shirtPatternCategoriesService.getEntities();
-
-        map(shirtPatternCategories, cat => {
+        each(this.shirtPatternCategories, cat => {
             const config = {
                 params: {
                     xCharacteristic: 'Pattern',
@@ -48,6 +48,9 @@ export default class ShirtPatterns {
     }
 
     proceed(data, next) {
+        each(this.shirtPatternCategories, cat => {
+            this.customerSignupModel.user[cat.scopeName] = this[cat.scopeName];
+        });
         this.$state.go(`index.signup.${next}`);
     }
 }

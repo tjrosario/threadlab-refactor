@@ -5,7 +5,7 @@ import each from 'lodash/each';
 
 /* @ngInject */
 export default class Signup {
-    constructor(weightsService, heightsService) {
+    constructor(weightsService, heightsService, customerSignupModel) {
        this.weights = weightsService.getEntities();
        this.heights = heightsService.getEntities();
     }

@@ -7,34 +7,74 @@
 		</div>
 
 		<div class="signup-form">
-			<div class="row">
-				<div class="span6 col-a">
-					<div class="row-separator bare social">
-						<div class="content">
-							<div class="align-center facebook">
+			<form name="signupForm" novalidate>
+				<div class="row">
+					<div class="span6 col-a">
+						<div class="row-separator bare social">
+							<div class="content">
+								<div class="align-center facebook">
 
-								<div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()" ng-class="{ disabled:!signupPrefsSet }">
-									<i class="fa fa-facebook"></i>
-									<strong>Sign up with Facebook</strong>
+									<div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()" ng-class="{ disabled:!signupPrefsSet }">
+										<i class="fa fa-facebook"></i>
+										<strong>Sign up with Facebook</strong>
+									</div>
+
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="span6 col-b">
+						<h3>Sign Up With Email</h3>
+						<div class="row-separator email">
+							<div class="content">
+								<div class="row form">
+									<div id="signupFull">
+									  <div class="row">
+									    <div class="field form-group">
+									      <div class="form-group first_name">
+									        <label>First Name</label>
+									        <input type="text" name="firstName" ng-model="$ctrl.formData.firstName" required class="form-control" placeholder="Enter your first name">
+									      </div>
+									    </div>
+									    <div class="field form-group">
+									      <div class="form-group last_name">
+									        <label>Last Name</label>
+									        <input type="text" name="lastName" ng-model="$ctrl.formData.lastName" required class="form-control" placeholder="Enter your last name">
+									      </div>
+									    </div>
+									  </div>
 
+									  <div class="row">
+									    <div class="field form-group">
+									      <div class="form-group email">
+									        <label>Email</label>
+									        <input type="email" name="email" ng-model="$ctrl.formData.email" required class="form-control " placeholder="Enter a valid email" disallow-spaces>
+									      </div>
+									    </div>
+									    <div class="field form-group">
+									      <div class="form-group password-field password" id="customer-password">
+									        <label>Password</label>
+									        <input type="password" name="password" ng-model="$ctrl.formData.password" ng-minlength="7" class="form-control password" placeholder="Enter a password" required>
+									        <div class="toggle">Show Password</div>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="span6 col-b">
-					<h3>Sign Up With Email</h3>
-					<div class="row-separator email">
-						<div class="content">
-							<profile-form></profile-form>
-						</div>
+
+				<div class="row">
+					<p class="legal align-center"><small>By signing up, you agree to our <a ui-sref="terms" target="_blank" id="signup-disclaimer-terms00">Terms of Use</a> and that you have read our <a ui-sref="privacy" target="_blank" id="signup-disclaimer-privacy00">Privacy Policy</a>.</small></p>
+				</div>	
+
+				<div class="control align-center">
+					<div class="inner">
+						<button type="submit" class="button button-large" ng-class="" ng-disabled="!$ctrl.isValidRequiredFields()" id="signup-register00" ng-click="$ctrl.signup()">Create Your Account</button>
 					</div>
 				</div>
-			</div>
-
-			<div class="row">
-				<p class="legal align-center"><small>By signing up, you agree to our <a ui-sref="terms" target="_blank" id="signup-disclaimer-terms00">Terms of Use</a> and that you have read our <a ui-sref="privacy" target="_blank" id="signup-disclaimer-privacy00">Privacy Policy</a>.</small></p>
-			</div>
 		</div>
 	</div>
 </div>

@@ -2,8 +2,9 @@ import cloneDeep from 'lodash/cloneDeep';
 
 /* @ngInject */
 export default class Height {
-    constructor(heightsService, $state) {
+    constructor(heightsService, customerSignupModel, $state) {
     	this.heights = heightsService.getEntities();
+        this.customerSignupModel = customerSignupModel;
         this.$state = $state;
     }
 
@@ -22,6 +23,7 @@ export default class Height {
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.heights = this.heights;
             this.$state.go(`index.signup.${next}`);
         }
     }

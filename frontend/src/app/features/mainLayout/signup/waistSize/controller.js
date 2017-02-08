@@ -5,8 +5,9 @@ import each from 'lodash/each';
 
 /* @ngInject */
 export default class WaistSize {
-    constructor(genericWaistSizes, $state) {
+    constructor(genericWaistSizes, customerSignupModel, $state) {
     	this.genericWaistSizes = genericWaistSizes[0].data.data.sizes;
+        this.customerSignupModel = customerSignupModel;
         this.ignoredWaistSizes = ['28'];
         this.$state = $state;
     }
@@ -41,12 +42,11 @@ export default class WaistSize {
 
     deDuplicate(list, key) {
     	return uniqBy(list, key);
-
-    	//return sortBy(uniq(list, size => size[key]), size => size[key]);
     }
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.waistSizeOptions = this.waistSizeOptions;
             this.$state.go(`index.signup.${next}`);
         }
     }

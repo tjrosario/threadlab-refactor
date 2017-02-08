@@ -4,9 +4,10 @@ import cloneDeep from 'lodash/cloneDeep';
 import each from 'lodash/each';
 
 /* @ngInject */
-export default class ShirtSize {
-    constructor(genericInseams, $state) {
+export default class Inseam {
+    constructor(genericInseams, customerSignupModel, $state) {
     	this.genericInseams = genericInseams[0].data.data.sizes;
+        this.customerSignupModel = customerSignupModel;
         this.ignoredInseams = [];
         this.$state = $state;
     }
@@ -41,12 +42,11 @@ export default class ShirtSize {
 
     deDuplicate(list, key) {
     	return uniqBy(list, key);
-
-    	//return sortBy(uniq(list, size => size[key]), size => size[key]);
     }
 
     proceed(data, next) {
         if (data.selected.length > 0) {
+            this.customerSignupModel.user.inseamOptions = this.inseamOptions;
             this.$state.go(`index.signup.${next}`);
         }
     }
