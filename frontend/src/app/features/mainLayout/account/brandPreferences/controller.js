@@ -4,10 +4,11 @@ import each from 'lodash/each';
 
 /* @ngInject */
 export default class AccountBrandPreferences {
-    constructor(customer, brands, notificationsService) {
+    constructor(customer, brands, brandDislikeService, notificationsService) {
         this.customer = customer[0].data.data;
         this.brands = brands[0].data.data.brands;
         this.brandDislikes = this.customer.brandDislikes;
+        this.brandDislikeService = brandDislikeService;
         this.notificationsService = notificationsService;
     }
 
@@ -26,6 +27,7 @@ export default class AccountBrandPreferences {
         });
 
         each(brands, brand => {
+            brand.selected = false;
             each(brandDislikes, dislike => {
                 if (dislike.brand.name === brand.name) {
                     brand.brandPreference = dislike;
@@ -41,7 +43,48 @@ export default class AccountBrandPreferences {
     }
 
     toggleSelection(brand) {
-        
+        if (brand.selected) {
+            this.removeBrandDislike(brand);
+        } else {
+            this.addBrandDislike(brand);
+        }
+    }
+
+    removeBrandDislike(brand) {
+        const id = brand.brandPreference.id;
+
+        this.brandDislikeService.deleteEntity({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'Brand Preference Updated' });
+                    brand.selected = false;
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
+    }
+
+    addBrandDislike(brand) {
+        const config = {
+            params: {
+                'brand.id': brand.id
+            }
+        };
+
+        this.brandDislikeService.createEntity({ config })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'Brand Preference Updated' });
+                    brand.selected = true;
+                    brand.brandPreference = resp.data.data;
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 
     sortByName(a, b) {
