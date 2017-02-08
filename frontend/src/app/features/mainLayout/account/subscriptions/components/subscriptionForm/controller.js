@@ -13,6 +13,10 @@ export default class SubscriptionForm {
         this.frequencies = this.subscriptionService.getFrequencyData();
     	this.formData = cloneDeep(this.subscription);
 
+        if (this.resolve.mode === 'edit') {
+            this.formData.startDate = new Date(this.formData.startDate);
+        }
+
         this.datePickerPopup = {};
 
         this.dateOptions = {

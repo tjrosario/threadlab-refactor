@@ -22,6 +22,18 @@ export default function layoutRoutes($stateProvider) {
                     return $q.all([
                         customerService.getEntity({ config })
                     ]);
+                },
+                productCategories: function ($q, productCategoryService) {
+                    'ngInject';
+                    const config = {
+                        params: {
+                            expand: 'dimensions'
+                        }
+                    };
+
+                    return $q.all([
+                        productCategoryService.getEntities({ config })
+                    ]);
                 }
             }
         });

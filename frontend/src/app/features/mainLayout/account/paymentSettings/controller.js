@@ -18,17 +18,20 @@ export default class AccountPaymentSettings {
 
     getCards() {
     	const id = this.customer.paymentCustomerId;
-    	this.stripeService.getCustomer({ id }).then((res) => {
-    		const data = res.data;
-            
-            if (data.error) {
-            	this.notificationsService.alert({msg: data.error.message});
-            } else {
-            	this.cards = data.sources.data;
-            }
-        }, err => {
-            this.notificationsService.alert({msg: err.message});
-        });
+
+        if (id) {
+            this.stripeService.getCustomer({ id }).then((res) => {
+                const data = res.data;
+                
+                if (data.error) {
+                    this.notificationsService.alert({msg: data.error.message});
+                } else {
+                    this.cards = data.sources.data;
+                }
+            }, err => {
+                this.notificationsService.alert({msg: err.message});
+            });
+        }
     }
 
     isExistingStripeCustomer() {

@@ -16,10 +16,6 @@ export default class AccountSubscriptions {
        
     }
 
-    getSubscriptions() {
-
-    }
-
     addSubscription() {
         const modalInstance = this.$uibModal.open({
             animation: true,

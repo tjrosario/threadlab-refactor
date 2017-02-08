@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
+</div>
+
+<div class="modal-body">
+	<!-- personal measurements -->
+
+	<div class="row">
+		<div class="field span4 form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="$ctrl.formData.name" required placeholder="e.g. - {{ category.placeholder }}" class="form-control">
+		</div>
+		<div class="field span8 form-group">
+			<label>Description</label>
+			<input type="text" name="description" ng-model="$ctrl.formData.description" placeholder="e.g - Weekend casual" class="form-control">
+		</div>
+	</div>
+
+	<!-- dimensions -->
+	<div class="row">
+		<div ng-repeat="dimension in $ctrl.resolve.category.dimensions" class="field form-group span4">
+          <label>
+            <strong ng-bind="dimension.name"></strong>
+            <i class="fa fa-question-circle description" title="{{ dimension.description }}"></i>
+          </label>
+          <input 
+              type="number" 
+              step="any"
+              placeholder="Add Measurement"
+              ng-model="$ctrl.formData.dimensions[dimension.id]"
+              class="form-control"
+            >
+		</div>
+	</div>
+	<!-- /dimensions -->
+
+	<!-- /personal measurements -->
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()" ng-disabled="!$ctrl.isRequiredFieldsValid()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+</div>

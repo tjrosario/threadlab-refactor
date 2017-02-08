@@ -3,8 +3,8 @@ import angular from 'angular';
 import controller from './controller';
 import template from './view.html';
 
-const componentName = 'subscriptionForm';
-const moduleName = `app.account.subscriptions.components.${componentName}`;
+const componentName = 'referenceItemForm';
+const moduleName = `app.account.perfectFit.components.${componentName}`;
 
 const component = {
     controller,
