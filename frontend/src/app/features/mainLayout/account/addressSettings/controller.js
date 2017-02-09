@@ -1,5 +1,6 @@
 import find from 'lodash/find';
 import merge from 'lodash/merge';
+import remove from 'lodash/remove';
 import { componentName as addressForm } from './components/addressForm/component';
 
 /* @ngInject */
@@ -89,6 +90,20 @@ export default class AccountAddresses {
     }
 
     deleteAddress(address) {
-        console.log(address);
+        const id = address.id;
+
+        this.addressService.deleteEntity({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'Address Deleted' });
+                    remove(this.customer.addresses, item => {
+                        return item.id === id;
+                    });
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 }

@@ -75,7 +75,7 @@ export default class AccountPaymentSettings {
                         const data = resp.data;
 
                         this.getCards();
-                        this.notificationsService.success({ msg: 'Card Added' });
+                        this.notificationsService.success({ msg: 'Payment Method Added' });
                     });
             } else {
                 const data = {
@@ -93,7 +93,7 @@ export default class AccountPaymentSettings {
                                 }
                             };
                             this.customer.paymentCustomerId = data.id;
-                            this.notificationsService.success({ msg: 'Card Added' });
+                            this.notificationsService.success({ msg: 'Payment Method Added' });
                             this.customerService.updateEntity({ config })
                                 .then(resp => {
                                     this.getCards();
@@ -122,7 +122,7 @@ export default class AccountPaymentSettings {
         });
 
         modalInstance.result.then(formData => {
-            const customerId = this.customer.paymentCustomerId;
+            const customerId = card.customer;
             const cardId = formData.id;
             const data = {
                 name: formData.name,
@@ -135,7 +135,7 @@ export default class AccountPaymentSettings {
                 .then(resp => {
                     const data = resp.data;
                     if (data.id) {
-                        this.notificationsService.success({ msg: 'Card Updated' });
+                        this.notificationsService.success({ msg: 'Payment Method Updated' });
                         this.getCards();
                     } else {
                         this.notificationsService.alert({ msg: resp.message });
@@ -147,6 +147,20 @@ export default class AccountPaymentSettings {
     }
 
     deleteCard(card) {
+        const customerId = card.customer;
+        const cardId = card.id;
 
+        this.stripeService.deleteCard({ customerId, cardId })
+            .then(resp => {
+                const data = resp.data;
+                if (data.id) {
+                    this.notificationsService.success({ msg: 'Payment Method Deleted' });
+                    this.getCards();
+                } else {
+                    this.notificationsService.alert({ msg: resp.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 }

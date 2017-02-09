@@ -27,8 +27,8 @@ class AccountNavigationService {
             'name': 'Brand Preferences',
             'state': 'index.account.brandPreferences'
         }, {
-            'name': 'Payment Settings',
-            'state': 'index.account.paymentSettings'
+            'name': 'Payment Methods',
+            'state': 'index.account.paymentMethods'
         }, {
             'name': 'Addresses',
             'state': 'index.account.addressSettings'

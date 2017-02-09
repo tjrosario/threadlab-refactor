@@ -8,71 +8,59 @@
     <subscriptions-how-it-works-module></subscriptions-how-it-works-module>
 
     <!-- add new address -->
-    <div ng-if="$ctrl.showAddressForm">
+    <div ng-if="!$ctrl.hasAddress">
         <div class="form add-address-form">
           <h2>Shipping Address Required</h2>
-          <p>Enter a shipping address where you want your orders delivered.</p>
+          <p>To be eligible for this program you'll need a shipping address on file.</p>
 
-          <!-- add new address -->
-          <form method="post" novalidate name="addAddressForm" ng-submit="$ctrl.submitNewAddress(addAddressForm)">
-            
-            <address-form></address-form>
-
-            <!--<div ng-show="isAPOAddress && address.type === 'shipping'" ng-include="'/templates/partials/msg-apo-address.html.tmpl'"></div>-->
-
-            <div class="actions">
-              <button type="submit" class="button button-submit" ng-disabled="addAddressForm.$invalid" ng-class="{ 'loading': loading }" id="myaccount-subscriptions-submitnew00">Add Address</button>
-            </div>
-          </form>
-          <!-- /add new address -->
+          <p><a ui-sref="index.account.addressSettings">Add a shipping address now <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
         </div>
     </div>
     <!-- /add new address -->
 
     <!-- add new credit card -->
-    <div ng-if="$ctrl.showCreditCardForm">
+    <div ng-if="!$ctrl.hasPaymentMethod">
         <div class="form add-card-form">
-          <h2>Credit Card Required</h2>
-          <p>To be eligible for this program, you'll need a valid credit card on file and you'll be billed when your Order Preview is ready.</p>
+          <h2>Payment Method Required</h2>
+          <p>To be eligible for this program you'll need a valid credit card on file and you'll be billed when your Order Preview is ready.</p>
 
-          <form method="post" novalidate name="addPaymentForm" ng-submit="submitNewCard();">
-            <payment-form></payment-form>
-
-            <div class="actions">
-              <button type="submit" class="button button-submit" ng-disabled="addForm.$invalid" ng-class="{ 'loading': loading }" id="myaccount-payment-submitnew00">Add Card</button>
-            </div>
-          </form>
+          <p><a ui-sref="index.account.paymentMethods">Add a payment method now <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
         </div>
     </div>
     <!-- /add new credit card -->
 
     <!-- subscriptions -->
-
-    <div ng-if="!$ctrl.showAddressForm && !$ctrl.showCreditCardForm"">
+    
+    <div ng-if="$ctrl.hasAddress && $ctrl.hasPaymentMethod">
       <create-btn ng-click="$ctrl.addSubscription()" text="Subscription"></create-btn>
-      <table class="table table-striped">
-          <thead>
-              <th>Budget</th>
-              <th>Frequency</th>
-              <th>Start Date</th>
-              <th>Status</th>
-              <th>&nbsp;</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="subscription in $ctrl.customer.subscriptions">
-                <td>{{ subscription.budget | currency: '$' }}</td>
-                <td>{{ subscription.frequency }}</td>
-                <td>{{ subscription.startDate | date }}</td>
-                <td>{{ subscription.status }}</td>
-                <td>
-                    <grid-actions 
-                        on-edit="$ctrl.editSubscription(subscription)"
-                    >
-                    </grid-actions>
-                </td>
-            </tr>
-          </tbody>
-      </table>
-    </tbody>
+
+      <div ng-if="$ctrl.customer.subscriptions.length > 0">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                  <th>Budget</th>
+                  <th>Frequency</th>
+                  <th>Start Date</th>
+                  <th>Status</th>
+                  <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="subscription in $ctrl.customer.subscriptions">
+                  <td>{{ subscription.budget | currency: '$' }}</td>
+                  <td>{{ subscription.frequency }}</td>
+                  <td>{{ subscription.startDate | date }}</td>
+                  <td>{{ subscription.status }}</td>
+                  <td>
+                      <grid-actions 
+                          on-edit="$ctrl.editSubscription(subscription)"
+                      >
+                      </grid-actions>
+                  </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
     <!-- /subscriptions -->
 </div>

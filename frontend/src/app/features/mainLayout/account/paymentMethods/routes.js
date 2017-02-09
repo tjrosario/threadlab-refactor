@@ -4,8 +4,8 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.account.paymentSettings', {
-            url: '/payment-settings',
+        .state('index.account.paymentMethods', {
+            url: '/payment-methods',
             template,
             controller,
             controllerAs: '$ctrl',

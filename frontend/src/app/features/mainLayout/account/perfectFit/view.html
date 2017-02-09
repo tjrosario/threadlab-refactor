@@ -5,20 +5,20 @@
 
     <p>So, tell us about those cozy jeans or that sexy shirt and you'll be rewarded by clothing that fits you perfectly every time.</p>
 
-
-
     <div ng-repeat="category in $ctrl.productCategories" class="category">
         <h2>{{ category.name }}</h2>
 
         <create-btn ng-click="$ctrl.addReferenceItem(category)" text="PerfectFit Item"></create-btn>
 
         <!-- reference items -->
-        <div ng-if="category.referenceItems">
+        <div ng-if="category.referenceItems.length > 0">
             <table class="table table-striped">
                 <thead>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>&nbsp;</th>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>&nbsp;</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="referenceItem in category.referenceItems">
@@ -28,6 +28,7 @@
                             <grid-actions 
                                 on-edit="$ctrl.editReferenceItem(referenceItem)"
                                 on-delete="$ctrl.deleteReferenceItem(referenceItem)"
+                                delete-title="Delete PerfectFit Item"
                             >
                             </grid-actions>
                         </td>

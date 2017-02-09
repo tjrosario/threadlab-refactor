@@ -1,0 +1,4 @@
+<select name="height" ng-model="$ctrl.value" required class="form-control">
+	<option value="">Select Height</option>
+	<option ng-repeat="height in $ctrl.heights | orderBy: height.value" value="{{ height.value }}">{{ height.value }}</option>
+</select>

@@ -12,10 +12,7 @@
 <div class="row">
   <div class="form-group span3">
     <label>Height</label>
-    <select name="statedHeight" ng-model="$ctrl.data.statedHeight" required="true" class="form-control state">
-      <option value="">Pick a Height</option>
-      <option ng-repeat="height in heights" value="{{ height.value }}">{{ height.value }}</option>
-    </select>
+    <heights-field value="$ctrl.data.statedHeight"></heights-field>
   </div>
 
   <div class="form-group span3">

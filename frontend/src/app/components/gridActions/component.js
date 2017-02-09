@@ -12,7 +12,9 @@ const component = {
     bindings: {
     	onRead: '&',
         onEdit: '&',
-        onDelete: '&'
+        onDelete: '&',
+        deleteTitle: '@',
+        deleteText: '@'
     }
 };
 

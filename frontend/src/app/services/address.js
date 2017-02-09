@@ -22,6 +22,11 @@ class AddressService {
         return this.$http
             .get(`/address/update/${id}`, config);
     }
+
+    deleteEntity({ id, config = {}}) {
+        return this.$http
+            .get(`/address/delete/${id}`, config);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])

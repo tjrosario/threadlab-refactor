@@ -1,28 +1,32 @@
 <div class="order-history">
     <h1>Order History</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <th>Order #</th>
-            <th>Date Placed</th>
-            <th>Status</th>
-            <th>&nbsp;</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="order in $ctrl.customer.orders" ng-if="order.status !== 'initialized' && order.status !== 'new' && order.status !== 'abandoned' && order.status !== 'empty'">
-                <td ng-click="$ctrl.readOrder(order)">{{ order.orderNumber }}</td>
-                <td ng-click="$ctrl.readOrder(order)">
-                    {{ order.dateCreated | date: 'MM/dd/yyyy' }} 
-                    {{ order.dateCreated | date: 'h:mma' }}
-                </td>
-                <td ng-click="$ctrl.readOrder(order)">{{ order.status }}</td>
-                <td>
-                    <grid-actions 
-                        on-read="$ctrl.readOrder(order)"
-                    >
-                    </grid-actions>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div ng-if="$ctrl.customer.orders.length > 0">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Date Placed</th>
+                    <th>Status</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in $ctrl.customer.orders" ng-if="order.status !== 'initialized' && order.status !== 'new' && order.status !== 'abandoned' && order.status !== 'empty'">
+                    <td ng-click="$ctrl.readOrder(order)">{{ order.orderNumber }}</td>
+                    <td ng-click="$ctrl.readOrder(order)">
+                        {{ order.dateCreated | date: 'MM/dd/yyyy' }} 
+                        {{ order.dateCreated | date: 'h:mma' }}
+                    </td>
+                    <td ng-click="$ctrl.readOrder(order)">{{ order.status }}</td>
+                    <td>
+                        <grid-actions 
+                            on-read="$ctrl.readOrder(order)"
+                        >
+                        </grid-actions>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="payment-settings">
+	<h1>Payment Methods</h1>
+	
+	<create-btn ng-click="$ctrl.addCard()" text="Payment Method"></create-btn>
+
+    <!-- payment methods -->
+
+    <div ng-if="$ctrl.cards.length > 0">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Card Type</th>
+                    <th>Last 4</th>
+                    <th>Exp.</th>
+                    <th>Zip</th>
+                    <th>Name</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="card in $ctrl.cards">
+                    <td>{{ card.brand }}</td>
+                    <td>{{ card.last4 }}</td>
+                    <td>{{ card.exp_month + '/' + card.exp_year }}</td>
+                    <td>{{ card.address_zip }}
+                    <td>{{ card.name }}</td>
+                    <td>
+                        <grid-actions 
+                            on-edit="$ctrl.editCard(card)"
+                            on-delete="$ctrl.deleteCard(card)"
+                            delete-title="Delete Payment Method"
+                        >
+                        </grid-actions>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /payment methods -->
+</div>

@@ -5,6 +5,7 @@ import filter from 'lodash/filter';
 import first from 'lodash/first';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
+import without from 'lodash/without';
 
 import { componentName as referenceItemForm } from './components/referenceItemForm/component';
 
@@ -235,7 +236,21 @@ export default class AccountPerfectFit {
     }
 
     deleteReferenceItem(referenceItem) {
+        const id = referenceItem.id;
 
+        this.referenceItemService.deleteEntity({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'PerfectFit Item Deleted' });
+                    let foundCat = find(this.productCategories, { referenceItems: [{ id }] });
+                    const found = find(foundCat.referenceItems, { id });
+                    foundCat.referenceItems = without(foundCat.referenceItems, found);
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 
     updateReferenceItem(data) {
