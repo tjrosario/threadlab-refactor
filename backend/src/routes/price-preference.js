@@ -33,8 +33,10 @@ router.post("/createAllJSON", function(req, res) {
 });
 
 router.get("/delete/:id", requireLogin, function(req, res) {
+  var query;
+  query = req.query;
   return request({
-    uri: getAPIUrl(req.url),
+    uri: apiUrl + "/pricePreference/delete/" + req.params.id + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"
   }, function(err, resp, body) {
     var result;

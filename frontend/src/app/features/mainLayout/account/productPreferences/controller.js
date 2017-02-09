@@ -4,9 +4,12 @@ import each from 'lodash/each';
 
 /* @ngInject */
 export default class AccountProductPreferences {
-    constructor(customer, productCategories, notificationsService) {
+    constructor(customer, productCategories, measurementPreferenceService, styleDislikeService, pricePreferenceService, notificationsService) {
         this.customer = customer[0].data.data;
         this.productCategories = productCategories[0].data.data.productCategorys;
+        this.measurementPreferenceService = measurementPreferenceService;
+        this.styleDislikeService = styleDislikeService;
+        this.pricePreferenceService = pricePreferenceService;
         this.notificationsService = notificationsService;
     }
 
@@ -100,8 +103,116 @@ export default class AccountProductPreferences {
         return productPreferences;
     }
 
-    toggleSelection(brand) {
-        
+    toggleMeasurementPreference(allowedSize) {
+        if (allowedSize.selected) {
+            const id = allowedSize.measurementPreference.id;
+
+            this.measurementPreferenceService.deleteEntity({ id })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Measurement Preference Updated' });
+                        allowedSize.selected = false;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+
+        } else {
+            const config = {
+                params: {
+                    'size.id': allowedSize.id
+                }
+            };
+
+            this.measurementPreferenceService.createEntity({ config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Measurement Preference Updated' });
+                        allowedSize.selected = true;
+                        allowedSize.measurementPreference = resp.data.data;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
+    }
+
+    toggleProductPreference(allowedAttribute) {
+        if (allowedAttribute.selected) {
+            const id = allowedAttribute.productPreference.id;
+
+            this.styleDislikeService.deleteEntity({ id })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Style Preference Updated' });
+                        allowedAttribute.selected = false;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        } else {
+            const config = {
+                params: {
+                    'attribute.id': allowedAttribute.id
+                }
+            };
+
+           this.styleDislikeService.createEntity({ config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Style Preference Updated' });
+                        allowedAttribute.selected = true;
+                        allowedAttribute.productPreference = resp.data.data;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
+    }
+
+    togglePricePreference(priceRange) {
+        if (priceRange.selected) {
+            const id = priceRange.pricePreference.id;
+
+            this.pricePreferenceService.deleteEntity({ id })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Price Preference Updated' });
+                        priceRange.selected = false;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        } else {
+            const config = {
+                params: {
+                    'priceRange.id': priceRange.id
+                }
+            };
+
+           this.pricePreferenceService.createEntity({ config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Price Preference Updated' });
+                        priceRange.selected = true;
+                        priceRange.pricePreference = resp.data.data;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
     }
 
     sortByName(a, b) {

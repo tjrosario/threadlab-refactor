@@ -544,13 +544,28 @@
 
   .perfect-fit,
   .product-preferences {
-    .tab {
-      display: none;
+    
+    .nav-pills {
+      @include span-columns(3);
+      background: $gallery;
+      border-radius: 5px;
+      margin-left: 0;
+      margin-top: 0;
+      padding: 10px 0;
 
-      &.active {
-        display: block;
+      > li {
+        float: none;
       }
     }
+
+    .tab-content {
+      @include span-columns(9 of 12 last);
+
+      > .tab-pane {
+        padding: 0 $gutter;
+      }
+    }
+
 
     .buttons {
       text-align: left;

@@ -5,17 +5,16 @@
 		<uib-tab index="$index" ng-repeat="productPreference in $ctrl.productPreferences" heading="{{ productPreference.category }}">
 			
 		    <!-- productMeasurements -->
-		    <ul class="reset" data-type="productMeasurements">
-		      <li ng-repeat="productMeasurement in productPreference.productMeasurements" data-name="{{ productMeasurement.name }}">
+		    <ul class="reset">
+		      <li ng-repeat="productMeasurement in productPreference.productMeasurements">
 
 		        <h3>Select Your <span ng-bind="productMeasurement.name | removeGeneric"></span></h3>
 
 		        <!-- sizes -->
 		        <div class="buttons col2-mobile">
-		          <ul class="list" data-type="allowedSizes" data-min="1" data-limit="1">
+		          <ul class="list">
 		            <li class="" ng-repeat="allowedSize in productMeasurement.allowedSizes">
-
-		              <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': allowedSize.selected, 'unchecked': !allowedSize.selected }" data-value="{{ allowedSize.value }}" data-id="{{ allowedSize.id }}" data-api="measurementPreference" data-preference-id="{{ allowedSize.measurementPreference.id }}">
+		              <div class="toggle-box" ng-click="$ctrl.toggleMeasurementPreference(allowedSize)" ng-class="{ 'checked': allowedSize.selected, 'unchecked': !allowedSize.selected }">
 		                <span ng-bind="allowedSize.value"></span>
 		                <i class="fa fa-check-square-o"></i>
 		              </div>
@@ -29,20 +28,18 @@
 
 		    <!-- characteristsics -->
 		    <ul class="reset">
-		      <li ng-repeat="characteristsic in productPreference.characteristics" data-name="{{ characteristsic.name }}" data-id="{{ characteristsic.id }}">
+		      <li ng-repeat="characteristsic in productPreference.characteristics">
 		        <h3><span ng-bind="characteristsic.name | removeGeneric"></span>s You LIKE</h3>
 
 		        <!-- sizes -->
 		        <div class="buttons toggle-box-square col2-mobile">
-		          <ul class="antipref list" data-type="allowedAttributes" data-limit="{{ characteristsic.allowedAttributes.length - 1 }}">
+		          <ul class="antipref list">
 		            <li class="" ng-repeat="allowedAttribute in characteristsic.allowedAttributes">
-
-		              <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': allowedAttribute.selected, 'unchecked': !allowedAttribute.selected }" data-value="{{ allowedAttribute.value }}" data-id="{{ allowedAttribute.id }}" data-api="productPreference" data-preference-id="{{ allowedAttribute.productPreference.id }}">
+		              <div class="toggle-box" ng-click="$ctrl.toggleProductPreference(allowedAttribute)" ng-class="{ 'checked': allowedAttribute.selected, 'unchecked': !allowedAttribute.selected }">
 		                <span ng-bind="allowedAttribute.value"></span>
 		                <i class="check-icon fa fa-check-square-o"></i>
 		                <i class="minus-icon fa fa-times"></i>
 		              </div>
-
 		            </li>
 		          </ul>
 		        </div>
@@ -54,10 +51,9 @@
 		    <!-- priceRanges -->
 		    <h3>Choose Your Price Ranges</h3>
 		    <div class="buttons col2-mobile">
-		      <ul class="list" data-type="priceRanges" data-min="1">
-		        <li class="" ng-repeat="priceRange in productPreference.priceRanges">
-
-		          <div class="toggle-box" ng-click="toggleSelection($event)" ng-class="{ 'checked': priceRange.selected, 'unchecked': !priceRange.selected }" data-lower-limit="{{ priceRange.lowerLimit }}" data-upper-limit="{{ priceRange.upperLimit }}" data-id="{{ priceRange.id }}" data-api="pricePreference" data-preference-id="{{ priceRange.pricePreference.id }}">
+		      <ul class="list">
+		        <li ng-repeat="priceRange in productPreference.priceRanges">
+		          <div class="toggle-box" ng-click="$ctrl.togglePricePreference(priceRange)" ng-class="{ 'checked': priceRange.selected, 'unchecked': !priceRange.selected }">
 		            <span ng-bind="priceRange.lowerLimit | currency: '$'"></span> - <span ng-bind="priceRange.upperLimit | currency: '$'"></span>
 		            <i class="fa fa-check-square-o"></i>
 		          </div>

@@ -54,6 +54,7 @@ export class NotificationsService {
     }
 
     notify({type = toastrTypes.error, msg = 'Something went wrong!', title = '', isFrozen = false}) {
+        this.clearNotifications();
         const toastrTitle = this.getToastrTitle(title, type);
 
         const toast = this.toastr[type](msg, toastrTitle);
