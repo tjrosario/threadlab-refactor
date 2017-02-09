@@ -1,10 +1,10 @@
 import angular from 'angular';
 
 import routing from './routes';
-import { moduleName as customerInfo } from './components/customerInfo/component';
+import { moduleName as customerInfoForm } from './components/customerInfoForm/component';
 
 export default angular.module('app.account.overview', [
-    customerInfo
+    customerInfoForm
 ])
     .config(routing)
     .name;

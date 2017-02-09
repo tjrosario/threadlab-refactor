@@ -1,10 +1,6 @@
 <div class="overview">
 	<h1>Account Overview</h1>
 	<form name="customerForm" novalidate ng-submit="submitCustomerOverviewForm(customerForm)">
-		<customer-info data="$ctrl.customer"></customer-info>
-
-	    <div class="submit">
-	      <button type="submit" ng-disabled="customerForm.$invalid" class="button button-submit" ng-class="{ 'loading': loading }" id="myaccount-savechanges00">Save Changes</button>
-	    </div>
+		<customer-info-form data="$ctrl.customer"></customer-info-form>
 	</form>
 </div>

@@ -3,7 +3,7 @@ import angular from 'angular';
 import template from './view.html';
 import controller from './controller';
 
-const componentName = 'customerInfo';
+const componentName = 'customerInfoForm';
 const moduleName = `app.account.overview.components.${componentName}`;
 
 const component = {
