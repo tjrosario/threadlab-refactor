@@ -33,7 +33,7 @@
       </div>
     </nav>
 
-    <div ng-include="'/templates/partials/modules/get-started-btn.html.tmpl'"></div>
+    <get-started-cta></get-started-cta>
 
     <h2 class="hidden">Answers</h2>
 
@@ -177,7 +177,10 @@
         <h3 id="answer-order-preview">What is an Order Preview?​</h3>
         <p>After you place an order, we show you a preview of the items we have selected for you, so that you can better control your order.</p>
         <p>Want to see an example? Enter your email address and hit submit and we'll send you a Sample Order Preview.</p>
-        <div ng-include="'/templates/partials/mailchimp-signup-simple.html.tmpl'"></div>
+
+        <mailchimp-signup-form></mailchimp-signup-form>
+
+        <!--<div ng-include="'/templates/partials/mailchimp-signup-simple.html.tmpl'"></div>-->
 
         <div class="top align-right"><span scroll-to-item scroll-to="body">Back to Top<i class="fa fa-arrow-up"></i></span></div>
       </div>

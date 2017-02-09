@@ -13,6 +13,7 @@ export default class MainLayout {
         this.$rootScope.$on('$stateChangeStart', this.handleStateChangeStart.bind(this));
         this.$rootScope.$on('$stateChangeSuccess', this.handleStateChangeSuccess.bind(this));
         this.checkCurrentUser();
+        this.navFooterItems = this.globalNavigationService.getPublicEntities();
     }
 
     checkCurrentUser() {

@@ -24,7 +24,12 @@ export default class AccountPaymentSettings {
                 const data = res.data;
                 
                 if (data.error) {
-                    this.notificationsService.alert({msg: data.error.message});
+                    const msg = data.error.message;
+                    this.notificationsService.alert({msg});
+
+                    if (msg.indexOf('similar object exists in live mode') > -1) {
+                        this.clearPaymentId();
+                    }
                 } else {
                     this.cards = data.sources.data;
                 }
@@ -32,6 +37,23 @@ export default class AccountPaymentSettings {
                 this.notificationsService.alert({msg: err.message});
             });
         }
+    }
+
+    clearPaymentId() {
+        const config = {
+            params: {
+                paymentCustomerId: ''
+            }
+        };
+
+        this.customerService.updateEntity({ config })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'Payment ID Cleared.  Add a new payment method to generate a new ID' });
+                } else {
+                    this.notificationsService.alert({ msg: 'Unable to clear Payment ID.  Please try again' });
+                }
+            });
     }
 
     isExistingStripeCustomer() {

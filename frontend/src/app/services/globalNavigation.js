@@ -12,6 +12,43 @@ class GlobalNavigationService {
         return this.accountNavigationService.getEntities();
     }
 
+    getPublicEntities() {
+        return [{
+            'name': 'Boxes',
+            'state': 'index.boxes'
+        }, {
+            'name': 'Gift Cards',
+            'external': true,
+            'url': 'https://store.mythreadlab.com/collections/gift-cards'
+        }, {
+            'name': 'About',
+            'state': 'index.about'
+        }, {
+            'name': 'FAQ',
+            'state': 'index.faq'
+        }, {
+            'name': 'Contact Us',
+            'state': 'index.contact'
+        }, {
+            'name': 'Referrals',
+            'external': true,
+            'url': 'http://threadlab.referralcandy.com'
+        }, {
+            'name': 'Affiliates',
+            'state': 'index.affiliates'
+        }, {
+            'name': 'Blog',
+            'external': true,
+            'url': 'http://blog.mythreadlab.com'
+        }, {
+            'name': 'Terms of Use',
+            'state': 'index.termsOfUse'
+        }, {
+            'name': 'Privacy Policy',
+            'state': 'index.privacyPolicy'
+        }];
+    }
+
     getGuestEntities() {
         return [{
             'name': 'Get Started',

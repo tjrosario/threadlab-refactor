@@ -17,7 +17,8 @@ slackMandrill = new Slack(slackConfig.channels.mandrill.webhook);
 
 router.post("/sendTemplate", function(req, res) {
   var params;
-  params = req.body.data;
+
+  params = req.body;
   params.template_content = params.template_content || [];
   return mandrill_client.messages.sendTemplate(params, (function(result) {
     slackMandrill.send({

@@ -45,7 +45,7 @@ router.post("/:section/:method*", function(req, res) {
   var method, params, section;
   section = req.params.section;
   method = req.params.method;
-  params = req.body.data;
+  params = req.body;
   return mailChimpAPI.call(section, method, params, function(error, data) {
     if (error) {
       res.json({
