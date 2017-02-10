@@ -1,0 +1,19 @@
+<form action="{{ $ctrl.formAction | trusted }}" method="post" name="paypalForm" id="paypalForm">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="hosted_button_id" value="{{ $ctrl.hostedButtonId }}">
+    <input type="hidden" name="business" value="{{ $ctrl.business }}">
+    <input type="hidden" name="amount" value="{{ $ctrl.amount }}">
+    <input type="hidden" name="quantity" value="{{ $ctrl.quantity }}">
+    <input type="hidden" name="item_name" value="{{ $ctrl.itemName }}">
+    <input type="hidden" name="cpp_logo_image" value="{{ $ctrl.logoImage }}">
+    <input type="hidden" name="return" value="{{ $ctrl.return }}">
+    <input type="hidden" name="cancel_return" value="{{ $ctrl.cancelReturn }}">
+    <input type="hidden" name="paymentaction" value="{{ $ctrl.paymentAction }}">
+
+    <!-- used for IPN -->
+    <input type="hidden" name="custom" value="{{ $ctrl.custom }}">
+
+    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+    <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" border="0" name="submit" alt="Check out with PayPal" ng-click="$ctrl.handler($event)" id="place-order-paypal00">
+</form>

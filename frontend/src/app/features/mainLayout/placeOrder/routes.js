@@ -5,14 +5,14 @@ export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.placeOrder', {
-            abstract: true,
             url: '/place-order',
+            abstract: true,
             template,
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
             resolve: {
-                init: function () {
+                init: function (authService, $timeout, $location) {
                     'ngInject';
                 }
             }

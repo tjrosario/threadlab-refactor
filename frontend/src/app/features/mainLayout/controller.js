@@ -22,17 +22,6 @@ export default class MainLayout {
         } else {
             this.onUserUnauthenticated();
         }
-        
-        /*
-        this.authService.checkCurrentUser().then(() => {
-            if (this.userModel.loggedUser) {
-                this.onUserAuthenticated();
-            } else {
-                this.onUserUnauthenticated();
-            }
-        }, err => {
-            this.notificationsService.alert({msg: [].concat(err.message)[0]});
-        }); */
     }
 
     onUserAuthenticated() {

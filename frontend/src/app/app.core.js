@@ -6,6 +6,7 @@ import 'angular-ui-bootstrap';
 import 'angular-ui-grid';
 import 'angular-payments';
 import uiMask from 'angular-ui-mask';
+import 'angular-local-storage';
 
 import 'angular-loading-bar/build/loading-bar.min.css';
 import 'angular-toastr/dist/angular-toastr.min.css';
@@ -24,6 +25,7 @@ const MODULE_NAME = 'app.core';
 angular.module(MODULE_NAME, [
     'angularPayments',
     'ui.bootstrap',
+    'LocalStorageModule',
     uiMask,
 	uirouter,
 	loadingBar,

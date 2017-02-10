@@ -32,6 +32,11 @@ class CustomerService {
         return this.$http
             .get(`/customer/redeemGiftCard`, config);
     }
+
+    createOrderFromProductNeeds({ config = {}}) {
+        return this.$http
+            .get(`/customer/createOrderFromProductNeeds`, config);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])

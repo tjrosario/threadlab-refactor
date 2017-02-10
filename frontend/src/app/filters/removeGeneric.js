@@ -6,7 +6,7 @@ const filterName = 'removeGeneric';
 export const removeGeneric = () => {
     return input => {
         return input.replace('Generic', '').replace(/s$/i, '');
-    }
+    };
 };
 
 export default angular.module(`filters.${filterName}`, [])

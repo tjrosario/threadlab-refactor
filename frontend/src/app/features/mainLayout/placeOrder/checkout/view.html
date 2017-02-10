@@ -1,0 +1,201 @@
+<div class="place-order">
+
+    <div class="wrapper step">
+        <div class="align-center">
+          <h2>Checkout</h2>
+        </div>
+
+        <div class="row">
+            <!-- column a -->
+            <div class="span8 col-a" id="col-a">
+
+                <!-- review order -->
+                <div class="section row-separator review">
+                    <div class="content">
+                        <h3>1. Review Your Order</h3>
+
+                        <div class="indent">
+                            <div class="product-needs clear">
+                                <img ng-src="{{ assetUrl + '/images/brandingPhotos/box-' + $ctrl.order.budget + '.png' }}">
+                            
+                                <p><strong>Categories Requested: </strong></p>
+
+                                <ul class="reset">
+                                    <li ng-repeat="productNeed in $ctrl.order.productNeeds">
+                                        <span>{{ productNeed.productCategory.name }}</span>
+                                    </li>
+                                </ul>
+                                <div ng-show="$ctrl.isPaymentRequired">
+                                    <p>
+                                        <strong>Box Budget: </strong>
+                                        <span class="value">{{ order.budget | currency: '$' }}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="request-preview">
+                                <div class="content">
+                                    <div class="form">
+                                        <h4>Order Preview</h4>
+                                        <p>Once you confirm your order you will receive an Order Preview where you can select the items you'd like us to ship.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /review order -->
+
+                <!-- payment info -->
+                <div class="section row-separator payment-options" ng-if="$ctrl.isPaymentRequired">
+                    <div class="content">
+                        <h3>2. Payment Information</h3>
+
+                        <div class="indent">
+                            <div class="field opt">
+                                <div class="span5">
+                                    <label>
+                                        <input type="radio" name="payment_method" value="stripe" ng-model="paymentMethod" ng-click="$ctrl.setPaymentMethod('stripe')">
+                                        Credit Card
+                                    </label>
+                                </div>
+                                <div class="span5">
+                                    <label>
+                                        <input type="radio" name="payment_method" value="paypal" ng-model="paymentMethod" ng-click="$ctrl.setPaymentMethod('paypal')">
+                                        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" />
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="credit-card" ng-show="$ctrl.paymentMethod === 'stripe'">
+                                <div class="content">
+                                    <h3 class="hidden">3. Enter Credit Card Details</h3>
+
+                                    <credit-card-form
+                                        mode="add"
+                                    >
+                                    </credit-card-form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /payment info -->
+
+                <!-- special instructions -->
+                <div class="section row-separator">
+                    <div class="content">
+                        <h3>Special Order Instructions</h3>
+
+                        <p>To help us pick the best items for your order, let us know if you're looking for clothes for the office, the weekend or a specific event as well as any specific Brand, Size and Fit.</p> 
+
+                        <div class="indent">
+                            <textarea ng-model="$ctrl.order.specialInstructions" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- /special instructions -->
+
+
+                <!-- actions -->
+                <div class="cart">
+                    <div class="cart-content">
+                        <returns-module></returns-module>
+                    </div>
+
+                    <div class="actions">
+                        <div class="cart-content">
+                            <div class="inner row">
+
+                                <!-- credit card -->
+                                <div ng-show="$ctrl.paymentMethod === 'stripe'" class="submit">
+                                    <button class="button button-large" ng-click="$ctrl.confirmOrder()">Confirm Your Order</button>
+                                </div>
+                                <!-- /credit card -->
+
+                                <!-- paypal -->
+                                <div ng-show="$ctrl.paymentMethod === 'paypal'" class="submit paypal">
+                                    <paypal-form
+                                        form-action="{{ $ctrl.paypal.formAction }}"
+                                        hosted-button-id="{{ $ctrl.paypal.hostedButtonId }}"
+                                        amount="{{ $ctrl.paypal.amount }}"
+                                        business="{{ $ctrl.paypal.business }}"
+                                        quantity="{{ $ctrl.paypal.quantity }}"
+                                        item-name="{{ $ctrl.paypal.itemName }}"
+                                        return="{{ $ctrl.paypal.return }}"
+                                        cancel-return="{{ $ctrl.paypal.cancelReturn }}"
+                                        payment-action="{{ $ctrl.paypal.paymentAction }}"
+                                        custom="{{ $ctrl.paypal.custom }}"
+                                        handler="$ctrl.submitPayPalOrder()"
+                                    >
+                                    </paypal-form>
+                                </div>
+                                <!-- /paypal -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /actions -->
+
+            </div>
+            <!-- /column a -->
+
+            <!-- column b -->
+            <div class="span4 col-b" id="col-b">
+                <form name="promoCodeForm">
+                    <promo-code-form 
+                        data="$ctrl.order"
+                        handler="$ctrl.submitPromoCode($ctrl.order.promoCode)"
+                    >        
+                    </promo-code-form>
+                </form>
+
+                <div class="cart row">
+                    <div class="cart-content">
+                        <h4>Order Summary</h4>
+                        <order-pricing data="$ctrl.order"></order-pricing>
+                    </div>
+
+                    <div class="actions">
+                        <div class="cart-content">
+                            <div class="inner"> 
+
+                                <!-- credit card -->
+                                <div ng-show="$ctrl.paymentMethod === 'stripe'" class="submit">
+                                    <button class="button button-large" ng-click="$ctrl.confirmOrder()">Confirm Your Order</button>
+                                </div>
+                                <!-- /credit card -->
+
+                                <!-- paypal -->
+                                <div ng-show="$ctrl.paymentMethod === 'paypal'" class="submit paypal">
+                                    <paypal-form
+                                        form-action="{{ $ctrl.paypal.formAction }}"
+                                        hosted-button-id="{{ $ctrl.paypal.hostedButtonId }}"
+                                        amount="{{ $ctrl.paypal.amount }}"
+                                        business="{{ $ctrl.paypal.business }}"
+                                        quantity="{{ $ctrl.paypal.quantity }}"
+                                        item-name="{{ $ctrl.paypal.itemName }}"
+                                        return="{{ $ctrl.paypal.return }}"
+                                        cancel-return="{{ $ctrl.paypal.cancelReturn }}"
+                                        payment-action="{{ $ctrl.paypal.paymentAction }}"
+                                        custom="{{ $ctrl.paypal.custom }}"
+                                        handler="$ctrl.submitPayPalOrder()"
+                                    >
+                                    </paypal-form>
+                                </div>
+                                <!-- /paypal -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p ng-if="$ctrl.isPaymentRequired"><small>* Your card will be authorized, but not charged, to confirm a valid form of payment. You'll only pay for items you decide to have shipped to you from your Order Preview. Your Order Preview will be emailed to you within one business day.</small></p>
+
+                <ssl-badge></ssl-badge>
+
+            </div>
+            <!-- /column b -->
+    </div>
+
+</div>

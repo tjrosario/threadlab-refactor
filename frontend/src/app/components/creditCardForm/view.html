@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="field ">
+        <label>Name on Card</label>
+        <input type="text" data-stripe="name" class="name" name="name" required ng-model="$ctrl.data.name" tabindex="1">
+    </div>
+</div>
+
+<div class="row" ng-if="$ctrl.mode === 'add'">
+    <div class="field cc_num ">
+        <label>Card Number</label>
+        <credit-card-field value="$ctrl.data.number"></credit-card-field>
+    </div>
+</div>
+
+<div class="row">
+    <div class="field span4">
+        <label>Exp. Date</label>
+        <expiration-field value="$ctrl.data.expiry" exp-month="$ctrl.data.exp_month" exp-year="$ctrl.data.exp_year"></expiration-field>
+    </div>
+
+    <div class="field cc_cvc span2" ng-if="$ctrl.mode === 'add'">
+        <label>CVV</label>
+        <input type="text" data-stripe="cvc" name="cvc" class="cvc" ng-model="$ctrl.data.cvc" required tabindex="4" pattern="[0-9]*" inputmode="numeric" tabindex="4">
+    </div>
+    <div class="field span3">
+        <label>Billing ZIP Code</label>
+        <input type="text" data-stripe="address-zip" name="address_zip" class="address_zip" ng-model="$ctrl.data.address_zip" required ng-minlength="5" pattern="[0-9]*" inputmode="numeric" tabindex="5">
+    </div>
+</div>
+
+<div class="row">
+    <div class="field opt default span4">
+        <label>
+            <input type="checkbox" name="isDefault" ng-model="$ctrl.data.isDefault" class="isDefault" ng-checked="$ctrl.data.isDefault" ng-change="setDefaultCard($ctrl.data.isDefault)" tabindex="6">
+            Default Card
+        </label>
+    </div>
+</div>

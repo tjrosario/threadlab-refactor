@@ -19,6 +19,8 @@ export default class PlaceOrderBoxSize {
 
             this.customerService.updateEntity({ config });
         }
+
+        this.currentOrderModel.order.campaign = this.boxes.campaign;
     }
 
     goToNextStep(box) {

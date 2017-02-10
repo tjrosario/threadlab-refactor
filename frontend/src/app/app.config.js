@@ -1,13 +1,15 @@
 import { httpInterceptors } from './httpInterceptors';
 import merge from 'lodash/merge';
 
-export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider) {
+export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider, localStorageServiceProvider) {
     'ngInject';
 
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push(httpInterceptors);
     $compileProvider.debugInfoEnabled(false);
+    localStorageServiceProvider.setPrefix('threadlab');
+    localStorageServiceProvider.setStorageType('localStorage');
 
     merge(toastrConfig, {
         autoDismiss: false,

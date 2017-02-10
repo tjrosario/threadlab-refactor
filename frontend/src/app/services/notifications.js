@@ -26,7 +26,7 @@ export class NotificationsService {
         this.toastr = toastr;
         this.toasts = [];
 
-        $rootScope.$on('$stateChangeSuccess', this.clearNotifications.bind(this));
+        //$rootScope.$on('$stateChangeSuccess', this.clearNotifications.bind(this));
     }
 
     clearNotifications() {

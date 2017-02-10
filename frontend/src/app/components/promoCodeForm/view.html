@@ -1,0 +1,14 @@
+<div class="promo-code-form">
+	<label>Have a Promo Code? <i class="fa fa-question-circle tooltip" title="Promo will be applied to the items in your Order Preview."></i></label>
+
+	<div class="content clear">
+		<div class="col-a">
+			<div class="field form-group">
+				<input type="text" class="form-control" placeholder="Enter Promo Code" ng-model="$ctrl.data.promoCode" required>
+			</div>
+		</div>
+		<div class="col-b">
+			<button class="button button-orange" type="submit" ng-disabled="!$ctrl.isRequiredFieldsValid()" ng-click="$ctrl.handler()">Apply</button>
+		</div>
+	</div>
+</div>

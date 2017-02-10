@@ -11,7 +11,7 @@
 
             <div class="control align-center">
                 <div class="inner">
-                    <button type="submit" class="button button-dark button-placeorder" ng-disabled="!$ctrl.productCategories.selected.length" ng-click="$ctrl.goToNextStep()" id="place-order-selectsize00">Proceed to Checkout</button>
+                    <button type="submit" class="button button-dark button-placeorder" ng-disabled="!$ctrl.isRequiredFieldsValid()" ng-click="$ctrl.goToNextStep()" id="place-order-selectsize00">Proceed to Checkout</button>
 
                     <a class="button button-transparent" ng-click="$ctrl.goToPreviousStep()" id="order-previousstep00" ng-show="currentUser.testScenario !== 'B'">Return to previous screen</a>
                 </div>

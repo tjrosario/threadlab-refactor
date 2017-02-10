@@ -4,10 +4,11 @@ import _ from 'lodash';
 const serviceName = 'appStart';
 
 export class AppStartService {
-    constructor($state, $rootScope, CONFIG, userModel) {
+    constructor($state, $rootScope, $anchorScroll, CONFIG, userModel) {
         'ngInject';
         this.$state = $state;
         this.$rootScope = $rootScope;
+        this.$anchorScroll = $anchorScroll;
         this.$rootScope.assetUrl = CONFIG.assetUrl;
         this.userModel = userModel;
     }
@@ -22,7 +23,7 @@ export class AppStartService {
     }
 
     handleStateChangeSuccess(e, toState) {
-        
+        this.$anchorScroll();
     }
 
     handleStateChangeStart(e, toState, toParams, fromState, fromParams) {

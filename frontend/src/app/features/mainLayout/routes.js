@@ -13,6 +13,7 @@ export default function layoutRoutes($stateProvider) {
             resolve: {
                 init: function ($q, authService) {
                     'ngInject';
+                    
                     return $q.all([
                         authService.checkCurrentUser()
                     ]);
