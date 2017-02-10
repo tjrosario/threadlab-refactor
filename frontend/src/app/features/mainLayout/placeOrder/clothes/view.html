@@ -1,0 +1,21 @@
+<div class="order-categories">
+    <div class="wrapper align-center">
+        <h2>Select the Clothes You Want in this Order</h2>
+
+        <div class="step">
+            <p>Select up to <strong><span>{{ $ctrl.numCategories }}</span> types</strong> of clothing you're interested in.</p>
+
+            <div class="categories buttons col3-mobile">
+                <checkbox-list data="$ctrl.productCategories" label-field="name" limit="{{ $ctrl.numCategories }}" has-media="true"></checkbox-list>
+            </div>
+
+            <div class="control align-center">
+                <div class="inner">
+                    <button type="submit" class="button button-dark button-placeorder" ng-disabled="!$ctrl.productCategories.selected.length" ng-click="$ctrl.goToNextStep()" id="place-order-selectsize00">Proceed to Checkout</button>
+
+                    <a class="button button-transparent" ng-click="$ctrl.goToPreviousStep()" id="order-previousstep00" ng-show="currentUser.testScenario !== 'B'">Return to previous screen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

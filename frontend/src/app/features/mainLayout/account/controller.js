@@ -1,5 +1,5 @@
 /* @ngInject */
-export default class MainLayout {
+export default class Account {
     constructor(accountNavigationService) {
         this.accountNavigationService = accountNavigationService;
     }
