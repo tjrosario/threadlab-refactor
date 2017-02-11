@@ -1,12 +1,13 @@
 /* @ngInject */
 export default class PlaceOrderCheckout {
-    constructor(order, userModel, orderService, CONFIG, $window, notificationsService) {
+    constructor(order, userModel, orderService, CONFIG, $window, $state, notificationsService) {
         this.order = order[0].data.data;
         this.userModel = userModel;
         this.orderService = orderService;
         this.currentUser = this.userModel.loggedUser;
         this.appConfig = CONFIG;
         this.$window = $window;
+        this.$state = $state;
         this.notificationsService = notificationsService;
     }
 
@@ -109,7 +110,19 @@ export default class PlaceOrderCheckout {
                 params
             };
 
-            console.log(params);
+            this.orderService.finalize({ id, config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Order Finalized' });
+                        this.$state.go('index.placeOrder.confirmation', {
+                            orderNumber: this.order.orderNumber
+                        });
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
         }
     }
 }

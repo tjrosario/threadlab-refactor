@@ -1,0 +1,34 @@
+<div class="order-confirm">
+
+    <div class="wrapper">
+        <h1>Thank you!</h1>
+
+        <div class="order-details">
+            <img ng-src="{{ assetUrl + '/images/brandingPhotos/box-' + $ctrl.order.budget + '.png' }}">
+
+            <h2>What Happens Next?</h2>
+            <p>We'll hand pick you some awesome new threads! Within one business day, you'll receive an email from us with a link to your Order Preview so that you can see the items we've hand selected for you.</p>
+
+            <p>Simply login to your account to view your threads, reject any that you don't need and then click "Approve" to have the order shipped!</p>
+
+            <order-pricing data="$ctrl.order"></order-pricing>
+        </div>
+
+        <div class="promo">
+            <p>In the meantime, you can <strong><a ui-sref="index.account.referrals">share ThreadLab</a></strong> and earn store credit.</p>
+        </div>
+
+        <subscriptions-module></subscriptions-module>
+
+        <pepperjam-pixel
+            order-id="{{ $ctrl.order.orderNumber }}"
+            item-id="{{ 'box' + $ctrl.order.budget }}"
+            item-price="{{ $ctrl.order.budget }}"
+            quantity="1"
+            category="{{ $ctrl.order.categories }}"
+            coupon="{{ $ctrl.order.promoCode }}"
+        >
+        </pepperjam-pixel>
+    </div>
+
+</div>

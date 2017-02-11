@@ -51,6 +51,13 @@ const appConfig = {
     mandrill: {
         baseUrl: "/mandrill"
     },
+    referralCandy: {
+        appId: 'jo6f4uuu03r4290hhp6greydx',
+        baseUrl: '/referralCandy',
+        postPurchase: {
+            id: 'refcandy-popsicle'
+        }
+    },
     paypal: {
         enabled: true,
         checkout: {

@@ -37,6 +37,11 @@ class CustomerService {
         return this.$http
             .get(`/customer/createOrderFromProductNeeds`, config);
     }
+
+    receipt(params = {}) {
+        return this.$http
+            .post('/customer/receipt', params);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])
