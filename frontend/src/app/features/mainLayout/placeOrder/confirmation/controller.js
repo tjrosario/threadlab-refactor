@@ -3,13 +3,14 @@ import cloneDeep from 'lodash/cloneDeep';
 
 /* @ngInject */
 export default class PlaceOrderConfirmation {
-    constructor(order, CONFIG, userModel, customerService, referralCandyService) {
+    constructor(order, CONFIG, userModel, customerService, referralCandyService, boxesService) {
         this.order = order[0].data.data;
         this.appConfig = CONFIG;
         this.userModel = userModel;
         this.customerService = customerService;
         this.currentUser = this.userModel.loggedUser;
         this.referralCandyService = referralCandyService;
+        this.boxesService = boxesService;
     }
 
     $onInit() {
@@ -34,7 +35,6 @@ export default class PlaceOrderConfirmation {
     }
 
     trackGAEcommerce(order) {
-
     }
 
     trackOrderConversion(order) {

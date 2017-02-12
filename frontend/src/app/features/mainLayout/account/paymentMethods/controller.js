@@ -3,12 +3,13 @@ import { componentName as paymentForm } from './components/paymentForm/component
 
 /* @ngInject */
 export default class AccountPaymentSettings {
-    constructor(userModel, stripeService, customerService, $uibModal, notificationsService) {
+    constructor(userModel, stripeService, customerService, $uibModal, notificationsService, authService) {
         this.userModel = userModel;
         this.stripeService = stripeService;
         this.customerService = customerService;
         this.notificationsService = notificationsService;
         this.$uibModal = $uibModal;
+        this.authService = authService;
     }
 
     $onInit() {
@@ -50,6 +51,7 @@ export default class AccountPaymentSettings {
             .then(resp => {
                 if (resp.data.success) {
                     this.notificationsService.success({ msg: 'Payment ID Cleared.  Add a new payment method to generate a new ID' });
+                    this.authService.setCurrentUser(resp.data.data);
                 } else {
                     this.notificationsService.alert({ msg: 'Unable to clear Payment ID.  Please try again' });
                 }
@@ -118,6 +120,7 @@ export default class AccountPaymentSettings {
                             this.notificationsService.success({ msg: 'Payment Method Added' });
                             this.customerService.updateEntity({ config })
                                 .then(resp => {
+                                    this.authService.setCurrentUser(resp.data.data);
                                     this.getCards();
                                 });
                         } else {

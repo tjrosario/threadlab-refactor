@@ -35,7 +35,7 @@ export default class PlaceOrderClothes {
     }
 
     goToPreviousStep() {
-        this.$state.go('index.placeOrder.boxSize');
+        this.$state.go('index.placeOrderBoxSize');
     }
 
     goToNextStep() {
@@ -86,7 +86,7 @@ export default class PlaceOrderClothes {
                 if (resp.data.success) {
                     const order = resp.data.data.order;
                     this.notificationsService.success({ msg: 'Order Created' });
-                    this.$state.go('index.placeOrder.checkout', {
+                    this.$state.go('index.placeOrderCheckout', {
                         orderNumber: order.orderNumber
                     });
                 } else {

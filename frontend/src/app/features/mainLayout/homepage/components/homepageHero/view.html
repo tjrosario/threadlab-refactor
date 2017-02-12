@@ -3,9 +3,9 @@
         <div class="wrapper">
             <h1>Men's clothing. Easier.</h1>
             <h2>365 days to return. No subscription required. <br>No fees. Priced to your budget.</h2>
-            <a ui-sref="signup" class="button button-large" id="homectrl-ordernow01" ng-if="!currentUser">Get Started</a>
+            <a ui-sref="index.signup" class="button button-large" id="homectrl-ordernow01" ng-if="!$root.currentUser">Get Started</a>
 
-            <a ng-click="goToPlaceOrder()" class="button button-large" ng-if="currentUser" id="homectrl-ordernow01">Get Your Clothes Now</a>
+            <a ui-sref="index.placeOrder" class="button button-large" ng-if="$root.currentUser" id="homectrl-ordernow01">Get Your Clothes Now</a>
         </div>
     </div>
 </div>

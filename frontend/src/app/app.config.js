@@ -22,7 +22,9 @@ export default function appConfig($urlRouterProvider, $locationProvider, $httpPr
         target: 'body',
         closeButton: true,
         timeOut: 10000,
-        progressBar: true
+        progressBar: true,
+        titleClass: 'toast-title',
+        toastClass: 'toast'
     });
 }
 

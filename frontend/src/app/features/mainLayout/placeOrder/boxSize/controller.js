@@ -34,10 +34,10 @@ export default class PlaceOrderBoxSize {
 
             this.customerService.updateEntity({ config })
                 .then(resp => {
-                    this.$state.go('index.placeOrder.clothes');
+                    this.$state.go('index.placeOrderClothes');
                 });
         } else {
-            this.$state.go('index.placeOrder.clothes');
+            this.$state.go('index.placeOrderClothes');
         }
     }
 }

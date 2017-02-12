@@ -93,9 +93,9 @@ export default class PlaceOrderCheckout {
     }
 
     confirmOrder() {
-        if (this.isPaymentRequired) {
+        //if (this.isPaymentRequired) {
 
-        } else {
+        //} else {
             const id = this.order.id;
             const params = {
                 isPreviewRequired: true,
@@ -114,7 +114,7 @@ export default class PlaceOrderCheckout {
                 .then(resp => {
                     if (resp.data.success) {
                         this.notificationsService.success({ msg: 'Order Finalized' });
-                        this.$state.go('index.placeOrder.confirmation', {
+                        this.$state.go('index.placeOrderConfirmation', {
                             orderNumber: this.order.orderNumber
                         });
                     } else {
@@ -123,6 +123,6 @@ export default class PlaceOrderCheckout {
                 }, err => {
                     this.notificationsService.alert({ msg: err.message });
                 });
-        }
+        //}
     }
 }

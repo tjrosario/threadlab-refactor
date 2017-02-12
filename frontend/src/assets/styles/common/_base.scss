@@ -2413,3 +2413,14 @@ $soundcloud: #ff3a00;
   margin: 0 0 $gutter;
   text-align: right;
 }
+
+.toast {
+  font-size: 15px;
+  opacity: .85;
+}
+
+#loading-bar {
+  .bar {
+    background-color: $dixie;
+  }
+}

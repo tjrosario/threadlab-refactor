@@ -1,11 +1,11 @@
 import template from './view.html';
-import controller from './controller'
+import controller from './controller';
 
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.placeOrder.clothes', {
-            url: '/clothes',
+        .state('index.placeOrderClothes', {
+            url: '/place-order/clothes',
             template,
             controller,
             controllerAs: '$ctrl',
@@ -27,7 +27,7 @@ export default function layoutRoutes($stateProvider) {
 
                             deferred.resolve(productCategoryService.getEntities({ config }));
                         } else {
-                            $state.go('index.placeOrder.boxSize');
+                            $state.go('index.placeOrderBoxSize');
                             deferred.reject();
                         }
                     });

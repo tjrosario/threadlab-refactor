@@ -4,8 +4,8 @@ import controller from './controller'
 export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
-        .state('index.placeOrder.confirmation', {
-            url: '/:orderNumber/confirmation',
+        .state('index.placeOrderConfirmation', {
+            url: '/place-order/:orderNumber/confirmation',
             template,
             controller,
             controllerAs: '$ctrl',
