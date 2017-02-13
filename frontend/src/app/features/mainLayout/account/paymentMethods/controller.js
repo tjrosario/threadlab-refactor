@@ -68,7 +68,7 @@ export default class AccountPaymentSettings {
             component: paymentForm,
             resolve: {
                 config: () => ({
-                    title: 'Add Card'
+                    title: 'Add Payment Method'
                 }),
                 mode: () => 'add'
             }
@@ -139,7 +139,7 @@ export default class AccountPaymentSettings {
             component: paymentForm,
             resolve: {
                 config: () => ({
-                    title: 'Edit Address'
+                    title: 'Edit Payment Method'
                 }),
                 card: () => card,
                 mode: () => 'edit'

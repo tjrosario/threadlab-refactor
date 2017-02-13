@@ -94,12 +94,12 @@ export default class AccountOrderMatches {
         modalInstance.result.then(formData => {
             const id = formData.id;
             const params = formData.params || '';
+            orderItem.rejected = true;
             
             this.orderService.rejectItem(id, params)
                 .then(resp => {
                     if (resp.data.success) {
                         this.updatePricing(resp.data.data);
-                        orderItem.rejected = true;
                     } else {
                         this.notificationsService.alert({ msg: resp.data.message });
                     }

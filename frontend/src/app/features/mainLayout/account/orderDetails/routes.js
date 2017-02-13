@@ -26,6 +26,18 @@ export default function routes($stateProvider) {
                     return $q.all([
                         orderService.findByOrderNumber({ config })
                     ]);
+                },
+                customer: function ($q, customerService) {
+                    'ngInject';
+                    const config = {
+                        params: {
+                            expand: 'addresses'
+                        }
+                    };
+
+                    return $q.all([
+                        customerService.getEntity({ config })
+                    ]);
                 }
             }
         });

@@ -29,6 +29,15 @@
         </div>
         <!-- /preview notes -->
 
+        <!-- alerts -->
+        <div ng-show="$ctrl.alerts.length > 0" class="msg alert active" id="alerts">
+            <h4 class="title"><i class="fa fa-exclamation-circle"></i> Please correct the following:</h4>
+            <div uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'danger')">
+                {{ alert.msg }}
+            </div>
+        </div>
+        <!-- /alerts -->
+
         <!-- order matches -->
         <div class="section row-separator" ng-if="$ctrl.order.budget && $ctrl.order.status !== 'received' && $ctrl.order.status !== 'processing' && $ctrl.order.status !== 'finalized'">
             <div class="content">
@@ -43,7 +52,7 @@
                 <h3>Payment Information</h3>
                 <p><i class="fa fa-lock"></i> Rest easy. This is a secure SSL encrypted payment.</p>
 
-                <div class="field opt">
+                <div class="field opt row">
                     <div class="span5">
                         <label ng-click="$ctrl.setPaymentMethod('stripe')">
                             <input type="radio" name="payment_method" value="stripe" ng-model="$ctrl.order.paymentMethod">
@@ -60,7 +69,28 @@
 
                 <div class="credit-card" ng-show="$ctrl.order.paymentMethod === 'stripe'">
                     <div class="content">
-                        <credit-card-form mode="$ctrl.paymentMethodMode"></credit-card-form>
+
+                        <div class="row cards" ng-show="$ctrl.cards.length > 0">
+                            <h4>Use this card:</h4>
+                            <div class="span6">
+                            <select name="cards" ng-model="$ctrl.selectedCard" class="form-control" ng-change="$ctrl.selectCard($ctrl.selectedCard)">
+                                <option ng-repeat="card in $ctrl.cards" value="{{ card.id }}">
+                                    {{ card.brand + ' (' + card.funding + ')' + ' (**** **** **** ' + card.last4 + ')' }}
+                                </option>
+                                <option value="">New card</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="!$ctrl.selectedCard">
+                            <form name="creditCardForm" novalidate>
+                                <credit-card-form 
+                                    mode="$ctrl.paymentMethodMode"
+                                    data="$ctrl.selectedCardData"
+                                >        
+                                </credit-card-form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,10 +98,27 @@
         <!-- /payment info -->
 
         <!-- shipping info -->
-        <div class="section row-separator shipping-info" ng-show="$ctrl.order.status === 'preview' && $ctrl.paymentMethod === 'stripe'">
+        <div class="section row-separator shipping-info" ng-show="$ctrl.order.status === 'preview' && $ctrl.order.paymentMethod === 'stripe'">
             <div class="content">
                 <h3>Shipping Information</h3>
-                <shipping-address-form></shipping-address-form>
+
+                <div class="row address-select" ng-show="$ctrl.addresses.length > 0">
+                    <h4>Use this address:</h4>
+                    <div class="span8">
+                        <select name="addresses" ng-model="$ctrl.selectedAddress" class="form-control" ng-change="$ctrl.selectAddress($ctrl.selectedAddress)">
+                            <option ng-repeat="address in $ctrl.addresses" value="{{ address.id }}" ng-switch="address.addressLine2">
+                                {{ address.addressLine1 + ' ' + address.addressLine2.replace('null', '') + ', ' + address.city + ', ' + address.state + ' ' + address.zip }}
+                            </option>
+                            <option value="">Add New Address</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="!$ctrl.selectedAddress">
+                    <form name="shippingAddressForm" novalidate>
+                        <shipping-address-form data="$ctrl.selectedAddressData"></shipping-address-form>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- /shipping info -->
@@ -90,7 +137,7 @@
 
               <div class="row customer-comments" ng-if="$ctrl.order.status !== 'finalized'">
                 <h3>Additional Feedback</h3>
-                <p>Provide any additional detailed feedback about your $ctrl.order.</p>
+                <p>Provide any additional detailed feedback about your order.</p>
 
                 <div ng-show="$ctrl.order.status === 'preview'">
                   <p ng-show="$ctrl.numRejects > 0">Don't forget to tell us why you rejected each item so that we can find better alternatives.</p>
@@ -118,11 +165,9 @@
                     </div>
 
                     <div class="span6 align-right col-b">
-                    {{ $ctrl.order.paymentMethod }}
-                    {{ $ctrl.numRejects }}
 
                       <div ng-show="$ctrl.order.paymentMethod === 'stripe'">
-                        <button class="button button-large" ng-click="$ctrl.acceptOrderPreview(order, forms.paymentForm, forms.shippingForm)" ng-show="!$ctrl.allRejected">
+                        <button class="button button-large" ng-click="$ctrl.acceptOrderPreview($ctrl.order, creditCardForm, shippingAddressForm)" ng-show="!$ctrl.allRejected">
                           <span ng-show="$ctrl.numRejects === 0">Looks good. Please ship!</span>
                           <span ng-show="$ctrl.numRejects > 0">Apply changes and ship!</span>
                         </button>

@@ -21,6 +21,12 @@ class StripeService {
             .post(`${appConfig.stripe.baseUrl}/customers`, data);
     }
 
+    createToken({ data = {} }) {
+        const appConfig = this.appConfig;
+        return this.$http
+            .post(`${appConfig.stripe.baseUrl}/tokens`, data);
+    }
+
     addCard({ customerId, data = {} }) {
         const appConfig = this.appConfig;
         return this.$http
