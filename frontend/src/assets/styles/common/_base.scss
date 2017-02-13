@@ -2429,4 +2429,25 @@ $soundcloud: #ff3a00;
   img {
     margin: 0 auto;
   }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  h5 {
+    margin-bottom: 10px;
+  }
+
+  .reject-reasons,
+  .return-reasons {
+    margin-bottom: $gutter;
+  }
+
+  .row {
+    margin-bottom: $gutter;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

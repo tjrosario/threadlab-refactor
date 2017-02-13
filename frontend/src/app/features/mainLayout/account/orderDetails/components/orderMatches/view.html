@@ -55,33 +55,18 @@
 
                   </div>
 
-                   <div class="toggle-reject">
-                  <!--<div class="toggle-reject" ng-if="$ctrl.order.status === 'preview'">-->
+                  
+                  <div class="toggle-reject" ng-if="$ctrl.order.status === 'preview'">
                     <div class="clear">
                       <div class="span4">
-                        <h5>Reasons for removal</h5>
-                        <div class="reject-reasons">
-                          <div ng-repeat="(val, title) in $ctrl.rejectReasons" class="field opt">
-                            <label>
-                              <input type="checkbox" name="reject-reason" class="reject-reason" value="{{ val }}" ng-checked="orderItem.rejectedReasons[val].selected" ng-click="$ctrl.rejectOrderItem(orderItem, $event)">
-                              <span>{{ title.text }}</span>
-                            </label>
-                          </div>
-                        </div>
 
                         <div class="undo cancel " ng-show="orderItem.rejected">
                           <button class="button button-dark" ng-click="$ctrl.undoRejectOrderItem(orderItem)"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
                         </div>
-                      </div>
-                      <div class="span8">
-                        <h5>Want better results? Please let us know why this item didn't look good to you.</h5>
-                        <p>Your feedback will be stored in your Preferences and will improve your future shipments.</p>
-                        <div class="comments">
-                          <textarea rows="3" placeholder="Enter text" ng-model="orderItem.comments">></textarea>
-                        </div>
+                        
                       </div>
                     </div>
-                  </div>
+                  </div> 
 
                   <div class="toggle-return" ng-if="$ctrl.order.status === 'shipped'">
                     <div class="clear">

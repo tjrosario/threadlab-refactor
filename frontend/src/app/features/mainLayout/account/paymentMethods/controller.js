@@ -13,12 +13,12 @@ export default class AccountPaymentSettings {
     }
 
     $onInit() {
-    	this.customer = this.userModel.loggedUser;
-    	this.getCards();
+        this.customer = this.userModel.loggedUser;
+        this.getCards();
     }
 
     getCards() {
-    	const id = this.customer.paymentCustomerId;
+        const id = this.customer.paymentCustomerId;
 
         if (id) {
             this.stripeService.getCustomer({ id }).then((res) => {

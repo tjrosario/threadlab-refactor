@@ -1,16 +1,18 @@
 import angular from 'angular';
 
-import template from './view.html';
 import controller from './controller';
+import template from './view.html';
 
-const componentName = 'orderPricing';
+const componentName = 'rejectOrderItemForm';
 const moduleName = `app.account.orderDetails.components.${componentName}`;
 
 const component = {
-    template,
     controller,
+    template,
     bindings: {
-        data: '='
+        resolve: '<',
+        close: '&',
+        dismiss: '&'
     }
 };
 

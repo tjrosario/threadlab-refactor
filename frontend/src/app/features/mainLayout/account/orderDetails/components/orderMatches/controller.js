@@ -6,21 +6,27 @@ import first from 'lodash/first';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import { componentName as orderItemImage } from 'account/orderDetails/components/orderItemImage/component';
+import { componentName as rejectOrderItemForm } from 'account/orderDetails/components/rejectOrderItemForm/component';
 
 /* @ngInject */
 export default class AccountOrderMatches {
-    constructor(orderService, notificationsService, $uibModal) {
+    constructor(orderService, notificationsService, $uibModal, $rootScope) {
         this.order = cloneDeep(this.data);
         this.orderService = orderService;
         this.$uibModal = $uibModal;
         this.notificationsService = notificationsService;
         this.rejectReasons = orderService.getRejectReasons();
         this.returnReasons = orderService.getReturnReasons();
+        this.$rootScope = $rootScope;
     }
 
     $onInit() {
         this.order = this.prepareOrderData(this.order);
+    }
 
+    updatePricing(data) {
+        this.orderAmount = data.invoiceValue;
+        this.$rootScope.$broadcast('orderPricingUpdated', { data });
     }
 
     prepareOrderData(order) {
@@ -72,36 +78,47 @@ export default class AccountOrderMatches {
         return order;
     }
 
-    rejectOrderItem(orderItem, $event) {
-        orderItem.rejected = true;
-        const id = orderItem.id;
-        let params = '';
-
-        if ($event) {
-            const $target = $($event.currentTarget);
-            const $orderItem = $target.parents('.order-item');
-            const $checked = $orderItem.find('.reject-reason:checked');
-
-            if ($checked.length > 0) {
-                params = map($checked, $reason => {
-                    return {
-                        name: 'rejectReasons',
-                        value: $($reason).val()
-                    };
-                });
-
-                params = $.param(params);
+    rejectOrderItem(orderItem) {
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            component: rejectOrderItemForm,
+            resolve: {
+                config: () => ({
+                    title: 'Reject Item'
+                }),
+                rejectReasons: () => this.rejectReasons,
+                orderItem: () => orderItem
             }
-        }
+        });
 
-        this.orderService.rejectItem(id, params);
+        modalInstance.result.then(formData => {
+            const id = formData.id;
+            const params = formData.params || '';
+            
+            this.orderService.rejectItem(id, params)
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.updatePricing(resp.data.data);
+                        orderItem.rejected = true;
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                });
+        });
     }
 
     undoRejectOrderItem(orderItem) {
         orderItem.rejected = false;
         const id = orderItem.id;
 
-        this.orderService.undoRejectItem({ id });
+        this.orderService.undoRejectItem({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.updatePricing(resp.data.data);
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            });
     }
 
     viewImage(orderItem) {

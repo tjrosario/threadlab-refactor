@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="order">
+   <div class="order">
         <!-- preview notes -->
         <div ng-if="$ctrl.order.status === 'preview' && $ctrl.order.previewNotes" class="msg notify active">
             <h4><i class="fa fa-exclamation-triangle"></i>Notes about your preview</h4>
@@ -42,7 +42,27 @@
             <div class="content">
                 <h3>Payment Information</h3>
                 <p><i class="fa fa-lock"></i> Rest easy. This is a secure SSL encrypted payment.</p>
-                <credit-card-form mode="$ctrl.paymentMethodMode"></credit-card-form>
+
+                <div class="field opt">
+                    <div class="span5">
+                        <label ng-click="$ctrl.setPaymentMethod('stripe')">
+                            <input type="radio" name="payment_method" value="stripe" ng-model="$ctrl.order.paymentMethod">
+                            Credit Card
+                        </label>
+                    </div>
+                    <div class="span5">
+                        <label ng-click="$ctrl.setPaymentMethod('paypal')">
+                            <input type="radio" name="payment_method" value="paypal" ng-model="$ctrl.order.paymentMethod">
+                            <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" />
+                        </label>
+                    </div>
+                </div>
+
+                <div class="credit-card" ng-show="$ctrl.order.paymentMethod === 'stripe'">
+                    <div class="content">
+                        <credit-card-form mode="$ctrl.paymentMethodMode"></credit-card-form>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /payment info -->
@@ -94,11 +114,15 @@
 
                   <div class="row">
                     <div class="span6 col-a">&nbsp;
-                      <button class="button button-dark" ng-click="rejectOrderPreview($ctrl.order)" ng-disabled="rejectLoading" ng-show="$ctrl.numRejects > 0">Send me a new Order Preview</button>
+                      <button class="button button-dark" ng-click="$ctrl.rejectOrderPreview($ctrl.order)" ng-show="$ctrl.numRejects > 0">Send me a new Order Preview</button>
                     </div>
+
                     <div class="span6 align-right col-b">
-                      <div ng-show="$ctrl.paymentMethod === 'stripe'">
-                        <button class="button button-large" ng-click="acceptOrderPreview(order, forms.paymentForm, forms.shippingForm)" ng-class="{ 'loading': loading }" ng-show="!allRejected" ng-disabled="allRejected">
+                    {{ $ctrl.order.paymentMethod }}
+                    {{ $ctrl.numRejects }}
+
+                      <div ng-show="$ctrl.order.paymentMethod === 'stripe'">
+                        <button class="button button-large" ng-click="$ctrl.acceptOrderPreview(order, forms.paymentForm, forms.shippingForm)" ng-show="!$ctrl.allRejected">
                           <span ng-show="$ctrl.numRejects === 0">Looks good. Please ship!</span>
                           <span ng-show="$ctrl.numRejects > 0">Apply changes and ship!</span>
                         </button>
@@ -106,14 +130,26 @@
 
                       <!-- paypal -->
                       <div class="paypal submit">
-                        <div ng-show="$ctrl.paymentMethod === 'paypal'">
-                          <!--<div ng-include="'/templates/order/paypal-form.html.tmpl'"></div>-->
-                          <paypal-form></paypal-form>
+                        <div ng-show="$ctrl.order.paymentMethod === 'paypal'">
+                            <paypal-form
+                                form-action="{{ $ctrl.paypal.formAction }}"
+                                hosted-button-id="{{ $ctrl.paypal.hostedButtonId }}"
+                                amount="{{ $ctrl.paypal.amount }}"
+                                business="{{ $ctrl.paypal.business }}"
+                                quantity="{{ $ctrl.paypal.quantity }}"
+                                item-name="{{ $ctrl.paypal.itemName }}"
+                                return="{{ $ctrl.paypal.return }}"
+                                cancel-return="{{ $ctrl.paypal.cancelReturn }}"
+                                payment-action="{{ $ctrl.paypal.paymentAction }}"
+                                custom="{{ $ctrl.paypal.custom }}"
+                                handler="$ctrl.submitPayPalOrder()"
+                            >
+                            </paypal-form>
                         </div>
                       </div>
                       <!-- /paypal -->
 
-                      <button class="button button-transparent button-cancel" ng-click="cancelOrder($ctrl.order)" ng-class="{ 'loading': cancelLoading }" ng-show="allRejected" ng-disabled="$ctrl.numRejects < numItems">Cancel Order</button>
+                      <button class="button button-transparent button-cancel" ng-click="$ctrl.cancelOrder($ctrl.order)" ng-show="$ctrl.allRejected">Cancel Order</button>
                     </div>
                   </div>
 
@@ -123,7 +159,7 @@
 
               <div class="order-additional" ng-show="$ctrl.order.status === 'shipped'">
                 <div class="align-right">
-                  <button class="button button-large" ng-click="completeOrder($ctrl.order);" ng-class="{ 'loading': loading }" ng-disabled="loading">Submit Your Order Feedback</button>
+                  <button class="button button-large" ng-click="$ctrl.completeOrder($ctrl.order)">Submit Your Order Feedback</button>
                 </div>
                 <div class="row">
                   <p><strong>Returning something?</strong> Please place any returns in the ThreadLab box and use the return label that was included in your delivery. Please email <a href="mailto:service@mythreadlab.com">service@mythreadlab.com</a> with any questions.</p>
