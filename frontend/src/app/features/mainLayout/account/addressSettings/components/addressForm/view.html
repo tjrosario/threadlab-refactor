@@ -3,74 +3,7 @@
 </div>
 
 <div class="modal-body">
-	<div class="row">
-		<div class="field span6 form-group">
-			<label>First Name</label>
-			<input type="text" required ng-model="$ctrl.formData.addresseeFirstName" name="addresseeFirstName" class="addresseeFirstName">
-		</div>
-		<div class="field span6 form-group">
-			<label>Last Name</label>
-			<input type="text" required ng-model="$ctrl.formData.addresseeLastName" name="addresseeLastName" class="addresseeLastName">
-		</div>
-	</div>
-	<div class="row">
-		<div class="field span12 form-group">
-			<label>Street Address</label>
-			<input type="text" required ng-model="$ctrl.formData.addressLine1" name="addressLine1" class="addressLine1">
-		</div>
-	</div>
-	<div class="row">
-		<div class="field span12 form-group">
-			<label>Apartment/Suite <span>(optional)</span></label>
-			<input type="text" ng-model="$ctrl.formData.addressLine2" name="addressLine2" class="addressLine2">
-		</div>
-	</div>
-
-
-	<div class="row">
-		<div class="field span4 form-group">
-			<label>City</label>
-			<input type="text" required ng-model="$ctrl.formData.city" name="city" class="city">
-		</div>
-		<div class="field span4 form-group">
-			<label>State</label>
-
-			<states-field value="$ctrl.formData.state"></states-field>
-
-		</div>
-		<div class="field span4 form-group">
-			<label>Postal ZIP Code</label>
-			<input type="text" required ng-model="$ctrl.formData.zip" name="zip" class="zip" ng-minlength="5" pattern="[0-9]*" inputmode="numeric">
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="field span4 form-group">
-			<label>Phone Number</label>
-			<input type="tel" required ng-model="$ctrl.formData.addresseePhone" name="addresseePhone" class="addresseePhone" ui-mask="(999) 999-9999" required>
-		</div>
-		<div class="field span4 form-group">
-			<label>Email <span>(optional)</span></label>
-			<input type="email" ng-model="$ctrl.formData.addresseeEmail" name="addresseeEmail" class="email addresseeEmail">
-		</div>
-		<div class="field span4  form-group">
-			<label>Type</label>
-
-			<select name="type" ng-model="$ctrl.formData.type" class="form-control type" required>
-				<option value="shipping">Shipping</option>
-			</select>
-		</div>
-	</div>
-
-	<div class="row">
-
-		<div class="field opt span6 form-group">
-			<label>
-				<input type="checkbox" name="isDefault" ng-model="$ctrl.formData.isDefault" class="type isDefault" ng-checked="$ctrl.formData.isDefault" ng-change="setDefaultAddressStatus($ctrl.formData.isDefault)">
-				Default Address
-			</label>
-		</div>
-	</div>
+	<shipping-address-form data="$ctrl.formData"></shipping-address-form>
 </div>
 
 <div class="modal-footer">

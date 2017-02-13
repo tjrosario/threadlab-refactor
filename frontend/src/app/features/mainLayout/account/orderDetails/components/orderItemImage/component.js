@@ -1,17 +1,18 @@
 import angular from 'angular';
 
-import template from './view.html';
 import controller from './controller';
+import template from './view.html';
 
-const componentName = 'order';
+const componentName = 'orderItemImage';
 const moduleName = `app.account.orderDetails.components.${componentName}`;
 
 const component = {
-    template,
     controller,
-    controllerAs: '$ctrl',
+    template,
     bindings: {
-        data: '='
+        resolve: '<',
+        close: '&',
+        dismiss: '&'
     }
 };
 

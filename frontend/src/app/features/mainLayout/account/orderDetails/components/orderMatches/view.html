@@ -15,14 +15,14 @@
 
         >
             <div class="row">
-              <div class="span2 photo" data-lightbox ng-init="initLightbox(orderItem)">
+              <div class="span2 photo" ng-click="$ctrl.viewImage(orderItem)">
                 <img ng-src="{{ orderItem.product.imageUrl }}">
                 <div class="zoom">
                   Click to Zoom <i class="fa fa-search-plus"></i>
                 </div>
               </div>
               <div class="span10 details">
-                <h3 ng-class="{ 'span6': isPlaceOrder }"><span class="brand" ng-bind="orderItem.product.xBrand"></span> - <span class="name" ng-bind="orderItem.product.name"></span></h3>
+                <h3><span class="brand">{{ orderItem.product.xBrand }}</span> - <span class="name">{{ orderItem.product.name }}</span></h3>
 
                 <div class="product-info">
                   <div class="product-specs">
@@ -36,7 +36,9 @@
 
                     <p class="description" ng-if="$ctrl.order.status !== 'shipped'"><strong>Description:</strong> <span ng-bind="orderItem.product.description"></span></p>
 
-                    <div class="feedback">
+                    <!--<div class="feedback">
+
+                      
                       <div ng-if="$ctrl.order.status === 'preview'">
                         <p><strong>Additional Feedback:</strong></p>
 
@@ -48,28 +50,27 @@
                         <div class="msg active notify">
                           <p><span ng-bind="orderItem.comments"></span></p>
                         </div>
-                      </div>
-                    </div>
+                      </div> 
+                    </div>-->
 
                   </div>
 
-                  <div class="toggle-reject" ng-if="$ctrl.order.status === 'preview'">
+                   <div class="toggle-reject">
+                  <!--<div class="toggle-reject" ng-if="$ctrl.order.status === 'preview'">-->
                     <div class="clear">
                       <div class="span4">
                         <h5>Reasons for removal</h5>
                         <div class="reject-reasons">
-                          <div ng-repeat="(val, title) in rejectReasons" class="field opt">
+                          <div ng-repeat="(val, title) in $ctrl.rejectReasons" class="field opt">
                             <label>
-                              <input type="checkbox" name="reject-reason" value="{{ val }}" class="reject-reason">
-                              <span ng-bind="title"></span>
+                              <input type="checkbox" name="reject-reason" class="reject-reason" value="{{ val }}" ng-checked="orderItem.rejectedReasons[val].selected" ng-click="$ctrl.rejectOrderItem(orderItem, $event)">
+                              <span>{{ title.text }}</span>
                             </label>
                           </div>
                         </div>
 
                         <div class="undo cancel " ng-show="orderItem.rejected">
-                          <button class="button button-dark" ng-click="undoRejectProduct(orderItem)" ng-disabled="undoingReject" ng-class="{ 'loading': undoingReject }" ng-if="$ctrl.order.status === 'preview'"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
-
-                          <button class="button button-dark" ng-click="undoRejectOrderItem(orderItem)" ng-disabled="undoingReject" ng-class="{ 'loading': undoingReject }" ng-if="isOrderPreview"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
+                          <button class="button button-dark" ng-click="$ctrl.undoRejectOrderItem(orderItem)"> Undo Reject<i class="fa fa-undo" title="Undo Reject"></i></button>
                         </div>
                       </div>
                       <div class="span8">
@@ -83,13 +84,60 @@
                   </div>
 
                   <div class="toggle-return" ng-if="$ctrl.order.status === 'shipped'">
-                    <div ng-include="'/templates/order/order-return.html.tmpl'"></div>
+                    <div class="clear">
+                      <div class="span4">
+                        <h5>Reasons for return</h5>
+
+                        <div class="return-reasons">
+                          <div ng-repeat="(val, title) in $ctrl.returnReasons" class="field opt">
+                            <label>
+                              <input type="checkbox" name="return-reason" class="return-reason" value="{{ val }}" ng-checked="orderItem.returnedReasons[val].selected" ng-click="$ctrl.returntOrderItem(orderItem, $event)">
+                              <span>{{ title.text }}</span>
+                            </label>
+                          </div>
+                        <!--
+                          <div class="field opt">
+                            <label>
+                              <input type="checkbox" name="exchange" value="exchange" class="exchange" ng-checked="orderItem.exchangeRequested" ng-disabled="orderItem.returned">
+                              <span><strong>Exchange</strong></span>
+                            </label>
+                          </div>
+
+
+                          <div ng-repeat="returnReason in orderItem.returnReasonsFormatted" class="field opt">
+                            <label>
+                              <input type="checkbox" name="return-reason" value="{{ returnReason.value }}" class="return-reason" ng-checked="returnReason.selected" ng-disabled="orderItem.returned">
+                              
+
+                              <span>{{ title.text }}</span>
+                            </label>
+                          </div>-->
+
+                        </div>
+                      </div>
+                      <div class="span8">
+                        <h5>Additional comments</h5>
+                        <p>Tell us your thoughts or the size you need.</p>
+                        <div class="comments">
+                          <textarea rows="3" placeholder="Enter comments" ng-model="orderItem.comments" ng-disabled="orderItem.returned"></textarea>
+                        </div>
+                        <div class="return-instructions">
+                          <p>
+                            After selecting and giving feedback for all items you are returning, please use the button at the bottom of this page to save your responses. Thanks.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="undo cancel" ng-show="!orderItem.returned && orderItem.markedForReturn">
+                      <button class="button button-dark" ng-click="$ctrl.undoReturnOrderItem(orderItem)"> Undo Return / Exchange<i class="fa fa-undo" title="Undo Return / Exchange"></i></button>
+                    </div>
                   </div>
                 </div>
 
-                <button class="button button-dark button-reject" ng-click="rejectOrderItem(orderItem)" ng-if="$ctrl.order.status === 'preview'">Reject Item <i class="fa fa-times-circle"></i></button>
+                <button class="button button-dark button-reject" ng-click="$ctrl.rejectOrderItem(orderItem)" ng-if="$ctrl.order.status === 'preview'">Reject Item <i class="fa fa-times-circle"></i></button>
 
-                <button class="button button-dark button-return" ng-click="returnOrderItem(orderItem, $event)" ng-if="$ctrl.order.status === 'shipped' && !orderItem.rejected">Return / Exchange Item <i class="fa fa-exchange"></i></button>
+                <button class="button button-dark button-return" ng-click="$ctrl.returnOrderItem(orderItem)" ng-if="$ctrl.order.status === 'shipped' && !orderItem.rejected">Return / Exchange Item <i class="fa fa-exchange"></i></button>
               </div>
 
             </div>
