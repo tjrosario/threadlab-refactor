@@ -19,6 +19,7 @@ export default class AccountOrderDetails {
         this.$scope = $scope;
         this.facebookService = facebookService;
         this.authService = authService;
+        this.orderService = orderService;
     }
 
     $onInit() {
@@ -374,7 +375,65 @@ export default class AccountOrderDetails {
     }
 
     onStripeCardComplete(cardId, paymentCustomerId) {
+        let chargeAmount = this.order.invoiceValue;
+        chargeAmount = parseInt(Math.round(chargeAmount * 100));
+        const description = this.getOrderTitle();
+        const capture = true;
 
+        this.proceedWithCharge(cardId, paymentCustomerId, chargeAmount, capture, description);
+        /*
+        this.checkOrderTransactionStatus({
+            callback(payments) {
+                console.log(payments);
+            }
+        });*/
+    }
+
+    onStripeChargeComplete(data) {
+        console.log(data);
+    }
+
+    proceedWithCharge(card, customer, amount, capture, description) {
+        const data = {
+            card,
+            customer,
+            amount,
+            capture,
+            description,
+            currency: 'usd'
+        };
+
+        this.stripeService.addCharge({ data })
+            .then(resp => {
+                if (resp.data.error) {
+                    this.notificationsService.alert({ msg: resp.data.error.message });
+                } else {
+                    const data = {
+                        transactionId: resp.data.id,
+                        paymentAmount: parseFloat(amount / 100)
+                    };
+                    this.onStripeChargeComplete(data);
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
+    }
+
+    checkOrderTransactionStatus(opts) {
+        opts = opts || {};
+        opts.callback = opts.callback || (() => {});
+
+        const config = {
+            params: {
+                orderNumber: this.order.orderNumber,
+                expand: 'orderItems/product,productNeeds/productCategory,refunds,payments'
+            }
+        };
+
+        this.orderService.findByOrderNumber({ config })
+            .then(resp => {
+                opts.callback(resp.data.data.payments);
+            });
     }
 
     isAddressFormValid() {

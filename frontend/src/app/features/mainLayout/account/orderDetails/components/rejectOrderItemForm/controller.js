@@ -9,7 +9,7 @@ export default class RejectOrderItemForm {
     }
 
     $onInit() {
-    	
+    	this.orderItem.params = [];
     }
 
     isRequiredFieldsValid() {
@@ -18,7 +18,13 @@ export default class RejectOrderItemForm {
 
     prepareFormData() {
         const formData = cloneDeep(this.orderItem);
-
+        if (formData.params.length > 0) {
+            formData.params = $.param(formData.params);
+            formData.params += '&comments=' + this.orderItem.comments;
+        } else {
+            formData.params += '?comments=' + this.orderItem.comments;
+        }
+        
         return formData;
     }
 
@@ -37,8 +43,6 @@ export default class RejectOrderItemForm {
                     value: $($reason).val()
                 };
             });
-            params.comments = this.orderItem.comments;
-            params = $.param(params);
             this.orderItem.params = params;
         }
     }

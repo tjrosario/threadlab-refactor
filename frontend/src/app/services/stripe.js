@@ -50,6 +50,12 @@ class StripeService {
         return this.$http
             .delete(`${appConfig.stripe.baseUrl}/customers/${customerId}/sources/${cardId}`, data); 
     }
+
+    addCharge({ data = {} }) {
+        const appConfig = this.appConfig;
+        return this.$http
+            .post(`${appConfig.stripe.baseUrl}/charges`, data);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])
