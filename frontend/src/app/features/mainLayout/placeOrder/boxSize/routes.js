@@ -10,6 +10,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'Select Your Budget | Place Order'
+            },
             resolve: {
                 boxes: function (boxesService, authService, $q, $state, $timeout) {
                     'ngInject';

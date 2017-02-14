@@ -7,6 +7,9 @@ export default function routes($stateProvider) {
             url: '/terms',
             template,
             title: 'Terms of Use',
+            metaTags: {
+                title: 'Terms of Use'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

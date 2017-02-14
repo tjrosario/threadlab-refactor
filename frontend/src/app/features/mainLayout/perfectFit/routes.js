@@ -7,6 +7,9 @@ export default function routes($stateProvider) {
             url: '/perfect-fit',
             template,
             title: 'PerfectFit',
+            metaTags: {
+                title: 'PerfectFit'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

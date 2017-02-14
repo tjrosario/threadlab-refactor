@@ -10,6 +10,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'Your Order Confirmation | Place Order'
+            },
             resolve: {
                 order: function ($q, $stateParams, orderService) {
                     'ngInject';

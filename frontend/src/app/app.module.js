@@ -15,9 +15,10 @@ angular.module(MODULE_NAME, [
     ])
     .constant('CONFIG', appConfig)
     .config(config)
-    .run((appStartService, CONFIG) => {
+    .run((appStartService, CONFIG, $rootScope, MetaTags) => {
         'ngInject';
         const appConfig = CONFIG;
+        $rootScope.MetaTags = MetaTags;
         appStartService.run();
 
         if (Stripe) {

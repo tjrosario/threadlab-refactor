@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
   	<base href="/">
     <meta content="!" name="fragment">
@@ -7,32 +7,18 @@
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
 
-    <meta content="{{meta.description}}" name="description">
-    <meta content="Affordable Personal Shopper, Mens Clothing, Menswear, Personal Shopping, Trunk Club Competitors" name="keywords">
-
-    <meta content="ThreadLab, Inc." name="author">
+    <meta content="{{ MetaTags.description }}" name="description">
+    <meta content="{{ MetaTags.keywords }}" name="keywords">
+    <meta ng-repeat="(key, value) in MetaTags.properties" property="{{ key }}" content="{{ value }}" >
+    <title ng-bind="MetaTags.title">ThreadLab.  Men's clothing.  Easier.</title>
     <meta content="31757dbfcab4f2d80206a5e0dfc92bc2" http-equiv="etag">
-    <meta content="ThreadLab.  Men's clothing.  Easier." property="og:title">
-    <meta content="website" property="og:type">
-    <meta content="https://www.mythreadlab.com" property="og:url">
-
-    <meta content="https://www.mythreadlab.com/images/facebook/box-99.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/box-149.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/box-199.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/box-249.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/box-299.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/box-349.png" property="og:image">
-    <meta content="https://www.mythreadlab.com/images/facebook/threadlab_800.png" property="og:image">
-    <meta content="ThreadLab" property="og:site_name">
-    <meta content="Personal Shopping Service for Busy Guys - we focus on Fit, Convenience and Pricing.  Make life easier with ThreadLab. Affordable men's clothing from 50 + brands with zero shopping required." property="og:description">
-
     <link href="/images/threadlab.ico" rel="shortcut icon" type="image/x-icon">
     <link href="/images/logo/threadlab_800.png" rel="apple-touch-icon" type="image/png">
     <link href="{{ canonical }}" rel="canonical">
 
-    <title ng-bind="MetaTags.title">ThreadLab.  Men's clothing.  Easier.</title>
+    
   </head>
-  <body ng-app="app">
+  <body>
     <div id="fb-root"></div>
 
     <ui-view></ui-view>

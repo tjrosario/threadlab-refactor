@@ -7,6 +7,9 @@ export default function routes($stateProvider) {
             url: '/privacy',
             template,
             title: 'Privacy Policy',
+            metaTags: {
+                title: 'Privacy Policy'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

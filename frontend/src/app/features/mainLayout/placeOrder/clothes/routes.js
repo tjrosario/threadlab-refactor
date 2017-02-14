@@ -10,6 +10,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'Select Your Clothes | Place Order'
+            },
             resolve: {
                 productCategories: function ($q, $timeout, $state, currentOrderModel, productCategoryService) {
                     'ngInject';

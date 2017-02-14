@@ -7,6 +7,9 @@ export default function routes($stateProvider) {
             url: '/',
             template,
             title: 'Homepage',
+            metaTags: {
+                title: 'Home'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

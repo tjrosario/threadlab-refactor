@@ -7,6 +7,9 @@ export default function routes($stateProvider) {
             url: '/faq',
             template,
             title: 'FAQ',
+            metaTags: {
+                title: 'FAQ'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

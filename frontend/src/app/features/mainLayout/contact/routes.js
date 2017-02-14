@@ -11,6 +11,9 @@ export default function routes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             title: 'Contact',
+            metaTags: {
+                title: 'Contact'
+            },
             resolve: {
                 init: function (boxesService) {
                     'ngInject';

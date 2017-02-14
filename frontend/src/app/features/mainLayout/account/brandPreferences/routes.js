@@ -10,6 +10,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'Brand Preferences | My Account'
+            },
             resolve: {
                 customer: function ($q, customerService) {
                     'ngInject';

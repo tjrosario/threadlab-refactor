@@ -11,6 +11,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'My Account'
+            },
             resolve: {
                 init: function ($q) {
                     'ngInject';

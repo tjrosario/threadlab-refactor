@@ -7,6 +7,7 @@ import 'angular-ui-grid';
 import 'angular-payments';
 import uiMask from 'angular-ui-mask';
 import 'angular-local-storage';
+import 'ui-router-metatags/dist/ui-router-metatags';
 
 import 'angular-loading-bar/build/loading-bar.min.css';
 import 'angular-toastr/dist/angular-toastr.min.css';
@@ -28,6 +29,7 @@ angular.module(MODULE_NAME, [
     'LocalStorageModule',
     uiMask,
 	uirouter,
+    'ui.router.metatags',
 	loadingBar,
 	toastr,
 

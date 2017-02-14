@@ -10,7 +10,10 @@ export default function routes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
-            title: 'Order Details',
+            title: 'Order Complete',
+            metaTags: {
+                title: 'Order Complete | My Account'
+            },
             resolve: {
                 order: function ($q, $stateParams, orderService) {
                     'ngInject';

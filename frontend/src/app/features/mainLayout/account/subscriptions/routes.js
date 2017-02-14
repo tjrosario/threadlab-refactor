@@ -10,6 +10,9 @@ export default function layoutRoutes($stateProvider) {
             controller,
             controllerAs: '$ctrl',
             requireLogin: true,
+            metaTags: {
+                title: 'Subscriptions | My Account'
+            },
             resolve: {
                 customer: function ($q, customerService) {
                     'ngInject';
