@@ -7,7 +7,7 @@ import unionBy from 'lodash/unionBy';
 
 /* @ngInject */
 export default class AccountOrderDetails {
-    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope) {
+    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope, facebookService, authService) {
     	this.order = order[0].data.data;
         this.customer = customer[0].data.data;
         this.customerService = customerService;
@@ -17,12 +17,15 @@ export default class AccountOrderDetails {
         this.appConfig = CONFIG;
         this.$window = $window;
         this.$scope = $scope;
+        this.facebookService = facebookService;
+        this.authService = authService;
     }
 
     $onInit() {
         this.currentUser = this.userModel.loggedUser;
         this.paymentMethodMode = 'add';
         this.order.paymentMethod = this.order.paymentMethod || 'stripe';
+        this.selectedCardData = {};
         this.alerts = [];
         this.getAddresses();
         this.getCards();
@@ -45,12 +48,6 @@ export default class AccountOrderDetails {
         }, {
             field: "cvc",
             name: "Card CVC"
-        }, {
-            field: "exp_month",
-            name: "Expiration Month"
-        }, {
-            field: "exp_year",
-            name: "Expiration Year"
         }, {
             field: "expiry",
             name: "Expiration Date"
@@ -248,18 +245,136 @@ export default class AccountOrderDetails {
         });
 
         this.alerts = unionBy(alerts, this.alerts, 'field');
+
+        return numErrors > 0 ? false : true;
     }
 
     acceptOrderPreview(order, creditCardForm, shippingAddressForm) {
-        this.validateForm(creditCardForm, this.requiredCreditCardFields);
-        this.validateForm(shippingAddressForm, this.requiredAddressFields);
+        let creditCardValid;
+        const addressValid = this.validateForm(shippingAddressForm, this.requiredAddressFields);
 
-        /*
         if (order.invoiceValue <= 0) {
-
+            creditCardValid = true;
         } else {
+            if (this.selectedCardData.id) {
+                creditCardValid = true;
+            } else {
+                creditCardValid = this.validateForm(creditCardForm, this.requiredCreditCardFields);
+            }
+        }
+
+        if (creditCardValid &&  addressValid) {
             this.initPaymentFlow();
-        }*/
+        }
+    }
+
+    getCardData(cardData) {
+        const data = {};
+        data.card = cloneDeep(cardData);
+
+        //TODO: fix expiration field component to return these
+        const splitVal = data.card.expiry.split('/');
+        data.card.exp_month = Number(splitVal[0]);
+        data.card.exp_year = Number(splitVal[1]);
+        delete data.card.expiry;
+        delete data.card.isDefault;
+
+        return data;
+    }
+
+    initPaymentFlow() {
+        // existing stripe customer
+        if (this.customer.paymentCustomerId) {
+            if (this.selectedCardData.id) {
+                this.onStripeCardComplete(this.selectedCardData.id, this.customer.paymentCustomerId);
+            } else {
+                const data = this.getCardData(this.selectedCardData);
+
+                this.stripeService.createToken({ data })
+                    .then(resp => {
+                        if (resp.data.error) {
+                            this.notificationsService.alert({ msg: resp.data.error.message });
+                        } else {
+                            const data = {
+                                card: resp.data.id
+                            };
+
+                            // add card
+                            this.stripeService.addCard({ customerId: this.customer.paymentCustomerId, data })
+                                .then(resp => {
+                                    if (resp.data.error) {
+                                        this.notificationsService.alert({ msg: resp.data.error.message });
+                                    } else {
+                                        this.facebookService.trackPixel('track', 'AddPaymentInfo');
+
+                                        // update to default source
+                                        if (this.selectedCardData.isDefault) {
+                                            const customerId = this.customer.paymentCustomerId;
+                                            const data = {
+                                                default_source: resp.data.id
+                                            };
+                                            this.stripeService.updateCustomer({ customerId, data })
+                                                .then(resp => {
+                                                    if (resp.data.error) {
+                                                        this.notificationsService.alert({ msg: resp.data.error.message });
+                                                    } else {
+                                                        this.onStripeCardComplete(resp.data.default_source, this.customer.paymentCustomerId);
+                                                    }
+                                                }, err => {
+                                                    this.notificationsService.alert({ msg: err.message });
+                                                });
+                                        } else {
+                                            this.onStripeCardComplete(resp.data.id, this.customer.paymentCustomerId);
+                                        }
+                                    }
+                                });
+                        }
+                    }, err => {
+                        this.notificationsService.alert({ msg: err.message });
+                    });
+            }
+        } else { // new stripe customer
+            const data = this.getCardData(this.selectedCardData);
+
+            this.stripeService.createToken({ data })
+                .then(resp => {
+                    if (resp.data.error) {
+                        this.notificationsService.alert({ msg: resp.data.error.message });
+                    } else {
+                        const data = {
+                            card: resp.data.id,
+                            email: this.customer.email
+                        };
+
+                        this.stripeService.createCustomer({ data })
+                            .then(resp => {
+                                if (resp.data.error) {
+                                    this.notificationsService.alert({ msg: resp.data.error.message });
+                                } else {
+                                    const config = {
+                                        params: {
+                                            paymentCustomerId: resp.data.id
+                                        }
+                                    };
+
+                                    this.customerService.updateEntity({ config })
+                                        .then(resp => {
+                                            this.authService.setCurrentUser(resp.data.data);
+                                            this.onStripeCardComplete(resp.data.default_source, resp.data.id);
+                                        });
+                                }
+                            }, err => {
+                                this.notificationsService.alert({ msg: err.message });
+                            });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
+    }
+
+    onStripeCardComplete(cardId, paymentCustomerId) {
+
     }
 
     isAddressFormValid() {
@@ -284,27 +399,5 @@ export default class AccountOrderDetails {
             this.selectedCardData.cvc &&
             this.selectedCardData.address_zip
         );
-    }
-
-    initPaymentFlow() {
-        if (this.customer.paymentCustomerId) {
-            if (this.selectedCardData && this.selectedCardData.id) {
-                this.onStripeCardComplete(this.selectedCardData.id, this.customer.paymentCustomerId);
-            } else {
-                const data = this.selectedCardData;
-
-                this.stripeService.createToken({ data })
-                    .then(resp => {
-                        console.log(resp);
-                    }, err => {
-                        this.notificationsService.alert({ msg: err.message });
-                    });
-            }
-
-        }
-    }
-
-    onStripeCardComplete() {
-
     }
 }

@@ -109,13 +109,17 @@ export default class AccountPaymentSettings {
 
                 this.stripeService.createCustomer({ data })
                     .then(resp => {
-                        const data = resp.data;
-                        if (data.id) {
+                        if (resp.data.error) {
+                            this.notificationsService.alert({ msg: resp.data.error.message });
+                        } else {
+                            const data = resp.data;
+                        
                             const config = {
                                 params: {
                                     paymentCustomerId: data.id
                                 }
                             };
+                            
                             this.customer.paymentCustomerId = data.id;
                             this.notificationsService.success({ msg: 'Payment Method Added' });
                             this.customerService.updateEntity({ config })
@@ -123,8 +127,6 @@ export default class AccountPaymentSettings {
                                     this.authService.setCurrentUser(resp.data.data);
                                     this.getCards();
                                 });
-                        } else {
-                            this.notificationsService.alert({ msg: resp.message });
                         }
                     }, err => {
                         this.notificationsService.alert({ msg: err.message });
