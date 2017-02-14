@@ -1,5 +1,14 @@
 <div class="order-detail">
 
+    <!-- alerts -->
+    <div ng-show="$ctrl.alerts.length > 0" class="msg alert active" id="alerts">
+        <h4 class="title"><i class="fa fa-exclamation-circle"></i> Please correct the following:</h4>
+        <div uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'danger')">
+            {{ alert.msg }}
+        </div>
+    </div>
+    <!-- /alerts -->
+
     <h1>Your Order Details</h1>
 
     <div class="order-details">
@@ -21,22 +30,13 @@
         </div>
     </div>
 
-   <div class="order">
+    <div class="order">
         <!-- preview notes -->
         <div ng-if="$ctrl.order.status === 'preview' && $ctrl.order.previewNotes" class="msg notify active">
             <h4><i class="fa fa-exclamation-triangle"></i>Notes about your preview</h4>
             {{ $ctrl.order.previewNotes }}
         </div>
         <!-- /preview notes -->
-
-        <!-- alerts -->
-        <div ng-show="$ctrl.alerts.length > 0" class="msg alert active" id="alerts">
-            <h4 class="title"><i class="fa fa-exclamation-circle"></i> Please correct the following:</h4>
-            <div uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'danger')">
-                {{ alert.msg }}
-            </div>
-        </div>
-        <!-- /alerts -->
 
         <!-- order matches -->
         <div class="section row-separator" ng-if="$ctrl.order.budget && $ctrl.order.status !== 'received' && $ctrl.order.status !== 'processing' && $ctrl.order.status !== 'finalized'">
@@ -104,13 +104,14 @@
 
                 <div class="row address-select" ng-show="$ctrl.addresses.length > 0">
                     <h4>Use this address:</h4>
-                    <div class="span8">
+                    <div class="span9">
                         <select name="addresses" ng-model="$ctrl.selectedAddress" class="form-control" ng-change="$ctrl.selectAddress($ctrl.selectedAddress)">
                             <option ng-repeat="address in $ctrl.addresses" value="{{ address.id }}" ng-switch="address.addressLine2">
                                 {{ address.addressLine1 + ' ' + address.addressLine2.replace('null', '') + ', ' + address.city + ', ' + address.state + ' ' + address.zip }}
                             </option>
                             <option value="">Add New Address</option>
                         </select>
+                        <a href="#" ng-click="$ctrl.editAddress($ctrl.selectedAddressData)" ng-show="$ctrl.selectedAddressData.id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                     </div>
                 </div>
 

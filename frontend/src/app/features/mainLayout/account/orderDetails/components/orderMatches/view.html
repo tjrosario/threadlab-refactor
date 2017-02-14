@@ -42,7 +42,8 @@
 
                         <textarea rows="3" placeholder="Enter any feedback about this item so that we can update your profile and improve future shipments" ng-keyup="$ctrl.updateOrderItem(orderItem)" ng-model="orderItem.feedback"></textarea>
                       </div>
-                      <div ng-if="$ctrl.order.status !== 'finalized' && $ctrl.order.status !== 'preview'">
+
+                      <div ng-if="$ctrl.order.status !== 'finalized' && $ctrl.order.status !== 'preview' && $ctrl.order.status !== 'shipped' && orderItem.comments">
                         <p><strong>Your Feedback:</strong></p>
 
                         <div class="msg active notify">
@@ -68,53 +69,15 @@
 
                   <div class="toggle-return" ng-if="$ctrl.order.status === 'shipped'">
                     <div class="clear">
-                      <div class="span4">
-                        <h5>Reasons for return</h5>
-
-                        <div class="return-reasons">
-                          <div ng-repeat="(val, title) in $ctrl.returnReasons" class="field opt">
-                            <label>
-                              <input type="checkbox" name="return-reason" class="return-reason" value="{{ val }}" ng-checked="orderItem.returnedReasons[val].selected" ng-click="$ctrl.returntOrderItem(orderItem, $event)">
-                              <span>{{ title.text }}</span>
-                            </label>
-                          </div>
-                        <!--
-                          <div class="field opt">
-                            <label>
-                              <input type="checkbox" name="exchange" value="exchange" class="exchange" ng-checked="orderItem.exchangeRequested" ng-disabled="orderItem.returned">
-                              <span><strong>Exchange</strong></span>
-                            </label>
-                          </div>
-
-
-                          <div ng-repeat="returnReason in orderItem.returnReasonsFormatted" class="field opt">
-                            <label>
-                              <input type="checkbox" name="return-reason" value="{{ returnReason.value }}" class="return-reason" ng-checked="returnReason.selected" ng-disabled="orderItem.returned">
-                              
-
-                              <span>{{ title.text }}</span>
-                            </label>
-                          </div>-->
-
+                      <div class="span6">
+                        <div class="undo cancel" ng-show="!orderItem.returned && orderItem.markedForReturn">
+                          <button class="button button-dark" ng-click="$ctrl.undoReturnOrderItem(orderItem)"> Undo Return / Exchange<i class="fa fa-undo" title="Undo Return / Exchange"></i></button>
                         </div>
-                      </div>
-                      <div class="span8">
-                        <h5>Additional comments</h5>
-                        <p>Tell us your thoughts or the size you need.</p>
-                        <div class="comments">
-                          <textarea rows="3" placeholder="Enter comments" ng-model="orderItem.comments" ng-disabled="orderItem.returned"></textarea>
-                        </div>
-                        <div class="return-instructions">
-                          <p>
-                            After selecting and giving feedback for all items you are returning, please use the button at the bottom of this page to save your responses. Thanks.
-                          </p>
-                        </div>
+
                       </div>
                     </div>
 
-                    <div class="undo cancel" ng-show="!orderItem.returned && orderItem.markedForReturn">
-                      <button class="button button-dark" ng-click="$ctrl.undoReturnOrderItem(orderItem)"> Undo Return / Exchange<i class="fa fa-undo" title="Undo Return / Exchange"></i></button>
-                    </div>
+
                   </div>
                 </div>
 

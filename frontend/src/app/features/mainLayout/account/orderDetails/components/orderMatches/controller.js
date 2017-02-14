@@ -6,7 +6,7 @@ import first from 'lodash/first';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import { componentName as orderItemImage } from 'account/orderDetails/components/orderItemImage/component';
-import { componentName as rejectOrderItemForm } from 'account/orderDetails/components/rejectOrderItemForm/component';
+import { componentName as returnOrderItemForm } from 'account/orderDetails/components/returnOrderItemForm/component';
 
 import setDelay from 'utils/setDelay';
 
@@ -97,7 +97,7 @@ export default class AccountOrderMatches {
     rejectOrderItem(orderItem) {
         const modalInstance = this.$uibModal.open({
             animation: true,
-            component: rejectOrderItemForm,
+            component: returnOrderItemForm,
             resolve: {
                 config: () => ({
                     title: 'Reject Item'
@@ -128,6 +128,49 @@ export default class AccountOrderMatches {
         const id = orderItem.id;
 
         this.orderService.undoRejectItem({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.updatePricing(resp.data.data);
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            });
+    }
+
+    returnOrderItem(orderItem) {
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            component: returnOrderItemForm,
+            resolve: {
+                config: () => ({
+                    title: 'Return Item'
+                }),
+                returnReasons: () => this.returnReasons,
+                orderItem: () => orderItem
+            }
+        });
+
+        modalInstance.result.then(formData => {
+            const id = formData.id;
+            const params = formData.params || '';
+            orderItem.markedForReturn = true;
+            
+            this.orderService.returnItem(id, params)
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.updatePricing(resp.data.data);
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                });
+        });
+    }
+
+    undoReturnOrderItem(orderItem) {
+        orderItem.markedForReturn = false;
+        const id = orderItem.id;
+
+        this.orderService.undoReturnItem({ id })
             .then(resp => {
                 if (resp.data.success) {
                     this.updatePricing(resp.data.data);

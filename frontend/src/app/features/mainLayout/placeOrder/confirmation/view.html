@@ -19,16 +19,6 @@
         </div>
 
         <subscriptions-module></subscriptions-module>
-
-        <pepperjam-pixel
-            order-id="{{ $ctrl.order.orderNumber }}"
-            item-id="{{ 'box' + $ctrl.order.budget }}"
-            item-price="{{ $ctrl.order.budget }}"
-            quantity="1"
-            category="{{ $ctrl.order.categories }}"
-            coupon="{{ $ctrl.order.promoCode }}"
-        >
-        </pepperjam-pixel>
     </div>
 
 </div>

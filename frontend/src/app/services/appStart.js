@@ -4,22 +4,24 @@ import _ from 'lodash';
 const serviceName = 'appStart';
 
 export class AppStartService {
-    constructor($state, $rootScope, $anchorScroll, CONFIG, userModel) {
+    constructor($state, $rootScope, $anchorScroll, CONFIG, authService, $timeout) {
         'ngInject';
         this.$state = $state;
         this.$rootScope = $rootScope;
         this.$anchorScroll = $anchorScroll;
         this.$rootScope.assetUrl = CONFIG.assetUrl;
-        this.userModel = userModel;
+        this.authService = authService;
+        this.$timeout = $timeout;
     }
 
     run() {
         this.$rootScope.$on('$stateChangeStart', this.handleStateChangeStart.bind(this));
         this.$rootScope.$on('$stateChangeSuccess', this.handleStateChangeSuccess.bind(this));
+
     }
 
     isAuthenticated() {
-        return this.userModel.loggedUser;
+        return Boolean(this.authService.getCurrentUser());
     }
 
     handleStateChangeSuccess(e, toState) {
@@ -27,7 +29,7 @@ export class AppStartService {
     }
 
     handleStateChangeStart(e, toState, toParams, fromState, fromParams) {
-        //this.handleRedirections(e, toState, fromState);
+        this.handleRedirections(e, toState, fromState);
     }
 
     handleRedirections(e, toState, fromState) {
@@ -39,10 +41,6 @@ export class AppStartService {
             {
                 condition: !toState.requireLogin && this.isAuthenticated(),
                 route: 'index.home'
-            },
-            {
-                condition: toState.redirectTo,
-                route: toState.redirectTo
             }
         ];
 
@@ -52,6 +50,7 @@ export class AppStartService {
     }
 
     handleRedirection(handler, e, fromState) {
+        /*
         if (handler.condition) {
             e.preventDefault();
 
@@ -70,7 +69,7 @@ export class AppStartService {
             if (handler.callback) {
                 handler.callback();
             }
-        }
+        } */
     }
 }
 

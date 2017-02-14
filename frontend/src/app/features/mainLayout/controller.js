@@ -78,6 +78,7 @@ export default class MainLayout {
 
     logout() {
         this.authService.logout().then(() => {
+            this.authService.clearUser();
             this.$state.go('index.home');
             this.onUserUnauthenticated();
         }, err => {

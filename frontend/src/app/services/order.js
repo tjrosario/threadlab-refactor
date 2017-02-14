@@ -23,9 +23,24 @@ class OrderService {
             .get(`/order/finalize/${id}`, config);
     }
 
+    accept({ id, config = {}}) {
+        return this.$http
+            .get(`/order/accept/${id}`, config);
+    }
+
+    reject({ id, config = {}}) {
+        return this.$http
+            .get(`/order/reject/${id}`, config);
+    }
+
     confirm({ id, config = {}}) {
         return this.$http
             .get(`/order/confirm/${id}`, config);
+    }
+
+    checkout({ id, config = {}}) {
+        return this.$http
+            .get(`/order/checkout/${id}`, config);
     }
 
     rejectItem(id, params) {
@@ -51,9 +66,9 @@ class OrderService {
     getRejectReasons() {
         return {
             'brand': { text: "Don't like this brand", selected: false },
-            'color':  { text: 'Color is not for me', selected: false },
-            'not-needed':  { text: 'Currently own similar item', selected: false },
-            'style':  { text: 'Style is not for me', selected: false }
+            'color': { text: 'Color is not for me', selected: false },
+            'not-needed': { text: 'Currently own similar item', selected: false },
+            'style': { text: 'Style is not for me', selected: false }
         };
     }
 

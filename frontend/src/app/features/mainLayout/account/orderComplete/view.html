@@ -1,0 +1,40 @@
+<div class="order-complete">
+
+	<div class="align-center">
+		<h1>Thank You!</h1>
+
+		<div class="photo">
+			<img ng-src="{{ assetUrl + '/images/brandingPhotos/box-' + $ctrl.order.budget + '.png' }}">
+		</div>
+
+		<div ng-if="$ctrl.order.status === 'accepted' || $ctrl.order.status === 'ready-to-ship'">
+			<p>Your order will be shipped out shortly. Thank you!</p>
+		</div>
+
+		<div ng-if="$ctrl.order.status === 'rejected'">
+			<p>Awesome, you'll receive an email alert when your updated Order Preview is ready.</p>
+		</div>
+
+		<div ng-if="$ctrl.order.status === 'shipped'">
+			<p>If you are returning any items, please place them into the delivered box or included bag, and use the return label that came with your delivery.</p>
+		</div>
+
+		<subscriptions-module></subscriptions-module>
+
+		<p><a class="view" ui-sref="index.account.orderDetails({ id: $ctrl.order.orderNumber })"><i class="fa fa-caret-left"></i>Back to Order</a></p>
+
+		<div ng-if="$ctrl.order.status === 'accepted'">
+			<pepperjam-pixel 
+				order-id="{{ $ctrl.order.orderNumber }}"
+				item-id="{{ 'box' + $ctrl.order.budget }}"
+				item-price="{{ $ctrl.order.netPrice }}"
+				quantity="1"
+				category="{{ $ctrl.order.categories }}"
+				coupon="{{ $ctrl.order.promoCode }}"
+			>
+			</pepperjam-pixel>
+		</div>
+
+	</div>
+</div>
+

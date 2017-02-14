@@ -2,8 +2,10 @@ import angular from 'angular';
 
 const serviceName = 'auth';
 
+const refreshDuration = 1000 * 60 * 20;
+
 export class AuthService {
-    constructor($http, $q, $rootScope, userModel, localStorageService, $timeout) {
+    constructor($http, $q, $rootScope, userModel, localStorageService, $timeout, $state) {
         'ngInject';
 
         this.$http = $http;
@@ -12,14 +14,13 @@ export class AuthService {
         this.userModel = userModel;
         this.localStorageService = localStorageService;
         this.$timeout = $timeout;
+        this.$state = $state;
     }
 
     login(params = {}) {
         return this.$http
             .post('/auth/login', params)
             .then(resp => {
-                this.setCurrentUser(resp.data.data);
-
                 return this.$q.when(resp);
             });
     }
@@ -28,43 +29,52 @@ export class AuthService {
         return this.$http
             .get('/auth/logout')
             .then(resp => {
-                this.userModel.loggedUser = this.$rootScope.currentUser = false;
-                this.localStorageService.remove('currentUser');
+                return this.$q.when(resp);
+            });
+    }
+
+    clearTimer() {
+        if (this.timer) {
+            this.$timeout.cancel(this.timer);
+        }
+    }
+
+    refreshAfterInterval(refreshInterval) {
+        this.clearTimer();
+
+        this.timer = this.$timeout(() => {
+            this.refreshData(refreshInterval);
+        }, refreshInterval);
+    }
+
+    refreshData(refreshInterval) {
+        this.checkCurrentUser();
+        this.refreshAfterInterval(refreshInterval);
+    }
+
+    checkCurrentUser() {
+        return this.$http
+            .get('/auth/current')
+            .then(resp => {
+                if (resp.data.success) {
+                    this.setCurrentUser(resp.data.data);
+                    this.refreshAfterInterval(refreshDuration);
+                }
 
                 return this.$q.when(resp);
             });
     }
 
-    checkCurrentUser() {
-        const deferred = this.$q.defer();
-
-        const currentUser = this.getCurrentUser();
-
-        this.$timeout(() => {
-            if (currentUser) {
-                this.setCurrentUser(currentUser);
-                deferred.resolve(currentUser);
-            } else {
-                deferred.resolve({});
-            }
-        });
-
-        return deferred.promise;
-
-        /*
-        return this.$http
-            .get('/auth/current')
-            .then(res => {
-                this.userModel.loggedUser = this.$rootScope.currentUser = res.data.data || false;
-                this.localStorageService.set('currentUser', JSON.stringify(res.data.data));
-
-                return this.$q.when(res);
-            }); */
-    }
-
     setCurrentUser(data) {
         this.userModel.loggedUser = this.$rootScope.currentUser = data;
         this.localStorageService.set('currentUser', JSON.stringify(data));
+        this.refreshAfterInterval(refreshDuration);
+    }
+
+    clearUser() {
+        this.userModel.loggedUser = this.$rootScope.currentUser = false;
+        this.localStorageService.remove('currentUser');
+        this.clearTimer();
     }
 
     getCurrentUser() {

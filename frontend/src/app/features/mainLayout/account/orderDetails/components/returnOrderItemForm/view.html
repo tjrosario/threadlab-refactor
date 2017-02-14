@@ -13,25 +13,29 @@
         </div>
 
         <div class="span6">
-            <h5>Reasons for removal</h5>
-            <div class="reject-reasons">
-                <div ng-repeat="(val, title) in $ctrl.rejectReasons" class="field opt">
+            <h5>Reasons for return</h5>
+            <div class="return-reasons">
+                <div ng-repeat="(val, title) in $ctrl.returnReasons" class="field opt">
                     <label>
-                        <input type="checkbox" name="reject-reason" class="reject-reason" value="{{ val }}" ng-checked="$ctrl.orderItem.rejectedReasons[val].selected" ng-click="$ctrl.rejectOrderItem($ctrl.orderItem, $event)">
+                        <input type="checkbox" name="return-reason" class="return-reason" value="{{ val }}" ng-checked="$ctrl.orderItem.returnedReasons[val].selected" ng-click="$ctrl.returnOrderItem($ctrl.orderItem, $event)">
                         <span>{{ title.text }}</span>
                     </label>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <h5>Want better results? Please let us know why this item didn't look good to you.</h5>
-        <p>Your feedback will be stored in your Preferences and will improve your future shipments.</p>
+	</div>
+	<div class="row">
+        <h5>Additional comments</h5>
+        <p>Tell us your thoughts or the size you need.</p>
 
         <div class="comments">
-            <textarea rows="3" placeholder="Enter text" ng-model="$ctrl.orderItem.comments">></textarea>
+          	<textarea rows="3" placeholder="Enter text" ng-model="$ctrl.orderItem.comments">></textarea>
         </div>
-    </div>
+
+        <div class="return-instructions">
+            <p>After selecting and giving feedback for all items you are returning, please use the button at the bottom of this page to save your responses. Thanks.</p>
+        </div>
+	</div>
 </div>
 
 <div class="modal-footer">

@@ -4,10 +4,14 @@ import first from 'lodash/first';
 import find from 'lodash/find';
 import each from 'lodash/each';
 import unionBy from 'lodash/unionBy';
+import merge from 'lodash/merge';
+import scrollTo from 'utils/scrollTo';
+
+import { componentName as addressForm } from 'account/addressSettings/components/addressForm/component';
 
 /* @ngInject */
 export default class AccountOrderDetails {
-    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope, facebookService, authService) {
+    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope, facebookService, authService, addressService, $uibModal, $state) {
     	this.order = order[0].data.data;
         this.customer = customer[0].data.data;
         this.customerService = customerService;
@@ -20,6 +24,9 @@ export default class AccountOrderDetails {
         this.facebookService = facebookService;
         this.authService = authService;
         this.orderService = orderService;
+        this.addressService = addressService;
+        this.$uibModal = $uibModal;
+        this.$state = $state;
     }
 
     $onInit() {
@@ -96,6 +103,46 @@ export default class AccountOrderDetails {
         this.selectedAddress = address;
         this.selectedAddressData = find(this.addresses, { id: this.selectedAddress }) || {};
         this.selectedAddressData.type = 'shipping';
+    }
+
+    updateAddress(data) {
+        const id = data.id;
+        const found = find(this.customer.addresses, { id });
+        merge(found, data);
+    }
+
+    editAddress(address) {
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            component: addressForm,
+            resolve: {
+                config: () => ({
+                    title: 'Edit Address'
+                }),
+                address: () => address,
+                mode: () => 'edit'
+            }
+        });
+
+        modalInstance.result.then(formData => {
+            const id = formData.id;
+
+            const config = {
+                params: formData
+            };
+
+            this.addressService.updateEntity({ id, config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        this.notificationsService.success({ msg: 'Address Updated' });
+                        this.updateAddress(formData);
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        });
     }
 
     getCards() {
@@ -247,6 +294,10 @@ export default class AccountOrderDetails {
 
         this.alerts = unionBy(alerts, this.alerts, 'field');
 
+        if (numErrors > 0) {
+            scrollTo('#alerts');
+        }
+
         return numErrors > 0 ? false : true;
     }
 
@@ -267,6 +318,23 @@ export default class AccountOrderDetails {
         if (creditCardValid &&  addressValid) {
             this.initPaymentFlow();
         }
+    }
+
+    rejectOrderPreview(order) {
+        const id = order.id;
+
+        this.orderService.reject({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.$state.go('index.account.orderComplete', {
+                        id: this.order.orderNumber
+                    });
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 
     getCardData(cardData) {
@@ -389,8 +457,50 @@ export default class AccountOrderDetails {
         });*/
     }
 
-    acceptOrder(data) {
-        
+    startAcceptOrder(data) {
+        if (this.selectedAddressData.id) {
+            data.shippingAddress = this.selectedAddressData.id;
+            this.completeAcceptOrder(data);
+        } else {
+            this.selectedAddressData['customer.id'] = this.customer.id;
+
+            const config = {
+                params: this.selectedAddressData
+            };
+
+            this.addressService.createEntity({ config })
+                .then(resp => {
+                    if (resp.data.success) {
+                        data.shippingAddress = resp.data.data.id;
+                        this.completeAcceptOrder(data);
+                    } else {
+                        this.notificationsService.alert({ msg: resp.data.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
+    }
+
+    completeAcceptOrder(data) {
+        const id = this.order.id;
+
+        const config = {
+            params: data
+        };
+
+        this.orderService.accept({ id, config })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.$state.go('index.account.orderComplete', {
+                        id: this.order.orderNumber
+                    });
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 
     proceedWithCharge(card, customer, amount, capture, description) {
@@ -410,9 +520,27 @@ export default class AccountOrderDetails {
                 } else {
                     const data = {
                         transactionId: resp.data.id,
-                        paymentAmount: parseFloat(amount / 100)
+                        paymentAmount: parseFloat(amount / 100),
+                        paymentMethod: 'stripe'
                     };
-                    this.acceptOrder(data);
+                    this.startAcceptOrder(data);
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
+    }
+
+    completeOrder(order) {
+        const id = order.id;
+
+        this.orderService.checkout({ id })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.$state.go('index.account.orderComplete', {
+                        id: this.order.orderNumber
+                    });
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
                 }
             }, err => {
                 this.notificationsService.alert({ msg: err.message });

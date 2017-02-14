@@ -13,8 +13,8 @@ export default class AccountSubscriptions {
     }
 
     $onInit() {
-       this.hasPaymentMethod = Boolean(this.customer.paymentCustomerId);
-       this.hasAddress = this.customer.addresses.length > 0;
+        this.hasPaymentMethod = Boolean(this.customer.paymentCustomerId);
+        this.hasAddress = this.customer.addresses.length > 0;
     }
 
     addSubscription() {

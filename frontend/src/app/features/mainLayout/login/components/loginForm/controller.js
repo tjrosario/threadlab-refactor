@@ -12,6 +12,7 @@ export default class LoginForm {
         this.authService.login(credentials)
             .then(resp => {
                 if (resp.data.success) {
+                    this.authService.setCurrentUser(resp.data.data);
                     this.$state.go('index.home');
                     this.greetUser();
                 } else {

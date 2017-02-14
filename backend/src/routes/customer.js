@@ -163,7 +163,6 @@ router.get("/getMatchingProducts", requireLogin, function(req, res) {
 router.get("/rejectProduct", requireLogin, function(req, res) {
   var query;
   query = req.query;
-  console.log(apiUrl + "/customer/rejectProduct/" + req.session.userID + "?" + apiKey + "&" + querystring.stringify(query));
   return request({
     uri: apiUrl + "/customer/rejectProduct/" + req.session.userID + "?" + apiKey + "&" + querystring.stringify(query),
     method: "GET"

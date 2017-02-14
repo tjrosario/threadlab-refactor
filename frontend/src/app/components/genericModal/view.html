@@ -8,7 +8,7 @@
     <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">
         {{ $ctrl.confirmButtonLabel }}
     </button>
-    <button class="btn btn-warning" type="button" ng-click="$ctrl.dismiss()">
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.dismiss()" ng-if="$ctrl.declineButtonLabel">
         {{ $ctrl.declineButtonLabel }}
     </button>
 </div>

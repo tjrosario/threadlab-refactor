@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { componentName as paymentForm } from './components/paymentForm/component';
+import { componentName as genericModal } from 'components/genericModal/component';
 
 /* @ngInject */
 export default class AccountPaymentSettings {
@@ -177,17 +178,29 @@ export default class AccountPaymentSettings {
         const customerId = card.customer;
         const cardId = card.id;
 
-        this.stripeService.deleteCard({ customerId, cardId })
-            .then(resp => {
-                const data = resp.data;
-                if (data.id) {
-                    this.notificationsService.success({ msg: 'Payment Method Deleted' });
-                    this.getCards();
-                } else {
-                    this.notificationsService.alert({ msg: resp.message });
+        if (this.cards.length === 1) {
+            const modalInstance = this.$uibModal.open({
+                animation: true,
+                component: genericModal,
+                resolve: {
+                    title: () => 'Cannot Delete Payment Method',
+                    text: () => 'You must have at least one card on file',
+                    confirmButtonLabel: () => 'OK'
                 }
-            }, err => {
-                this.notificationsService.alert({ msg: err.message });
             });
+        } else {
+            this.stripeService.deleteCard({ customerId, cardId })
+                .then(resp => {
+                    const data = resp.data;
+                    if (data.id) {
+                        this.notificationsService.success({ msg: 'Payment Method Deleted' });
+                        this.getCards();
+                    } else {
+                        this.notificationsService.alert({ msg: resp.message });
+                    }
+                }, err => {
+                    this.notificationsService.alert({ msg: err.message });
+                });
+        }
     }
 }
