@@ -389,8 +389,8 @@ export default class AccountOrderDetails {
         });*/
     }
 
-    onStripeChargeComplete(data) {
-        console.log(data);
+    acceptOrder(data) {
+        
     }
 
     proceedWithCharge(card, customer, amount, capture, description) {
@@ -412,7 +412,7 @@ export default class AccountOrderDetails {
                         transactionId: resp.data.id,
                         paymentAmount: parseFloat(amount / 100)
                     };
-                    this.onStripeChargeComplete(data);
+                    this.acceptOrder(data);
                 }
             }, err => {
                 this.notificationsService.alert({ msg: err.message });

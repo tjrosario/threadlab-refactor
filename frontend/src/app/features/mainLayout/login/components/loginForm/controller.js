@@ -9,15 +9,18 @@ export default class LoginForm {
     }
 
     login(credentials) {
-    	this.authService.login(credentials).then(() => {
-    		if (this.userModel.loggedUser) {
-    			this.$state.go('index.home');
-                this.greetUser();
-    		}
-    	}, err => {
-            console.log('error');
-            //this.notificationsService.alert({msg: [].concat(err.message)[0]});
-        });
+        this.authService.login(credentials)
+            .then(resp => {
+                if (resp.data.success) {
+                    this.$state.go('index.home');
+                    this.greetUser();
+                } else {
+                    const msg = 'Invalid login.  Please double check your credentials';
+                    this.notificationsService.alert({ msg });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 
     greetUser() {

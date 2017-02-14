@@ -8,11 +8,14 @@ import map from 'lodash/map';
 import { componentName as orderItemImage } from 'account/orderDetails/components/orderItemImage/component';
 import { componentName as rejectOrderItemForm } from 'account/orderDetails/components/rejectOrderItemForm/component';
 
+import setDelay from 'utils/setDelay';
+
 /* @ngInject */
 export default class AccountOrderMatches {
-    constructor(orderService, notificationsService, $uibModal, $rootScope) {
+    constructor(orderService, orderItemService, notificationsService, $uibModal, $rootScope) {
         this.order = cloneDeep(this.data);
         this.orderService = orderService;
+        this.orderItemService = orderItemService;
         this.$uibModal = $uibModal;
         this.notificationsService = notificationsService;
         this.rejectReasons = orderService.getRejectReasons();
@@ -76,6 +79,19 @@ export default class AccountOrderMatches {
         });
 
         return order;
+    }
+
+    updateOrderItem(orderItem) {
+        const id = orderItem.id;
+        const config = {
+            params: {
+                comments: orderItem.feedback
+            }
+        };
+
+        setDelay((() => {
+            this.orderItemService.updateEntity({ id, config });
+        }), 500);
     }
 
     rejectOrderItem(orderItem) {

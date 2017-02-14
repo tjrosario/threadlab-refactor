@@ -36,22 +36,20 @@
 
                     <p class="description" ng-if="$ctrl.order.status !== 'shipped'"><strong>Description:</strong> <span ng-bind="orderItem.product.description"></span></p>
 
-                    <!--<div class="feedback">
-
-                      
+                    <div class="feedback">
                       <div ng-if="$ctrl.order.status === 'preview'">
                         <p><strong>Additional Feedback:</strong></p>
 
-                        <textarea rows="3" placeholder="Enter any feedback about this item so that we can update your profile and improve future shipments" ></textarea>
+                        <textarea rows="3" placeholder="Enter any feedback about this item so that we can update your profile and improve future shipments" ng-keyup="$ctrl.updateOrderItem(orderItem)" ng-model="orderItem.feedback"></textarea>
                       </div>
-                      <div ng-if="!isOrderCustomerPreview && !isOrderPreview && orderItem.comments && (order.status !== 'shipped')">
+                      <div ng-if="$ctrl.order.status !== 'finalized' && $ctrl.order.status !== 'preview'">
                         <p><strong>Your Feedback:</strong></p>
 
                         <div class="msg active notify">
                           <p><span ng-bind="orderItem.comments"></span></p>
                         </div>
                       </div> 
-                    </div>-->
+                    </div>
 
                   </div>
 
