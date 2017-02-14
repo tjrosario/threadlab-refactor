@@ -11,9 +11,13 @@
                 <input id="password" type="password" name="password" ng-model="credentials.password" required placeholder="Enter your password" ng-minlenth="7" ng-disabled="$ctrl.loading">
             </div>
 
+            <p><small>Forgot your password?  <a ng-click="$ctrl.requestPasswordReset()" id="signin-forgotpassword00">Reset it now</a>.</small></p>
+
             <div class="align-center">
                 <button type="submit" ng-disabled="loginForm.$invalid" class="button button-large" ng-class="{ 'loading': loading }" id="signin-signin00">Sign in</button>
             </div>
         </form>
+
+
     </div>
 </div>

@@ -42,6 +42,16 @@ class CustomerService {
         return this.$http
             .post('/customer/receipt', params);
     }
+
+    resetPassword({ id, config = {}}) {
+        return this.$http
+            .get(`/customer/resetPassword/${id}`, config);
+    }
+
+    getLogin({ config = {}}) {
+        return this.$http
+            .get(`/customer/getLogin`, config);
+    }
 }
 
 export default angular.module(`services.${serviceName}`, [])
