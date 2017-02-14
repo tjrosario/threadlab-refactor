@@ -1,7 +1,9 @@
 // vendor
 //@import 'bower_components/angularjs-slider/dist/rzslider';
-@import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
-@import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets';
+@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
+
 @import './vendor/slick/slick';
 @import './vendor/slick/slick-theme';
 @import './vendor/spinner/spinner';

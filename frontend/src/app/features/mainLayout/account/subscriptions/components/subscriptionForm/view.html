@@ -23,11 +23,12 @@
 
     <div class="field span4 form-group">
       <label>Start Date</label>
-    
+    <div class="input-group">
      <input type="text" class="form-control" uib-datepicker-popup="{{ $ctrl.datePopupFormat }}" ng-model="$ctrl.formData.startDate" is-open="$ctrl.datePickerPopup.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="$ctrl.dateInputFormats" />
     <span class="input-group-btn">
       <button type="button" class="btn btn-default" ng-click="$ctrl.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
     </span>
+    </div>
     
     </div>
   </div>
