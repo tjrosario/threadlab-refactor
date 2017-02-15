@@ -96,7 +96,6 @@
                 </div>
                 <!-- /special instructions -->
 
-
                 <!-- actions -->
                 <div class="cart">
                     <div class="cart-content">
@@ -108,12 +107,12 @@
                             <div class="inner row">
 
                                 <!-- credit card -->
-                                <div ng-show="$ctrl.paymentMethod === 'stripe'" class="submit">
+                                <div class="submit">
                                     <button class="button button-large" ng-click="$ctrl.confirmOrder()">Confirm Your Order</button>
                                 </div>
                                 <!-- /credit card -->
 
-                                <!-- paypal -->
+                                <!-- paypal
                                 <div ng-show="$ctrl.paymentMethod === 'paypal'" class="submit paypal">
                                     <paypal-form
                                         form-action="{{ $ctrl.paypal.formAction }}"
@@ -130,7 +129,7 @@
                                     >
                                     </paypal-form>
                                 </div>
-                                <!-- /paypal -->
+                                 /paypal -->
                             </div>
                         </div>
                     </div>
@@ -144,8 +143,8 @@
             <div class="span4 col-b" id="col-b">
                 <form name="promoCodeForm">
                     <promo-code-form 
-                        data="$ctrl.order"
-                        handler="$ctrl.submitPromoCode($ctrl.order.promoCode)"
+                        data="$ctrl.promoCode"
+                        handler="$ctrl.submitPromoCode($ctrl.promoCode)"
                     >        
                     </promo-code-form>
                 </form>
@@ -161,12 +160,12 @@
                             <div class="inner"> 
 
                                 <!-- credit card -->
-                                <div ng-show="$ctrl.paymentMethod === 'stripe'" class="submit">
+                                <div class="submit">
                                     <button class="button button-large" ng-click="$ctrl.confirmOrder()">Confirm Your Order</button>
                                 </div>
                                 <!-- /credit card -->
 
-                                <!-- paypal -->
+                                <!-- paypal
                                 <div ng-show="$ctrl.paymentMethod === 'paypal'" class="submit paypal">
                                     <paypal-form
                                         form-action="{{ $ctrl.paypal.formAction }}"
@@ -183,7 +182,7 @@
                                     >
                                     </paypal-form>
                                 </div>
-                                <!-- /paypal -->
+                                 /paypal -->
 
                             </div>
                         </div>

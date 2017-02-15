@@ -147,7 +147,7 @@
                 <textarea rows="3" placeholder="Enter comments" id="customer-comments" ng-model="$ctrl.order.customerComments"></textarea>
 
                 <div ng-if="$ctrl.order.status !== 'preview' && $ctrl.order.status !== 'shipped'" class="align-right">
-                  <button class="button button-large" ng-click="submitOrderFeedback($ctrl.order)" ng-class="{ loading: loading }" ng-disabled="loading">Submit Feedback</button>
+                  <button class="button button-large" ng-click="$ctrl.submitOrderFeedback($ctrl.order)" ng-class="{ loading: loading }" ng-disabled="loading">Submit Feedback</button>
                 </div>
               </div>
               

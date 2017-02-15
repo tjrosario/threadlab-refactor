@@ -12,6 +12,7 @@ export default class PlaceOrderCheckout {
     }
 
     $onInit() {
+        this.promoCode = {};
         this.setupPaypalFields();
         this.refundableDeposit = this.appConfig.deposit;
         this.paymentMethod = 'stripe';
@@ -75,7 +76,7 @@ export default class PlaceOrderCheckout {
         const id = this.order.id;
         const config = {
             params: {
-                promoCode
+                promoCode: promoCode.promoCode
             }
         };
 
@@ -83,7 +84,7 @@ export default class PlaceOrderCheckout {
             .then(resp => {
                 if (resp.data.success) {
                     this.notificationsService.success({ msg: 'Promo Code Applied' });
-                    
+                    this.order.promoCode = resp.data.data.order.promoCode;
                 } else {
                     this.notificationsService.alert({ msg: resp.data.message });
                 }

@@ -11,7 +11,7 @@ import { componentName as addressForm } from 'account/addressSettings/components
 
 /* @ngInject */
 export default class AccountOrderDetails {
-    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope, facebookService, authService, addressService, $uibModal, $state) {
+    constructor(order, customer, orderService, customerService, notificationsService, stripeService, userModel, CONFIG, $window, $scope, facebookService, authService, addressService, noteService, $uibModal, $state) {
     	this.order = order[0].data.data;
         this.customer = customer[0].data.data;
         this.customerService = customerService;
@@ -25,6 +25,7 @@ export default class AccountOrderDetails {
         this.authService = authService;
         this.orderService = orderService;
         this.addressService = addressService;
+        this.noteService = noteService;
         this.$uibModal = $uibModal;
         this.$state = $state;
     }
@@ -306,17 +307,22 @@ export default class AccountOrderDetails {
         const addressValid = this.validateForm(shippingAddressForm, this.requiredAddressFields);
 
         if (order.invoiceValue <= 0) {
-            creditCardValid = true;
+            const data = {
+                //transactionId: resp.data.id,
+                paymentAmount: order.invoiceValue,
+                //paymentMethod: 'stripe'
+            };
+            this.startAcceptOrder(data);
         } else {
             if (this.selectedCardData.id) {
                 creditCardValid = true;
             } else {
                 creditCardValid = this.validateForm(creditCardForm, this.requiredCreditCardFields);
             }
-        }
 
-        if (creditCardValid &&  addressValid) {
-            this.initPaymentFlow();
+            if (creditCardValid &&  addressValid) {
+                this.initPaymentFlow();
+            }
         }
     }
 
@@ -561,6 +567,27 @@ export default class AccountOrderDetails {
         this.orderService.findByOrderNumber({ config })
             .then(resp => {
                 opts.callback(resp.data.data.payments);
+            });
+    }
+
+    submitOrderFeedback(order) {
+        const config = {
+            params: {
+                'order.id': order.id,
+                type: 'order',
+                text: order.customerComments
+            }
+        };
+
+        this.noteService.createEntity({ config })
+            .then(resp => {
+                if (resp.data.success) {
+                    this.notificationsService.success({ msg: 'Your feedback has been submitted!' });
+                } else {
+                    this.notificationsService.alert({ msg: resp.data.message });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
             });
     }
 
