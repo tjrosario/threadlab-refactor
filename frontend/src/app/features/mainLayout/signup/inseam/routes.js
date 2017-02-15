@@ -9,6 +9,10 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            metaTags: {
+                title: 'Inseam | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 genericInseams: function($q, sizeService) {
                     'ngInject';

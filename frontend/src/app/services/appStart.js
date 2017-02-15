@@ -39,8 +39,12 @@ export class AppStartService {
                 route: 'index.login'
             },
             {
-                condition: !toState.requireLogin && this.isAuthenticated(),
+                condition: toState.requireGuest && this.isAuthenticated(),
                 route: 'index.home'
+            },
+            {
+                condition: toState.redirectTo,
+                route: toState.redirectTo
             }
         ];
 
@@ -50,6 +54,14 @@ export class AppStartService {
     }
 
     handleRedirection(handler, e, fromState) {
+        if (handler.condition) {
+            e.preventDefault();
+
+            if (handler.route) {
+                this.$state.go(handler.route);
+            }
+        }
+
         /*
         if (handler.condition) {
             e.preventDefault();

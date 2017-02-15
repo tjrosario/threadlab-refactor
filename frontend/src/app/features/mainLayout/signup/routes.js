@@ -5,11 +5,12 @@ export default function layoutRoutes($stateProvider) {
     'ngInject';
     $stateProvider
         .state('index.signup', {
-            abstract: true,
             url: '/signup',
             template,
             controller,
             controllerAs: '$ctrl',
+            redirectTo: 'index.signup.shirtSize',
+            requireGuest: true,
             resolve: {
                 init: function ($q, sizeService) {
                     'ngInject';

@@ -31,7 +31,7 @@ export default class LoginForm {
     greetUser() {
         const user = this.userModel.loggedUser;
         const title = this.greetingService.getGreeting(new Date().getHours());
-        const msg = `Welcome back, ${user.firstName}!`;
+        const msg = `Welcome, ${user.firstName}!`;
 
         this.notificationsService.info({ msg, title });
     }

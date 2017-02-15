@@ -10,6 +10,10 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            metaTags: {
+                title: 'Shirt Colors | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 shirtColors: function ($q) {
                     'ngInject';

@@ -9,6 +9,10 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            metaTags: {
+                title: 'Height | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 init: function($q, sizeService) {
                     'ngInject';

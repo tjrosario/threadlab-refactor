@@ -9,6 +9,10 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            metaTags: {
+                title: 'Shirt Fit | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 genericShirtFits: function ($q, attributeService) {
                     'ngInject';

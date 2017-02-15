@@ -9,6 +9,11 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            requireGuest: true,
+            metaTags: {
+                title: 'Shirt Size | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 casualShirtSizes: function ($q, sizeService) {
                     'ngInject';

@@ -9,6 +9,10 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
+            metaTags: {
+                title: 'Pants Fit | Signup'
+            },
+            requireGuest: true,
             resolve: {
                 genericPantFits: function ($q, attributeService) {
                     'ngInject';
