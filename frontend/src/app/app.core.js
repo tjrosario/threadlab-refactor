@@ -8,6 +8,7 @@ import 'angular-payments';
 import uiMask from 'angular-ui-mask';
 import 'angular-local-storage';
 import 'ui-router-metatags/dist/ui-router-metatags';
+import 'ng-password-strength/dist/scripts/ng-password-strength';
 
 import 'angular-loading-bar/build/loading-bar.min.css';
 import 'angular-toastr/dist/angular-toastr.min.css';
@@ -32,6 +33,7 @@ angular.module(MODULE_NAME, [
     'ui.router.metatags',
 	loadingBar,
 	toastr,
+    'ngPasswordStrength',
 
 	...featureNames,
 	...serviceNames,

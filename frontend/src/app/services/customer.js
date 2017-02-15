@@ -48,6 +48,11 @@ class CustomerService {
             .get(`/customer/resetPassword/${id}`, config);
     }
 
+    updatePassword({ config = {}}) {
+        return this.$http
+            .get(`/customer/updatePassword`, config);
+    }
+
     getLogin({ config = {}}) {
         return this.$http
             .get(`/customer/getLogin`, config);

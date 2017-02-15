@@ -56,6 +56,7 @@
     "mandrill-api": "^1.0.45",
     "morgan": "^1.6.1",
     "newrelic": "^1.36.2",
+    "ng-password-strength": "^0.3.0",
     "node-slack": "0.0.7",
     "nodemailer": "^2.1.0",
     "nodemailer-wellknown": "^0.1.7",
