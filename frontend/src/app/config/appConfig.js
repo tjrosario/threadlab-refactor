@@ -51,12 +51,8 @@ const appConfig = {
     mandrill: {
         baseUrl: "/mandrill"
     },
-    referralCandy: {
-        appId: 'jo6f4uuu03r4290hhp6greydx',
-        baseUrl: '/referralCandy',
-        postPurchase: {
-            id: 'refcandy-popsicle'
-        }
+    optimizely: {
+        key: '4944590672'
     },
     paypal: {
         enabled: true,
@@ -65,6 +61,18 @@ const appConfig = {
             hosted_button_id: '8W3LPVYKN4SMN',
             business: 'paypal-merchant@mythreadlab.com'
         }
+    },
+    referralCandy: {
+        appId: 'jo6f4uuu03r4290hhp6greydx',
+        baseUrl: '/referralCandy',
+        postPurchase: {
+            id: 'refcandy-popsicle'
+        }
+    },
+    session: {
+        idle: 1200,
+        timeout: 120,
+        interval: 2
     },
     socialSharing: {
         text: "ThreadLab.  Men's clothing.  Easier.",

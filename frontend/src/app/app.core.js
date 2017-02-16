@@ -9,6 +9,8 @@ import uiMask from 'angular-ui-mask';
 import 'angular-local-storage';
 import 'ui-router-metatags/dist/ui-router-metatags';
 import 'ng-password-strength/dist/scripts/ng-password-strength';
+import 'ng-optimizely';
+import 'ng-idle';
 
 import 'angular-loading-bar/build/loading-bar.min.css';
 import 'angular-toastr/dist/angular-toastr.min.css';
@@ -28,6 +30,8 @@ angular.module(MODULE_NAME, [
     'angularPayments',
     'ui.bootstrap',
     'LocalStorageModule',
+    'ng-optimizely',
+    'ngIdle',
     uiMask,
 	uirouter,
     'ui.router.metatags',

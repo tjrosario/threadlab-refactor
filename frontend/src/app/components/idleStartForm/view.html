@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ $ctrl.resolve.config.title }}</h3>
+</div>
+
+<div class="modal-body">
+    <div idle-countdown="$ctrl.countdown" ng-init="countdown=$ctrl.countdown" class="modal-body">
+        <uib-progressbar max="5" value="5" animate="false" class="progress-striped active">
+            You'll be logged out in {{ $ctrl.countdown }} second(s)
+        </uib-progressbar>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.submit()">Keep Me Signed In</button>
+</div>

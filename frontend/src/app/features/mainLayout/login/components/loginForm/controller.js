@@ -2,7 +2,7 @@ import { componentName as requestPasswordResetForm } from 'requestPasswordReset/
 
 /* @ngInject */
 export default class LoginForm {
-    constructor(authService, userModel, greetingService, notificationsService, customerService, $state, $uibModal) {
+    constructor(authService, userModel, greetingService, notificationsService, customerService, $state, $uibModal, Idle) {
         this.authService = authService;
         this.userModel = userModel;
         this.greetingService = greetingService;
@@ -10,6 +10,7 @@ export default class LoginForm {
         this.customerService = customerService;
         this.$state = $state;
         this.$uibModal = $uibModal;
+        this.Idle = Idle;
     }
 
     login(credentials) {
@@ -19,6 +20,7 @@ export default class LoginForm {
                     this.authService.setCurrentUser(resp.data.data);
                     this.$state.go('index.home');
                     this.greetUser();
+                    this.Idle.watch();
                 } else {
                     const msg = 'Invalid login.  Please double check your credentials';
                     this.notificationsService.alert({ msg });

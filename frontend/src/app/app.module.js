@@ -15,11 +15,12 @@ angular.module(MODULE_NAME, [
     ])
     .constant('CONFIG', appConfig)
     .config(config)
-    .run((appStartService, CONFIG, $rootScope, MetaTags) => {
+    .run((appStartService, CONFIG, $rootScope, MetaTags, optimizely) => {
         'ngInject';
         const appConfig = CONFIG;
         $rootScope.MetaTags = MetaTags;
         appStartService.run();
+        optimizely.loadProject();
 
         if (Stripe) {
         	Stripe.setPublishableKey(`${appConfig.stripe.keyPublish}`);

@@ -1,12 +1,18 @@
+import { componentName as idleStartForm } from 'components/idleStartForm/component';
+import { componentName as idleTimeoutForm } from 'components/idleTimeoutForm/component';
+
 /* @ngInject */
 export default class MainLayout {
-    constructor(globalNavigationService, authService, notificationsService, userModel, $rootScope, $state) {
+    constructor(globalNavigationService, authService, notificationsService, userModel, $rootScope, $state, $scope, $uibModal, Idle) {
         this.globalNavigationService = globalNavigationService;
         this.authService = authService;
         this.notificationsService = notificationsService;
         this.userModel = userModel;
         this.$rootScope = $rootScope;
+        this.$scope = $scope;
         this.$state = $state;
+        this.$uibModal = $uibModal;
+        this.Idle = Idle;
     }
 
     $onInit() {
@@ -14,6 +20,39 @@ export default class MainLayout {
         this.$rootScope.$on('$stateChangeSuccess', this.handleStateChangeSuccess.bind(this));
         this.checkCurrentUser();
         this.navFooterItems = this.globalNavigationService.getPublicEntities();
+        this.$scope.$on('IdleStart', this.handleIdleStart.bind(this));
+        this.$scope.$on('IdleTimeout', this.handleIdleTimeout.bind(this));
+    }
+
+    handleIdleStart() {
+        this.idleStartModalInstance = this.$uibModal.open({
+            animation: true,
+            component: idleStartForm,
+            resolve: {
+                config: () => ({
+                    title: "You've been idle"
+                })
+            }
+        });
+    }
+
+    handleIdleTimeout() {
+        this.logout();
+        this.idleStartModalInstance.close();
+
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            component: idleTimeoutForm,
+            resolve: {
+                config: () => ({
+                    title: "Your session has timed out"
+                })
+            }
+        });
+
+        modalInstance.result.then(formData => {
+            this.$state.go('index.login');
+        });
     }
 
     checkCurrentUser() {
@@ -27,6 +66,7 @@ export default class MainLayout {
     onUserAuthenticated() {
         this.navItems = this.globalNavigationService.getUserEntities();
         this.userNavItems = this.getUserNavItems();
+        this.Idle.watch();
     }
 
     onUserUnauthenticated() {
@@ -81,6 +121,7 @@ export default class MainLayout {
             this.authService.clearUser();
             this.$state.go('index.home');
             this.onUserUnauthenticated();
+            this.Idle.unwatch();
         }, err => {
             //this.notificationsService.alert({msg: [].concat(err.message)[0]});
         });
