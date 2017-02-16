@@ -169,12 +169,15 @@ export default class ShirtColors {
         this.setPreferenceMappings(this.customerSignupModel.user.shirtFitOptions, 'Regular', 'Full'); 
     }
 
-    proceed(data, next) {
+    completeSignup(data) {
         each(this.shirtColorCategories, cat => {
             this.customerSignupModel.user[cat.scopeName] = this[cat.scopeName];
         });
 
         this.setFitandStylePreferences();
-        this.$state.go(`index.signup.${next}`);
+        
+        
+
+        //this.$state.go(`index.signup.${next}`);
     }
 }

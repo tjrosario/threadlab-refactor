@@ -1,8 +1,9 @@
 /* @ngInject */
 export default class Profile {
-    constructor($state) {
+    constructor($state, customerSignupModel) {
         this.$state = $state;
         this.formData = {};
+        this.customerSignupModel = customerSignupModel;
     }
 
     $onInit() {
@@ -17,6 +18,8 @@ export default class Profile {
     }
 
     signup() {
-    	console.log(this.formData);
+    	this.customerSignupModel.user.profile = this.formData;
+
+        this.$state.go('index.signup.shirtSize');
     }
 }

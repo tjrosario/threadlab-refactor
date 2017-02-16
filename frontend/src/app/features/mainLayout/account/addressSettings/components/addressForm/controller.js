@@ -8,6 +8,7 @@ export default class AddressForm {
 
     $onInit() {
     	this.formData = cloneDeep(this.address);
+        this.formData.type = 'shipping';
     }
 
     prepareFormData() {

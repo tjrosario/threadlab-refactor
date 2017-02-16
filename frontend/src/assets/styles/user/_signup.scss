@@ -129,24 +129,19 @@
       text-align: center;
 
       @include media($desktop) {
-        border-right: 1px solid $silver;
+        /* border-right: 1px solid $silver;
         border-top: 0;
         margin-bottom: 0;
         min-height: 400px;
-        padding-top: 150px;
+        padding-top: 150px; */
       }
     }
 
     .col-b {
       border-top: 1px solid $silver;
-      padding-top: 30px;
+      padding-top: 45px;
       position: relative;
       text-align: center;
-
-      @include media($desktop) {
-        border-top: 0;
-        padding: 0 0 0 40px;
-      }
 
       &:before {
         background: $white;
@@ -157,12 +152,6 @@
         position: absolute;
         top: -27px;
         width: 60px;
-
-        @include media($desktop) {
-          left: -53px;
-          margin: 0;
-          top: 147px;
-        }
       }
     }
   }

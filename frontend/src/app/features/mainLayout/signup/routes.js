@@ -9,7 +9,7 @@ export default function layoutRoutes($stateProvider) {
             template,
             controller,
             controllerAs: '$ctrl',
-            redirectTo: 'index.signup.shirtSize',
+            redirectTo: 'index.signup.profile',
             requireGuest: true,
             resolve: {
                 init: function ($q, sizeService) {

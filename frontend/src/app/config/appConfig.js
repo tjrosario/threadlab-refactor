@@ -13,6 +13,9 @@ const appConfig = {
         zip: '07302',
         phone: ' 866.208.5322'
     },
+    crazyegg: {
+        id: "00471513"
+    },
     email: {
         accounts: {
             alerts: 'alerts@mythreadlab.com'

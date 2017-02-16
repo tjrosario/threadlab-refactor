@@ -6,6 +6,7 @@ import first from 'lodash/first';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import { componentName as orderItemImage } from 'account/orderDetails/components/orderItemImage/component';
+import { componentName as rejectOrderItemForm } from 'account/orderDetails/components/rejectOrderItemForm/component';
 import { componentName as returnOrderItemForm } from 'account/orderDetails/components/returnOrderItemForm/component';
 
 import setDelay from 'utils/setDelay';
@@ -97,7 +98,7 @@ export default class AccountOrderMatches {
     rejectOrderItem(orderItem) {
         const modalInstance = this.$uibModal.open({
             animation: true,
-            component: returnOrderItemForm,
+            component: rejectOrderItemForm,
             resolve: {
                 config: () => ({
                     title: 'Reject Item'

@@ -8,7 +8,7 @@
       <div class="wrapper">
         <ul class="reset clear">
           <li ng-repeat="box in $ctrl.boxes.list" class="span4">
-            <a href="#" ng-click="placeOrder(box)"><img ng-src="{{ assetUrl + box.imagePathAlt }}"></a>
+            <a ui-sref="index.boxDetails({ id: box.slug })"><img ng-src="{{ assetUrl + box.imagePathAlt }}"></a>
 
             <div class="box-info mobile">
               <box-info data="box"></box-info>

@@ -1,7 +1,7 @@
 import { httpInterceptors } from './httpInterceptors';
 import merge from 'lodash/merge';
 
-export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider, localStorageServiceProvider, UIRouterMetatagsProvider, optimizelyProvider, KeepaliveProvider, IdleProvider, TitleProvider, CONFIG) {
+export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider, localStorageServiceProvider, UIRouterMetatagsProvider, optimizelyProvider, KeepaliveProvider, IdleProvider, TitleProvider, $analyticsProvider, CONFIG) {
     'ngInject';
 
     $locationProvider.html5Mode(true);
@@ -10,6 +10,8 @@ export default function appConfig($urlRouterProvider, $locationProvider, $httpPr
     $compileProvider.debugInfoEnabled(false);
     localStorageServiceProvider.setPrefix('threadlab');
     localStorageServiceProvider.setStorageType('localStorage');
+
+    $analyticsProvider.withBase(true);
 
     IdleProvider.idle(CONFIG.session.idle);
     IdleProvider.timeout(CONFIG.session.timeout);
