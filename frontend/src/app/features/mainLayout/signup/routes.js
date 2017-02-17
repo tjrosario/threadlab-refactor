@@ -12,7 +12,7 @@ export default function layoutRoutes($stateProvider) {
             redirectTo: 'index.signup.profile',
             requireGuest: true,
             resolve: {
-                init: function ($q, sizeService) {
+                init: function ($q) {
                     'ngInject';
                 }
             }

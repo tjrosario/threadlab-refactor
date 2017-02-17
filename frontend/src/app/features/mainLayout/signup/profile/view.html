@@ -1,4 +1,4 @@
-<div class="step">
+<div class="step profile">
     <div class="step user-info">
         <h2>Create an Account</h2>
 
@@ -46,16 +46,22 @@
 
                                       <div class="row">
                                         <div class="span6">
-                                          <div class="form-group field email">
+                                          <div class="form-group field email"
+                                            ng-class="{ 'loading': $ctrl.loading, 
+                                                        'valid': $ctrl.validUsername && $ctrl.formData.email && $ctrl.complete,
+                                                        'invalid': !$ctrl.validUsername && $ctrl.formData.email && $ctrl.complete
+                                                    }"
+                                          >
                                             <label>Email</label>
                                             <input type="email" name="email" ng-model="$ctrl.formData.email" required class="form-control " placeholder="Enter a valid email" disallow-spaces ng-change="$ctrl.checkUsername()">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i>
 
-                                            <div class="alert alert-success" ng-show="$ctrl.validUsername && $ctrl.formData.email">
+                                            <div class="alert alert-success">
                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                 <strong>Email is available!</strong> 
                                             </div>
 
-                                            <div class="alert alert-danger" ng-show="!$ctrl.validUsername && $ctrl.formData.email">
+                                            <div class="alert alert-danger">
                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                 <strong>Email already taken :(</strong> 
                                             </div>

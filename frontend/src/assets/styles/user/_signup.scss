@@ -7,7 +7,7 @@
 
   .wrapper {
     @include media($mobile) {
-      padding-top: 10px;
+      //padding-top: 10px;
     }
   }
 
@@ -152,6 +152,42 @@
         position: absolute;
         top: -27px;
         width: 60px;
+      }
+    }
+  }
+
+  .profile {
+    .form-group {
+      &.email {
+        .alert {
+          display: none;
+        }
+
+        .fa-spin {
+          display: none;
+          font-size: 16px;
+          position: absolute;
+          right: 10px;
+          top: 38px;
+        }
+
+        &.loading {
+          .fa-spin {
+            display: inline-block;
+          }
+        }
+
+        &.valid {
+          .alert-success {
+            display: block;
+          }
+        }
+
+        &.invalid {
+          .alert-danger {
+            display: block;
+          }
+        }
       }
     }
   }

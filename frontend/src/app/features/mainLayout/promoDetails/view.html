@@ -1,0 +1,51 @@
+<div class="promos">
+    <div class="wrapper">
+        <div class="main align-center">
+
+            <div ng-if="$ctrl.promoValid">
+                <h1>Great news!</h1>
+                <img ng-src="{{ assetUrl + '/images/brandingPhotos/box-open-watermark-2-shrunk.jpg' }}">
+
+                <div ng-if="$ctrl.promo.value > 0">
+                    <div ng-if="$ctrl.promo.name === 'friendly20'">
+                        <p>Your friend just hooked you up! When you place your order, you'll get <strong ng-if="$ctrl.promo.type ==='monetary'" ng-bind="$ctrl.promo.value | currency: '$'"></strong><strong ng-if="$ctrl.promo.type ==='percentage'" ng-bind="$ctrl.promo.value + '%'"></strong> off your next order.</p>
+                    </div>
+
+                    <div ng-if="$ctrl.promo.name !== 'friendly20'">
+                        <p>Your promo, <strong ng-bind="$ctrl.promo.name"></strong> 
+                        <span ng-if="$ctrl.promo.value > 0">(<strong ng-if="$ctrl.promo.type ==='monetary'" ng-bind="$ctrl.promo.value | currency: '$'"></strong><strong ng-if="$ctrl.promo.type ==='percentage'" ng-bind="$ctrl.promo.value + '%'"></strong>)</span>, applied successfully and will appear on the checkout page when you place an order.</p>
+                    </div>
+                </div>
+
+                <div ng-if="$ctrl.promo.value === 0">
+                    <p>Your promo, <strong ng-bind="$ctrl.promo.name"></strong>, has been applied successfully and will appear on the checkout page when you place an order.</p>  
+                </div>
+
+                <div class="actions">
+                    <a ui-sref="index.login({ nextPage: '/place-order' })" class="button button-large" ng-if="!currentUser">Get Your Clothes Now<br><small>Enjoy more time for the good life</small></a>
+
+                    <a ui-sref="index.placeOrder" class="button button-large" ng-if="currentUser">Get Your Clothes Now<br><small>Enjoy more time for the good life</small></a>
+                </div>
+            </div>
+
+            <div ng-if="$ctrl.promoPending">
+                <h1>Promos</h1>
+                <h2>Sorry, not quite yet&hellip;</h2>
+                <p>The promo <strong ng-bind="$ctrl.promo.name"></strong> has not started yet.  Please contact <a href="mailto:service@mythreadlab.com">service@mythreadlab.com</a> with any questions.</p>
+            </div>
+
+            <div ng-if="$ctrl.promoExpired">
+                <h1>Promos</h1>
+                <h2>Sorry, this promo has expired</h2>
+                <p>The promo <strong ng-bind="$ctrl.promo.name"></strong> has ended.  Please contact <a href="mailto:service@mythreadlab.com">service@mythreadlab.com</a> with any questions.</p>
+            </div>
+
+            <div ng-if="!$ctrl.promo">
+                <h1>Promos</h1>
+                <h2>Sorry</h2>
+                <p>This promotion is not currently valid. Please contact <a href="mailto:service@mythreadlab.com">service@mythreadlab.com</a> with any questions.</p>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,11 +1,27 @@
 import { httpInterceptors } from './httpInterceptors';
 import merge from 'lodash/merge';
 
+const onPromoCodeFail = () => {
+    window.location.href = '/';
+};
+
+const checkPromoCodes = ($injector, $location) =>{
+    const path = $location.$$path;
+    const numFwdSlashes = (path.match(/\//g) || []).length;
+
+    if (numFwdSlashes === 1) {
+        const promoCode = path.replace(/\//g, '');
+        window.location = `/promo/${promoCode}`;
+    } else {
+        onPromoCodeFail();
+    }
+};
+
 export default function appConfig($urlRouterProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider, toastrConfig, $compileProvider, localStorageServiceProvider, UIRouterMetatagsProvider, optimizelyProvider, KeepaliveProvider, IdleProvider, TitleProvider, $analyticsProvider, CONFIG) {
     'ngInject';
 
     $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise(checkPromoCodes);
     $httpProvider.interceptors.push(httpInterceptors);
     $compileProvider.debugInfoEnabled(false);
     localStorageServiceProvider.setPrefix('threadlab');

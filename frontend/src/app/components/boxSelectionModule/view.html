@@ -11,7 +11,7 @@
                         <div class="price">from $<span ng-bind="box.price"></span></div>
                     </a>
                 </div>
-                <a ng-click="$ctrl.showBox(box)" class="button button-large">View Box Details</a>
+                <a ui-sref="index.boxDetails({ id: box.slug })" class="button button-large">View Box Details</a>
             </li>
         </ul>
     </div>

@@ -1,3 +1,14 @@
+<div class="row-separator bare social">
+    <div class="content">
+        <div class="facebook align-center">
+            <div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()">
+                <i class="fa fa-facebook"></i>
+                <strong >Sign in with Facebook</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row-separator email">
     <div class="content">
         <form name="loginForm" novalidate class="form-signin align-left" ng-submit="$ctrl.login(credentials)">
@@ -17,7 +28,5 @@
                 <button type="submit" ng-disabled="loginForm.$invalid" class="button button-large" ng-class="{ 'loading': loading }" id="signin-signin00">Sign in</button>
             </div>
         </form>
-
-
     </div>
 </div>

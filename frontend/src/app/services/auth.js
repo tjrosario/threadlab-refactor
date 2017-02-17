@@ -59,6 +59,8 @@ export class AuthService {
                 if (resp.data.success) {
                     this.setCurrentUser(resp.data.data);
                     this.refreshAfterInterval(refreshDuration);
+                } else {
+                    this.clearUser();
                 }
 
                 return this.$q.when(resp);
@@ -78,7 +80,7 @@ export class AuthService {
     }
 
     getCurrentUser() {
-        return JSON.parse(this.localStorageService.get('currentUser'));
+        return JSON.parse(this.localStorageService.get('currentUser')) || false;
     }
 
     resetPassword(email) {

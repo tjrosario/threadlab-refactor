@@ -18,7 +18,7 @@
       <div class="mobile">
         <global-navigation items="$ctrl.navItems"></global-navigation>
 
-        <ul class="reset">
+        <ul class="reset" ng-if="currentUser">
           <li>
             <a ng-click="$ctrl.logout()">
               Sign Out <i class="fa fa-sign-out"></i>

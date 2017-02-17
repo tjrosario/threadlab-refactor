@@ -7,6 +7,7 @@ export default function routes($stateProvider) {
             url: '/login',
             template,
             title: 'Login',
+            requireGuest: true,
             metaTags: {
                 title: 'Sign in to your account'
             },

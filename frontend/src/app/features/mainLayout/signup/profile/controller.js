@@ -10,7 +10,7 @@ export default class Profile {
     }
 
     $onInit() {
-        this.validUsername = -1;
+        this.validUsername = false;
     }
 
     isValidRequiredFields() {
@@ -29,7 +29,11 @@ export default class Profile {
                 }
             };
 
+            this.validUsername = false;
+            this.complete = false;
+
             setDelay((() => {
+                this.loading = true;
                 this.customerService.findEntity({ config })
                     .then(resp => {
                         if (resp.data.success) {
@@ -37,8 +41,11 @@ export default class Profile {
                         } else {
                             this.validUsername = true;
                         }
+                        this.loading = false;
+                        this.complete = true;
                     }, err => {
                         this.notificationsService.alert({ msg: err.message });
+                        this.loading = false;
                     });
             }), 1000);
         }

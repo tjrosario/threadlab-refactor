@@ -406,13 +406,16 @@ body {
 
       li {
         display: block;
-        margin: 0;
         text-align: left;
 
         a {
           color: $white;
           display: block;
           padding: 5px 0;
+
+          @include media($tablet) {
+            padding: 5px $gutter;
+          }
         }
       }
 
@@ -421,8 +424,7 @@ body {
           color: $dixie;
           font-size: $font-normal;
           height: auto;
-          padding-left: 0;
-          padding-right: 0;
+          padding: 0 $gutter;
         }
       }
 
@@ -571,17 +573,15 @@ body {
         }
 
         .mobile {
-          display: block;
+          //display: block;
 
           li {
             display: block;
-            margin: 0;
             text-align: left;
 
             a {
               color: $white;
               display: block;
-              padding: 5px 0;
             }
           }
 
@@ -2048,7 +2048,7 @@ md-option {
 
   .button {
     @include media($tablet) {
-      display: none;
+      //display: none;
     }
   }
 
