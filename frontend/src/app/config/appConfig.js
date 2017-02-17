@@ -4,6 +4,21 @@ const appConfig = {
         adroll_pix_id: 'OMW3NBIEXNASJH3VICRCRI',
         adroll_segments: '172ab867'
     },
+    analytics: {
+        google: {
+            id: ''
+        },
+        googleTagManager: {
+            id: ''
+        },
+        googleAdWords: {
+            google_conversion_id: "",
+            google_conversion_language: "",
+            google_conversion_format: "",
+            google_conversion_color: "",
+            google_remarketing_only: ""
+        }
+    },
     assetUrl: '',
     companyAddress: {
         name: 'ThreadLab, Inc.',

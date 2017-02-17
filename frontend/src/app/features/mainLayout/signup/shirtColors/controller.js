@@ -10,7 +10,7 @@ import getMatchByIndex from 'utils/getMatchByIndex';
 
 /* @ngInject */
 export default class ShirtColors {
-    constructor(attributeService, priceRangeService, shirtColorCategoriesService, shirtPatternCategoriesService, collarTypeCategoriesService, priceRangeCategoriesService, customerSignupModel, customerService, styleDislikeService, pricePreferenceService, $state, $q, facebookService, mailchimpService, CONFIG) {
+    constructor(attributeService, priceRangeService, shirtColorCategoriesService, shirtPatternCategoriesService, collarTypeCategoriesService, priceRangeCategoriesService, customerSignupModel, customerService, styleDislikeService, pricePreferenceService, $state, $q, facebookService, mailchimpService, CONFIG, authService, Idle) {
     	this.attributeService = attributeService;
         this.priceRangeService = priceRangeService;
         this.shirtColorCategories = shirtColorCategoriesService.getEntities();
@@ -26,6 +26,9 @@ export default class ShirtColors {
         this.facebookService = facebookService;
         this.mailchimpService = mailchimpService;
         this.appConfig = CONFIG;
+        this.adWords = this.appConfig.analytics.googleAdWords;
+        this.authService = authService;
+        this.Idle = Idle;
     }
 
     $onInit() {
@@ -388,17 +391,14 @@ export default class ShirtColors {
                 'priceRange.id': price.id
         }));
 
-        console.log(styleDislikes);
-        console.log(prices);
-
         if (styleDislikes.length > 0) {
             promises = this.$q.all(
-                this.styleDislikeService.createAllEntities({ data: styleDislikes }), 
-                this.pricePreferenceService.createAllEntities({ data: prices })
+                this.styleDislikeService.createAllEntities({ data: { data: styleDislikes }}), 
+                this.pricePreferenceService.createAllEntities({ data: { data: prices }})
             );
         } else {
             promises = this.$q.all(
-                this.pricePreferenceService.createAllEntities({ data: prices })
+                this.pricePreferenceService.createAllEntities({ data: { data: prices }})
             );
         }
 
@@ -411,16 +411,14 @@ export default class ShirtColors {
 
     trackSignupConversion() {
         if (window.google_trackConversion) {
-            adWords.google_conversion_label = 'ABlWCKPQh1wQyoO7-AM';
-            window.google_trackConversion(adWords);
+            this.adWords.google_conversion_label = 'ABlWCKPQh1wQyoO7-AM';
+            window.google_trackConversion(this.adWords);
         }
     }
 
-    subscribeMailchimp(customerInfo, opts) {
+    subscribeMailchimp(customer, opts) {
         opts = opts || {};
-        opts.callback = opts.callback || () => {};
-
-        const customer = customerInfo.customer;
+        opts.callback = opts.callback || (() => {});
 
         const data = {
             id: this.appConfig.mailchimp.lists.postSignup,
@@ -448,8 +446,10 @@ export default class ShirtColors {
         
         this.onBeforeCustomerSave(this.customerSignupModel.user);
 
+        const user = this.customerSignupModel.user;
+
         const config = {
-            params: this.customerSignupModel.user.profile
+            params: user.profile
         };
         
         this.customerService.createEntity({ config })
@@ -460,18 +460,16 @@ export default class ShirtColors {
                     this.onCustomerSave(customer)
                         .then(resp => {
                             const type = customer.facebookId ? 'facebook' : 'email';
-                            const customerInfo = {
-                                customer,
-                                credentials,
-                                type,
-                                signup: true
+                            const credentials = {
+                                username: user.profile.email,
+                                password: user.profile.password
                             };
                             
                             this.trackSignupConversion();
                             this.trackFacebookConversion();
-                            this.subscribeMailchimp(customerInfo, {
+                            this.subscribeMailchimp(customer, {
                                 callback: () => {
-                                    console.log('go to signup confirm');
+                                    this.login(credentials, type);
                                 }
                             });
 
@@ -485,8 +483,23 @@ export default class ShirtColors {
             }, err => {
                 this.notificationsService.alert({ msg: err.message });
             });
+    }
 
-
-        //this.$state.go(`index.signup.${next}`);
+    login(credentials, type) {
+        this.authService.login(credentials)
+            .then(resp => {
+                if (resp.data.success) {
+                    this.authService.setCurrentUser(resp.data.data);
+                    this.$state.go('index.signup.confirmation', {
+                        type
+                    });
+                    this.Idle.watch();
+                } else {
+                    const msg = 'Invalid login.  Please double check your credentials';
+                    this.notificationsService.alert({ msg });
+                }
+            }, err => {
+                this.notificationsService.alert({ msg: err.message });
+            });
     }
 }
