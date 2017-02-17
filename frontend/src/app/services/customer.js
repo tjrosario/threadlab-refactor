@@ -28,6 +28,11 @@ class CustomerService {
             .get(`/customer/update`, config);
     }
 
+    findEntity({ config = {}}) {
+        return this.$http
+            .get(`/customer/find`, config);
+    }
+
     redeemGiftCard({ config = {}}) {
         return this.$http
             .get(`/customer/redeemGiftCard`, config);

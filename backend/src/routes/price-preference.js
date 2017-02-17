@@ -21,7 +21,7 @@ router.get "*", (req, res) ->
 
 router.post("/createAllJSON", function(req, res) {
   return request({
-    uri: getAPIUrl(req.url),
+    uri: apiUrl + "/pricePreference/createAllJSON" + "?" + apiKey,
     body: JSON.stringify(req.body),
     method: "post"
   }, function(err, resp, body) {

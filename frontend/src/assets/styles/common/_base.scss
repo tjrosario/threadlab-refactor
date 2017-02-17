@@ -953,6 +953,35 @@ body {
     //min-height: 650px;
   }
 
+  .alert {
+    font-size: 14px;
+  }
+
+  .alert-success {
+    color: #3c763d;
+  }
+
+  .alert-warning {
+    color: #8a6d3b;
+  }
+
+  .alert-info {
+    color: #31708f;
+  }
+
+  .alert-danger {
+    color: #a94442;
+  }
+
+  [disabled] {
+    cursor: not-allowed;
+    opacity: .55;
+
+    &:hover {
+      opacity: .55;
+    }
+  }
+
   .wrapper > h1,
   h1 + .wrapper {
     padding-top: 0;

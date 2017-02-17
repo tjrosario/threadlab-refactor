@@ -9,28 +9,28 @@ class ShirtColorCategories {
     }
 
     getEntities() {
-		return [{
-			name: 'Casual Shirt',
-			scopeName: 'casualShirtColor'
-		}, {
-			name: 'Dress Shirts',
-			scopeName: 'dressShirtColor'
-		}, {
-			name: 'Golf / Polo Shirt',
-			scopeName: 'golfPoloShirtColor'
-		}, {
-			name: 'Sweater',
-			scopeName: 'sweaterColor'
-		}, {
-			name: 'Sweatshirt',
-			scopeName: 'sweatshirtColor'
-		}, {
-			name: 'T-shirt',
-			scopeName: 'tshirtColor'
-		}, {
-			name: 'Undershirts',
-			scopeName: 'undershirtColor'
-		}];
+        return [{
+            name: 'Casual Shirt',
+            scopeName: 'casualShirtColor'
+        }, {
+            name: 'Dress Shirts',
+            scopeName: 'dressShirtColor'
+        }, {
+            name: 'Golf / Polo Shirt',
+            scopeName: 'golfPoloShirtColor'
+        }, {
+            name: 'Sweater',
+            scopeName: 'sweaterColor'
+        }, {
+            name: 'Sweatshirt',
+            scopeName: 'sweatshirtColor'
+        }, {
+            name: 'T-shirt',
+            scopeName: 'tshirtColor'
+        }, {
+            name: 'Undershirts',
+            scopeName: 'undershirtColor'
+        }];
     }
 }
 

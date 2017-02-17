@@ -21,6 +21,7 @@ const component = {
         nextBtnText: '@',
         prevBtnText: '@',
         onSelect: '&',
+        disabledHandler: '&',
         submitBtnText: '@'
     }
 };

@@ -10,12 +10,12 @@ class CollarTypeCategories {
 
     getEntities() {
         return [{
-			name: 'Casual Shirt',
-			scopeName: 'casualShirtCollarType'
-		}, {
-			name: 'Dress Shirts',
-			scopeName: 'dressShirtCollarType'
-		}];
+            name: 'Casual Shirt',
+            scopeName: 'casualShirtCollarType'
+        }, {
+            name: 'Dress Shirts',
+            scopeName: 'dressShirtCollarType'
+        }];
     }
 }
 

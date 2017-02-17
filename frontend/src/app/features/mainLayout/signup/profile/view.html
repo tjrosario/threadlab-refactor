@@ -1,80 +1,91 @@
 <div class="step">
-	<div class="step user-info">
-		<h2>Create an Account</h2>
+    <div class="step user-info">
+        <h2>Create an Account</h2>
 
-		<div class="row align-center lead">
-			<p>No obligations, no subscriptions, and no pressure. Order any time you want, and get free shipping and free returns.<br> You can add more details to your profile such as clothing measurements, patterns, colors, brands and styles after you complete sign up.</p>
-		</div>
+        <div class="row align-center lead">
+            <p>No obligations, no subscriptions, and no pressure. Order any time you want, and get free shipping and free returns.<br> You can add more details to your profile such as clothing measurements, patterns, colors, brands and styles after you complete sign up.</p>
+        </div>
 
-		<div class="signup-form">
-			<form name="signupForm" novalidate>
-				<div class="row">
-					<div class="col-a">
-						<div class="row-separator bare social">
-							<div class="content">
-								<div class="align-center facebook">
+        <div class="signup-form">
+            <form name="signupForm" novalidate>
+                <div class="row">
+                    <div class="col-a">
+                        <div class="row-separator bare social">
+                            <div class="content">
+                                <div class="align-center facebook">
 
-									<div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()">
-										<i class="fa fa-facebook"></i>
-										<strong>Sign up with Facebook</strong>
-									</div>
+                                    <div class="button facebook-btn" id="facebook-btn" ng-click="fbLogin()">
+                                        <i class="fa fa-facebook"></i>
+                                        <strong>Sign up with Facebook</strong>
+                                    </div>
 
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-b">
-						<h3>Sign Up With Email</h3>
-						<div class="row-separator email">
-							<div class="content">
-								<div class="row form">
-									<div id="signupFull">
-									  <div class="row">
-									    <div class="span6">
-									      <div class="form-group field first_name">
-									        <label>First Name</label>
-									        <input type="text" name="firstName" ng-model="$ctrl.formData.firstName" required class="form-control" placeholder="Enter your first name">
-									      </div>
-									    </div>
-									    <div class="span6">
-									      <div class="form-group field last_name">
-									        <label>Last Name</label>
-									        <input type="text" name="lastName" ng-model="$ctrl.formData.lastName" required class="form-control" placeholder="Enter your last name">
-									      </div>
-									    </div>
-									  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-b">
+                        <h3>Sign Up With Email</h3>
+                        <div class="row-separator email">
+                            <div class="content">
+                                <div class="row form">
+                                    <div id="signupFull">
+                                      <div class="row">
+                                        <div class="span6">
+                                          <div class="form-group field first_name">
+                                            <label>First Name</label>
+                                            <input type="text" name="firstName" ng-model="$ctrl.formData.firstName" required class="form-control" placeholder="Enter your first name">
+                                          </div>
+                                        </div>
+                                        <div class="span6">
+                                          <div class="form-group field last_name">
+                                            <label>Last Name</label>
+                                            <input type="text" name="lastName" ng-model="$ctrl.formData.lastName" required class="form-control" placeholder="Enter your last name">
+                                          </div>
+                                        </div>
+                                      </div>
 
-									  <div class="row">
-									    <div class="span6">
-									      <div class="form-group field email">
-									        <label>Email</label>
-									        <input type="email" name="email" ng-model="$ctrl.formData.email" required class="form-control " placeholder="Enter a valid email" disallow-spaces>
-									      </div>
-									    </div>
-									    <div class="span6">
-									      <div class="form-group field password-field password" id="customer-password">
-									        <label>Password</label>
-									        <input type="password" name="password" ng-model="$ctrl.formData.password" ng-minlength="7" class="form-control password" placeholder="Enter a password" required>
-									        <div class="toggle">Show Password</div>
-									      </div>
-									    </div>
-									  </div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                                      <div class="row">
+                                        <div class="span6">
+                                          <div class="form-group field email">
+                                            <label>Email</label>
+                                            <input type="email" name="email" ng-model="$ctrl.formData.email" required class="form-control " placeholder="Enter a valid email" disallow-spaces ng-change="$ctrl.checkUsername()">
 
-				<div class="row">
-					<p class="legal align-center"><small>By signing up, you agree to our <a ui-sref="terms" target="_blank" id="signup-disclaimer-terms00">Terms of Use</a> and that you have read our <a ui-sref="privacy" target="_blank" id="signup-disclaimer-privacy00">Privacy Policy</a>.</small></p>
-				</div>	
+                                            <div class="alert alert-success" ng-show="$ctrl.validUsername && $ctrl.formData.email">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                <strong>Email is available!</strong> 
+                                            </div>
 
-				<div class="control align-center">
-					<div class="inner">
-						<button type="submit" class="button button-large" ng-class="" ng-disabled="!$ctrl.isValidRequiredFields()" id="signup-register00" ng-click="$ctrl.signup()">Set Your Preferences</button>
-					</div>
-				</div>
-		</div>
-	</div>
+                                            <div class="alert alert-danger" ng-show="!$ctrl.validUsername && $ctrl.formData.email">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                <strong>Email already taken :(</strong> 
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                        <div class="span6">
+                                          <div class="form-group field password-field password" id="customer-password">
+                                            <label>Password</label>
+                                            <input type="password" name="password" ng-model="$ctrl.formData.password" ng-minlength="7" class="form-control password" placeholder="Enter a password" required>
+                                            <div class="toggle">Show Password</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p class="legal align-center"><small>By signing up, you agree to our <a ui-sref="terms" target="_blank" id="signup-disclaimer-terms00">Terms of Use</a> and that you have read our <a ui-sref="privacy" target="_blank" id="signup-disclaimer-privacy00">Privacy Policy</a>.</small></p>
+                </div>  
+
+                <div class="control align-center">
+                    <div class="inner">
+                        <button type="submit" class="button button-large" ng-class="" ng-disabled="!$ctrl.isValidRequiredFields()" id="signup-register00" ng-click="$ctrl.signup()">Set Your Preferences</button>
+                    </div>
+                </div>
+        </div>
+    </div>
 </div>

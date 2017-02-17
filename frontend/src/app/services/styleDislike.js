@@ -28,9 +28,9 @@ class StyleDislikeService {
             .get(`/styleDislike/delete/${id}`, config);
     }
     
-    createAllEntities({ params = {}}) {
+    createAllEntities({ data = {}}) {
         return this.$http
-            .post(`/styleDislike/createAllJSON`, params);
+            .post(`/styleDislike/createAllJSON`, data);
     }
 }
 

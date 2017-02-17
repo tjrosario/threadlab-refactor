@@ -8,6 +8,7 @@
 	button-class="col2-mobile"
 	type="antipref"
 	on-select="$ctrl.completeSignup($ctrl.casualShirtColor)"
-	submit-btn-text="Complete Signup"
+	submit-btn-text="Complete Signup".
+	disabled-handler="!$ctrl.isStepValid()"
 >
 </signup-step>

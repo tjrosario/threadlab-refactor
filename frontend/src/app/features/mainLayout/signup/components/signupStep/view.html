@@ -12,6 +12,6 @@
 	</div>
 
 	<div ng-if="$ctrl.submitBtnText">
-		<button class="button button-dark" ng-click="$ctrl.onSelect()">{{ $ctrl.submitBtnText }}</button>
+		<button class="button button-dark" ng-click="$ctrl.onSelect()" ng-disabled="$ctrl.disabledHandler()">{{ $ctrl.submitBtnText }}</button>
 	</div>
 </div>

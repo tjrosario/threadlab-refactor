@@ -28,9 +28,9 @@ class PricePreferenceService {
             .get(`/pricePreference/delete/${id}`, config);
     }
     
-    createAllEntities({ params = {}}) {
+    createAllEntities({ data = {}}) {
         return this.$http
-            .post(`/pricePreference/createAllJSON`, params);
+            .post(`/pricePreference/createAllJSON`, data);
     }
 }
 
