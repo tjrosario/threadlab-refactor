@@ -1,3 +1,5 @@
+var http = require("http");
+var https = require('https');
 var path = require('path');
 var fs = require('fs');
 var express = require('express');
@@ -165,11 +167,14 @@ app.use('/styleDislike', styleDislikeRoutes);
 app.use('/subscription', subscriptionRoutes);
 app.use('/virtualOrderItem', virtualOrderItemRoutes);
 
-if (isDevelopment) { 
-  app.use("/", serveStatic(path.join(process.cwd(), 'frontend/src/assets'), {
-    maxAge: '30m'
-  }));
-   
+
+app.use("/", serveStatic(path.join(process.cwd(), 'frontend/src/assets'), {
+  maxAge: '30m'
+}));
+
+https.createServer(server.https.options, app).listen(server.https.port);
+
+if (isDevelopment) {    
   app.use(webpackDevMiddleware(webpackCompiler, {
       publicPath: webpackConfig.output.publicPath
   }));
@@ -186,11 +191,13 @@ if (isDevelopment) {
         res.end();
       });
   });
-} else {  
+} else {
+  require('newrelic');
   app.use(express.static(DIST_DIR));
   app.get('*', function (req, res) {
       return res.sendFile(HTML_FILE);
   });
+  http.createServer(app).listen(server.http.port);
 }
 
 app.listen(app.get('port'));

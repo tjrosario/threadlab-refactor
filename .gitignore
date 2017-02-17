@@ -1,6 +1,7 @@
 dist
 !dist/snapshots
 node_modules
+backend/src/newrelic.js
 backend/src/config/aws-keys.json
 backend/src/config/slack.json
 backend/src/config/config.json
