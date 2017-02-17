@@ -22,6 +22,7 @@ export default class MainLayout {
         this.navFooterItems = this.globalNavigationService.getPublicEntities();
         this.$scope.$on('IdleStart', this.handleIdleStart.bind(this));
         this.$scope.$on('IdleTimeout', this.handleIdleTimeout.bind(this));
+        this.$rootScope.isMenuOpen = false;
     }
 
     handleIdleStart() {
@@ -99,11 +100,11 @@ export default class MainLayout {
     }
 
     toggleMenu() {
-        this.isMenuOpen = !this.isMenuOpen;
+        this.$rootScope.isMenuOpen = !this.$rootScope.isMenuOpen;
     }
 
     checkMenu() {
-        if (this.isMenuOpen) {
+        if (this.$rootScope.isMenuOpen) {
             this.toggleMenu();
         }  
     }

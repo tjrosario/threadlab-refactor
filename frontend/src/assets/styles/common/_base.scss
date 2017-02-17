@@ -273,7 +273,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 900;
 
   &.nav-open {
     height: auto;
@@ -1146,14 +1146,17 @@ body {
 }
 
 .social {
-  @extend %reset;
-  @extend %clear;
+  ul {
+    @extend %reset;
+    @extend %clear;
+  }
 
   li {
     float: left;
     font-size: 28px;
     height: 30px;
-    margin: 0 10px 0 0;
+    list-style: none;
+    margin: 0 10px 0 0 !important;
     width: 30px;
 
     &:last-child {
@@ -2473,6 +2476,79 @@ $soundcloud: #ff3a00;
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+}
+
+.fixed-navigation {
+  @extend %avenir-medium;
+  background: $big-stone;
+  border-left: 1px solid $silver;
+  bottom: 0;
+  height: 100%;
+  overflow-x: hidden;
+  padding: $gutter 0;
+  position: fixed;
+  right: -100%;
+  top: 0;
+  transition: all .3s ease-out;
+  width: 500px;
+  z-index: 998;
+
+  @include media($tablet) {
+    overflow-y: scroll;
+    width: 85%;
+  }
+
+  .nav-open & {
+    right: 0;
+  }
+
+  .logo {
+    padding: 0 $gutter;
+
+    img {
+      max-width: 150px;
+    }
+  }
+
+  nav {
+    padding: $gutter 0;
+  
+    li {
+      margin: 0;
+
+      a {
+        color: $white;
+        display: block;
+        padding: 5px $gutter;
+        text-transform: uppercase;
+        
+         &:hover {
+          background: $dixie;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .toggle {
+    color: $white;
+    cursor: pointer;
+    font-size: 35px;
+    left: auto;
+    opacity: 1;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .social {
+    padding: 0 $gutter;
+    text-align: left;
+
+    a {
+      color: $white;
     }
   }
 }
