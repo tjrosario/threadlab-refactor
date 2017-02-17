@@ -1,51 +1,52 @@
 <header id="header">
-  <div class="wrapper">
-    <div class="clear">
-      <div class="span2">
-        <div class="logo">
-          <a ui-sref="index.home" id="index-header-logo00"><img ng-src="{{ assetUrl + '/images/logo/threadlab@2x_white.png' }}"></a>
-        </div>
-      </div>
+    <div class="wrapper">
+        <div class="clear">
+            <div class="span2">
+                <div class="logo">
+                    <a ui-sref="index.home" id="index-header-logo00"><img ng-src="{{ assetUrl + '/images/logo/threadlab@2x_white.png' }}"></a>
+                </div>
+            </div>
 
-      <div class="span10">
-        <div class="navigation account-controls clear">
-          <user-navigation items="$ctrl.userNavItems"></user-navigation>
+            <div class="span10">
+                <div class="navigation account-controls clear">
+                    <user-navigation items="$ctrl.userNavItems"></user-navigation>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <i class="fa fa-bars" ng-click="$ctrl.toggleMenu()"></i>
     </div>
-
-    <i class="fa fa-bars" ng-click="$ctrl.toggleMenu()"></i>
-  </div>
 </header>
 
 <div id="content">
-  <ui-view></ui-view>
+    <ui-view></ui-view>
 </div>
 
 <footer id="footer" class="site-footer">
-  <div class="wrapper">
-    <div class="row">
-      <div class="span3 col-a">
-        <company-address-module></company-address-module>
-      </div>
+    <div class="wrapper">
+        <div class="row">
+            <div class="span3 col-a">
+                <company-address-module></company-address-module>
+            </div>
 
-      <div class="span6 col-b">
-        <global-navigation items="$ctrl.navFooterItems"></global-navigation>
-      </div>
+            <div class="span6 col-b">
+                <global-navigation items="$ctrl.navFooterItems"></global-navigation>
+            </div>
 
-      <div class="span3 col-c">
-        <div class="social-top">
-          <facebook-like-btn></facebook-like-btn>
+            <div class="span3 col-c">
+                <div class="social-top">
+                    <facebook-like-btn></facebook-like-btn>
+                </div>
+                <payment-badges></payment-badges>
+                <secure-badge></secure-badge>
+                <social-media-module></social-media-module>
+            </div>
         </div>
-        <payment-badges></payment-badges>
-        <secure-badge></secure-badge>
-        <social-media-module></social-media-module>
-      </div>
+
+        <div class="row copyright">
+            <p>&copy; <span ng-bind="date | date:'yyyy'"></span> ThreadLab, Inc.  All rights reserved.</p>
+        </div>
     </div>
-    <div class="row copyright">
-      <p>&copy; <span ng-bind="date | date:'yyyy'"></span> ThreadLab, Inc.  All rights reserved.</p>
-    </div>
-  </div>
 </footer>
 
 <div class="fixed-navigation" id="fixed-nav">
@@ -55,7 +56,11 @@
 
     <div class="scroll-content">
         <global-navigation items="$ctrl.navItems"></global-navigation>
-        
+        <nav ng-if="currentUser">
+            <ul class="reset">
+                <li><a ng-click="$ctrl.logout()">Sign Out <i class="fa fa-sign-out"></i></a></li>
+            </ul>
+        </nav>
         <social-media-module></social-media-module>
     </div>
 

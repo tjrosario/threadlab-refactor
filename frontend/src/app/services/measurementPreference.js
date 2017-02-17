@@ -28,9 +28,9 @@ class MeasurementPreferenceService {
             .get(`/measurementPreference/delete/${id}`, config);
     }
     
-    createAllEntities({ params = {}}) {
+    createAllEntities({ data = {}}) {
         return this.$http
-            .post(`/measurementPreference/createAllJSON`, params);
+            .post(`/measurementPreference/createAllJSON`, data);
     }
 }
 

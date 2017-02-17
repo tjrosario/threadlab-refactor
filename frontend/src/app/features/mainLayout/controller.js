@@ -56,8 +56,12 @@ export default class MainLayout {
         });
     }
 
+    isAuthenticated() {
+        return Boolean(this.authService.getCurrentUser());
+    }
+
     checkCurrentUser() {
-        if (this.userModel.loggedUser) {
+        if (this.isAuthenticated()) {
             this.onUserAuthenticated();
         } else {
             this.onUserUnauthenticated();

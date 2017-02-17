@@ -24,4 +24,10 @@
     margin: 0 0 $gutter;
     width: 100%;
   }
+
+  .company-address {
+    .logo {
+      display: none;
+    }
+  }
 }

@@ -1,52 +1,51 @@
 <div class="contact">
-  <h1>Contact ThreadLab</h1>
-  <div class="wrapper">
+    <div class="wrapper">
+        <h1>Contact ThreadLab</h1>
 
-    <div class="msg success" ng-show="successMsg" ng-class="{ active: successMsg }"><i class="fa fa-check-square"></i><span ng-bind="successMsg"></span></div>
+        <div class="row">
+            <div class="span7">
+                <h2>Send us a message</h2>
+                <form novalidate name="contactForm">
+                    <p>Please fill out the form below and we'll get back to you within a few hours.</p>
+                    <div class="field form-group">
+                        <label>Your Name</label>
+                        <input type="text" class="form-control" required ng-model="$ctrl.formData.name">
+                    </div>
+                    <div class="field form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required ng-model="$ctrl.formData.email">
+                    </div>
+                    <div class="field form-group">
+                        <label>Subject</label>
+                        <select ng-model="$ctrl.formData.subject" required class="form-control">
+                            <option ng-repeat="subject in $ctrl.subjects" value="{{ subject.title}}" ng-bind="subject.title"></option>
+                        </select>
+                    </div>
+                    <div class="field form-group">
+                        <label>Message</label>
+                        <textarea cols="5" rows="5" ng-model="$ctrl.formData.message" required class="form-control"></textarea>
+                    </div>
+                    <div class="submit">
+                        <button type="submit" class="button button-large" ng-disabled="!$ctrl.isRequiredFieldsValid()" ng-click="$ctrl.submit()">Send Message</button>
+                    </div> 
+                </form>
+            </div>
 
-    <div class="row">
-      <div class="span7">
-        <h2>Send us a message</h2>
-        <form novalidate name="contactForm" ng-submit="submitContactForm(contactForm)">
-          <p>Please fill out the form below and we'll get back to you within a few hours.</p>
-          <div class="field">
-            <label>Your Name</label>
-            <input type="text" required ng-model="contact.name">
-          </div>
-          <div class="field">
-            <label>Email</label>
-            <input type="email" required ng-model="contact.email">
-          </div>
-          <div class="field">
-            <label>Subject</label>
-            <select ng-model="contact.subject" required>
-              <option ng-repeat="subject in contactSubjects" value="{{ subject.title}}" ng-bind="subject.title"></option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Message</label>
-            <textarea cols="5" rows="5" ng-model="contact.message" required></textarea>
-          </div>
-          <div class="submit">
-            <button type="submit" class="button button-large" ng-disabled="loading || contactForm.$invalid" ng-class="{ loading: loading }">Send Message</button>
-          </div> 
-        </form>
-      </div>
-      <div class="span5">
-        <div id="map-canvas"></div>
-        <h3>Address</h3>
+            <div class="span5">
+                <div id="map-canvas"></div>
+                <h3>Address</h3>
 
-        <company-address-module></company-address-module>
+                <company-address-module></company-address-module>
 
-        <!-- BEGIN OLARK CHAT LINK -->
-        <p>
-          <a href="javascript:void(0);" onclick="olark('api.box.expand')" id="contactus-chat00">
-              <i class="fa fa-comments"></i> Live Chat
-          </a>
-        </p>
-        <!-- END OLARK CHAT LINK -->
-      </div>
+                <!-- BEGIN OLARK CHAT LINK -->
+                <p>
+                  <a href="javascript:void(0);" onclick="olark('api.box.expand')" id="contactus-chat00">
+                      <i class="fa fa-comments"></i> Live Chat
+                  </a>
+                </p>
+                <!-- END OLARK CHAT LINK -->
+            </div>
+        </div>
+
     </div>
-
-  </div>
 </div>

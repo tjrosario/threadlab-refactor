@@ -1,12 +1,18 @@
-<p>
-  <i class="fa fa-map-marker"></i> <span itemprop="name"><strong ng-bind="$ctrl.companyAddress.name"></strong></span><br>
-  <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-    <span itemprop="streetAddress" ng-bind="$ctrl.companyAddress.address1"></span><br>
-    <span itemprop="addressLocality">
-      <span ng-bind="$ctrl.companyAddress.city"></span>, 
-      <span ng-bind="$ctrl.companyAddress.state"></span>
-    </span>
-    <span itemprop="postalCode" ng-bind="$ctrl.companyAddress.zip"></span>
-  </span><br>
-  <a href="tel:+1-{{ $ctrl.companyAddress.phone }}" id="contactus-call00"  itemprop="telephone"><i class="fa fa-phone"></i> <span ng-bind="$ctrl.companyAddress.phone"></span></a>
-</p>
+<div class="company-address">
+    <div class="logo">
+        <img ng-src="{{ assetUrl + '/images/logo/threadlab@2x_white.png' }}">
+    </div>
+    <p>
+        <span itemprop="name hidden"><strong ng-bind="$ctrl.companyAddress.name"></strong></span><br>
+        <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress" ng-bind="$ctrl.companyAddress.address1"></span><br>
+            <span itemprop="addressLocality">
+                <span ng-bind="$ctrl.companyAddress.city"></span>, 
+                <span ng-bind="$ctrl.companyAddress.state"></span>
+            </span>
+            <span itemprop="postalCode" ng-bind="$ctrl.companyAddress.zip"></span>
+        </span>
+        <br>
+        <a href="tel:+1-{{ $ctrl.companyAddress.phone }}" id="contactus-call00"  itemprop="telephone"><i class="fa fa-phone"></i> <span ng-bind="$ctrl.companyAddress.phone"></span></a>
+    </p>
+</div>
